@@ -1,3 +1,7 @@
+package dao.entity;
+
+
+import javax.persistence.Entity;
 import java.util.ArrayList;
 
 @Entity

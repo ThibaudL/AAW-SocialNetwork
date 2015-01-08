@@ -1,15 +1,44 @@
+package dao.entity;
+
+
+import java.io.Serializable;
+import javax.persistence.Entity;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-public class Message {
-    private int id;
+public class Message implements Serializable {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+    
+    @OneToOne
+    @JoinColumn(name = "author_fk")
     private User author;
+    
+    @Column
     private String content;
+    
+    @OneToOne
+    @JoinColumn(name = "destinataire_fk")
     private User destinataire;
+    
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
-    public Comments comment;
-    public Comments source;
-    public ArrayList<Comments> comments = new ArrayList<Comments>();
+    
+    @OneToMany(mappedBy = "source")
+    public List<Comment> comments = new ArrayList<>();
 
     public int getId() {
         return this.id;
@@ -51,6 +80,7 @@ public class Message {
         this.date = date;
     }
 
+    @Override
     public int hashCode() {
         int lHashCode = 0;
         if ( this.author != null ) {
@@ -65,12 +95,6 @@ public class Message {
         if ( this.date != null ) {
             lHashCode += this.date.hashCode();
         }
-        if ( this.comment != null ) {
-            lHashCode += this.comment.hashCode();
-        }
-        if ( this.source != null ) {
-            lHashCode += this.source.hashCode();
-        }
         if ( this.comments != null ) {
             lHashCode += this.comments.hashCode();
         }
@@ -80,6 +104,7 @@ public class Message {
         return lHashCode;
     }
 
+    @Override
     public boolean equals(Object object) {
         if (this == object) {
             return true;
@@ -89,16 +114,12 @@ public class Message {
             lEquals &= this.id == lMessageObject.id;
             lEquals &= ((this.author == lMessageObject.author)
                 || (this.author != null && this.author.equals(lMessageObject.author)));
-            lEquals &= ((this.content == lMessageObject.content)
+            lEquals &= ((null == this.content ? lMessageObject.content == null : this.content.equals(lMessageObject.content))
                 || (this.content != null && this.content.equals(lMessageObject.content)));
             lEquals &= ((this.destinataire == lMessageObject.destinataire)
                 || (this.destinataire != null && this.destinataire.equals(lMessageObject.destinataire)));
             lEquals &= ((this.date == lMessageObject.date)
                 || (this.date != null && this.date.equals(lMessageObject.date)));
-            lEquals &= ((this.comment == lMessageObject.comment)
-                || (this.comment != null && this.comment.equals(lMessageObject.comment)));
-            lEquals &= ((this.source == lMessageObject.source)
-                || (this.source != null && this.source.equals(lMessageObject.source)));
             lEquals &= ((this.comments == lMessageObject.comments)
                 || (this.comments != null && this.comments.equals(lMessageObject.comments)));
             return lEquals;

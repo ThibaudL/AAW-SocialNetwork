@@ -1,6 +1,16 @@
+package dao.entity;
+
+
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 @Entity
-public class Notification {
-    private int id;
+public class Notification implements Serializable {
+    @Id
+    private Integer id;
+    
+    @Column
     private String content;
     private boolean read;
     private Date date;

@@ -9,7 +9,7 @@ public class User {
     private int id;
     private String email;
     private String password;
-    public ArrayList<Ami> friends = new ArrayList<Ami>();
+    public ArrayList<Friend> friends = new ArrayList<Friend>();
     public SocialNetwork users;
     public PublicMessage unnamed_PublicMessage_;
     public ArrayList<Notification> notifications = new ArrayList<Notification>();
