@@ -32,7 +32,7 @@ public class User implements Serializable {
     private Date subcriptionDate;
     
     @OneToMany(mappedBy="user")
-    private List<Ami> friends = new ArrayList<Ami>();
+    private List<Friend> friends = new ArrayList<Friend>();
 
     @OneToMany(mappedBy="user")
     private List<PublicMessage> publicMessages = new ArrayList<PublicMessage>();
@@ -78,11 +78,11 @@ public class User implements Serializable {
         this.subcriptionDate = subcriptionDate;
     }
 
-    public List<Ami> getFriends() {
+    public List<Friend> getFriends() {
         return friends;
     }
 
-    public void setFriends(List<Ami> friends) {
+    public void setFriends(List<Friend> friends) {
         this.friends = friends;
     }
 
@@ -118,11 +118,11 @@ public class User implements Serializable {
         this.profile = profile;
     }
 
-    public boolean addFriend(Ami f) {
+    public boolean addFriend(Friend f) {
         return friends.add(f);
     }
 
-    public boolean removeFriend(Ami f) {
+    public boolean removeFriend(Friend f) {
         return friends.remove(f);
     }
 

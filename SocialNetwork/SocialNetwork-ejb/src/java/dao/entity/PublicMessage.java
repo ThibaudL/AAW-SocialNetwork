@@ -1,3 +1,7 @@
+package dao.entity;
+
+
+import javax.persistence.Entity;
 @Entity
 public class PublicMessage extends Message {
     public User unnamed_User_;
