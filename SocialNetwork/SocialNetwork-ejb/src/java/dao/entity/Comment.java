@@ -78,4 +78,5 @@ public class Comment implements Serializable {
     public void setSource(Message source) {
         this.source = source;
     }
+    
 }

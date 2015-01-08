@@ -40,14 +40,6 @@ public class Message implements Serializable {
     @OneToMany(mappedBy = "source")
     public List<Comment> comments = new ArrayList<>();
 
-    public int getId() {
-        return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public User getAuthor() {
         return this.author;
     }
@@ -79,6 +71,24 @@ public class Message implements Serializable {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+    
+    
 
     @Override
     public int hashCode() {
