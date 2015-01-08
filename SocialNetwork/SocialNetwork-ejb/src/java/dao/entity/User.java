@@ -1,26 +1,56 @@
 package dao.entity;
 
 
+import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-public class User {
-    private int id;
+@Table(name = "users")
+public class User implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+    
+    @Column
     private String email;
+    @Column
     private String password;
-    public ArrayList<Ami> friends = new ArrayList<Ami>();
-    public SocialNetwork users;
-    public PublicMessage unnamed_PublicMessage_;
-    public ArrayList<Notification> notifications = new ArrayList<Notification>();
-    public PrivateMessage unnamed_PrivateMessage_;
-    public Profile unnamed_Profile_;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date subcriptionDate;
+    
+    @OneToMany(mappedBy="user")
+    private List<Ami> friends = new ArrayList<Ami>();
 
-    public int getId() {
+    @OneToMany(mappedBy="user")
+    private List<PublicMessage> publicMessages = new ArrayList<PublicMessage>();
+    
+    @OneToMany(mappedBy="user")
+    private List<Notification> notifications = new ArrayList<Notification>();
+    
+    @OneToMany(mappedBy="user")
+    private List<PrivateMessage> privateMessages = new ArrayList<PrivateMessage>();
+    
+    @OneToOne(mappedBy="user")
+    private Profile profile;
+
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -40,6 +70,88 @@ public class User {
         this.password = password;
     }
 
+    public Date getSubcriptionDate() {
+        return subcriptionDate;
+    }
+
+    public void setSubcriptionDate(Date subcriptionDate) {
+        this.subcriptionDate = subcriptionDate;
+    }
+
+    public List<Ami> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<Ami> friends) {
+        this.friends = friends;
+    }
+
+    public List<PublicMessage> getPublicMessages() {
+        return publicMessages;
+    }
+
+    public void setPublicMessages(List<PublicMessage> publicMessages) {
+        this.publicMessages = publicMessages;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    public List<PrivateMessage> getPrivateMessages() {
+        return privateMessages;
+    }
+
+    public void setPrivateMessages(List<PrivateMessage> privateMessages) {
+        this.privateMessages = privateMessages;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
+    public boolean addFriend(Ami f) {
+        return friends.add(f);
+    }
+
+    public boolean removeFriend(Ami f) {
+        return friends.remove(f);
+    }
+
+    public boolean addNotification(Notification n) {
+        return notifications.add(n);
+    }
+
+    public boolean removeNotification(Notification n) {
+        return notifications.remove(n);
+    }
+
+    public boolean addPrivateMessage(PrivateMessage pm) {
+        return privateMessages.add(pm);
+    }
+
+    public boolean removePrivateMessage(PrivateMessage pm) {
+        return privateMessages.remove(pm);
+    }
+
+    public boolean addPublicMessage(PublicMessage pm) {
+        return publicMessages.add(pm);
+    }
+
+    public boolean removePublicMessage(PublicMessage pm) {
+        return publicMessages.remove(pm);
+    }
+    
+
+    @Override
     public int hashCode() {
         int lHashCode = 0;
         if ( this.email != null ) {
@@ -51,20 +163,17 @@ public class User {
         if ( this.friends != null ) {
             lHashCode += this.friends.hashCode();
         }
-        if ( this.users != null ) {
-            lHashCode += this.users.hashCode();
-        }
-        if ( this.unnamed_PublicMessage_ != null ) {
-            lHashCode += this.unnamed_PublicMessage_.hashCode();
+        if ( this.publicMessages != null ) {
+            lHashCode += this.publicMessages.hashCode();
         }
         if ( this.notifications != null ) {
             lHashCode += this.notifications.hashCode();
         }
-        if ( this.unnamed_PrivateMessage_ != null ) {
-            lHashCode += this.unnamed_PrivateMessage_.hashCode();
+        if ( this.privateMessages != null ) {
+            lHashCode += this.privateMessages.hashCode();
         }
-        if ( this.unnamed_Profile_ != null ) {
-            lHashCode += this.unnamed_Profile_.hashCode();
+        if ( this.profile != null ) {
+            lHashCode += this.profile.hashCode();
         }
         if ( lHashCode == 0 ) {
             lHashCode = super.hashCode();
@@ -72,6 +181,7 @@ public class User {
         return lHashCode;
     }
 
+    @Override
     public boolean equals(Object object) {
         if (this == object) {
             return true;
@@ -79,22 +189,20 @@ public class User {
             User lUserObject = (User) object;
             boolean lEquals = true;
             lEquals &= this.id == lUserObject.id;
-            lEquals &= ((this.email == lUserObject.email)
+            lEquals &= ((this.email == null ? lUserObject.email == null : this.email.equals(lUserObject.email))
                 || (this.email != null && this.email.equals(lUserObject.email)));
-            lEquals &= ((this.password == lUserObject.password)
+            lEquals &= ((this.password == null ? lUserObject.password == null : this.password.equals(lUserObject.password))
                 || (this.password != null && this.password.equals(lUserObject.password)));
             lEquals &= ((this.friends == lUserObject.friends)
                 || (this.friends != null && this.friends.equals(lUserObject.friends)));
-            lEquals &= ((this.users == lUserObject.users)
-                || (this.users != null && this.users.equals(lUserObject.users)));
-            lEquals &= ((this.unnamed_PublicMessage_ == lUserObject.unnamed_PublicMessage_)
-                || (this.unnamed_PublicMessage_ != null && this.unnamed_PublicMessage_.equals(lUserObject.unnamed_PublicMessage_)));
+            lEquals &= ((this.publicMessages == lUserObject.publicMessages)
+                || (this.publicMessages != null && this.publicMessages.equals(lUserObject.publicMessages)));
             lEquals &= ((this.notifications == lUserObject.notifications)
                 || (this.notifications != null && this.notifications.equals(lUserObject.notifications)));
-            lEquals &= ((this.unnamed_PrivateMessage_ == lUserObject.unnamed_PrivateMessage_)
-                || (this.unnamed_PrivateMessage_ != null && this.unnamed_PrivateMessage_.equals(lUserObject.unnamed_PrivateMessage_)));
-            lEquals &= ((this.unnamed_Profile_ == lUserObject.unnamed_Profile_)
-                || (this.unnamed_Profile_ != null && this.unnamed_Profile_.equals(lUserObject.unnamed_Profile_)));
+            lEquals &= ((this.privateMessages == lUserObject.privateMessages)
+                || (this.privateMessages != null && this.privateMessages.equals(lUserObject.privateMessages)));
+            lEquals &= ((this.profile == lUserObject.profile)
+                || (this.profile != null && this.profile.equals(lUserObject.profile)));
             return lEquals;
         }
         return false;

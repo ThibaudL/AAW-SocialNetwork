@@ -1,12 +1,40 @@
+package dao.entity;
+
+
+import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 @Entity
-public class Profile {
-    private int id;
+@Table(name = "profiles")
+public class Profile implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    @Column
     private String firstname;
+    @Column
     private String lastname;
+    @Temporal(TemporalType.DATE)
     private Date birthdate;
+    @Column
     private String picture;
+    @Column
     private String information;
-    public User unnamed_User_;
+    
+    @OneToOne
+    @JoinColumn(name="user_fk")
+    public User user;
 
     public String getInformation() {
         return this.information;
@@ -44,19 +72,29 @@ public class Profile {
         return this.picture;
     }
 
-    @Entity
     public void setPicture(String picture) {
         this.picture = picture;
     }
 
-    public int getId() {
-        return this.id;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    
+
+    @Override
     public int hashCode() {
         int lHashCode = 0;
         if ( this.firstname != null ) {
@@ -74,8 +112,8 @@ public class Profile {
         if ( this.information != null ) {
             lHashCode += this.information.hashCode();
         }
-        if ( this.unnamed_User_ != null ) {
-            lHashCode += this.unnamed_User_.hashCode();
+        if ( this.user != null ) {
+            lHashCode += this.user.hashCode();
         }
         if ( lHashCode == 0 ) {
             lHashCode = super.hashCode();
@@ -83,6 +121,7 @@ public class Profile {
         return lHashCode;
     }
 
+    @Override
     public boolean equals(Object object) {
         if (this == object) {
             return true;
@@ -90,20 +129,28 @@ public class Profile {
             Profile lProfileObject = (Profile) object;
             boolean lEquals = true;
             lEquals &= this.id == lProfileObject.id;
-            lEquals &= ((this.firstname == lProfileObject.firstname)
+            lEquals &= ((this.firstname == null ? lProfileObject.firstname == null : this.firstname.equals(lProfileObject.firstname))
                 || (this.firstname != null && this.firstname.equals(lProfileObject.firstname)));
-            lEquals &= ((this.lastname == lProfileObject.lastname)
+            lEquals &= ((this.lastname == null ? lProfileObject.lastname == null : this.lastname.equals(lProfileObject.lastname))
                 || (this.lastname != null && this.lastname.equals(lProfileObject.lastname)));
             lEquals &= ((this.birthdate == lProfileObject.birthdate)
                 || (this.birthdate != null && this.birthdate.equals(lProfileObject.birthdate)));
-            lEquals &= ((this.picture == lProfileObject.picture)
+            lEquals &= ((this.picture == null ? lProfileObject.picture == null : this.picture.equals(lProfileObject.picture))
                 || (this.picture != null && this.picture.equals(lProfileObject.picture)));
-            lEquals &= ((this.information == lProfileObject.information)
+            lEquals &= ((this.information == null ? lProfileObject.information == null : this.information.equals(lProfileObject.information))
                 || (this.information != null && this.information.equals(lProfileObject.information)));
-            lEquals &= ((this.unnamed_User_ == lProfileObject.unnamed_User_)
-                || (this.unnamed_User_ != null && this.unnamed_User_.equals(lProfileObject.unnamed_User_)));
+            lEquals &= ((this.user == lProfileObject.user)
+                || (this.user != null && this.user.equals(lProfileObject.user)));
             return lEquals;
         }
         return false;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
