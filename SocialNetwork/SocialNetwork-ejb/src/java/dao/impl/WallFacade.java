@@ -5,19 +5,27 @@
  */
 package dao.impl;
 
+import dao.entity.Wall;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 
 /**
  *
  * @author Denis
  */
 @Stateless
-public class SocialNetWorkDAO implements SocialNetWorkDAOLocal {
+public class WallFacade extends AbstractFacade<Wall> implements WallFacadeLocal {
+    @PersistenceContext(unitName = "SocialNetwork-ejbPU")
+    private EntityManager em;
 
-    @PersistenceContext(unitName="SocialNetwork-ejbPU",type=PersistenceContextType.TRANSACTION)
-    private EntityManager em; 
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
 
+    public WallFacade() {
+        super(Wall.class);
+    }
+    
 }
