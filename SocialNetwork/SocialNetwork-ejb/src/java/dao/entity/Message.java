@@ -32,10 +32,13 @@ public class Message implements Serializable {
     
     @OneToOne
     private User m_author;
+    
     @Column
     private String m_content;
+    
     @OneToOne
     private User m_destinataire;
+    
     @Temporal(TemporalType.TIMESTAMP)
     private Date m_sendDate;
     

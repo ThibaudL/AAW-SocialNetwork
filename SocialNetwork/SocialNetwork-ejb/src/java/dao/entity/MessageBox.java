@@ -11,7 +11,7 @@ public class MessageBox {
     @Id
     private int m_id;
     
-    @OneToMany(mappedBy="MessageBox")
+    @OneToMany(mappedBy="messagebox")
     public List<PrivateMessage> m_messages ;
 
     public MessageBox() {
