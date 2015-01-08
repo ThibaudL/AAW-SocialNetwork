@@ -9,7 +9,6 @@
     <class>dao.entity.PrivateMessage</class>
     <class>dao.entity.PublicMessage</class>
     <class>dao.entity.Wall</class>
-    <class>dao.entity.SocialNetwork</class>
     <class>dao.entity.User</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
