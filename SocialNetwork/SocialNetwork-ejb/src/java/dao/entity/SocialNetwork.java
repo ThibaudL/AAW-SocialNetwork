@@ -4,11 +4,11 @@ import java.util.List;
 import javax.persistence.OneToMany;
 
 public class SocialNetwork {
-    @OneToMany(mappedBy = "SocialNetwork")
+    @OneToMany(mappedBy = "socialnetwork")
     private List<User> m_users;
 
     public SocialNetwork() {
-        this.m_users = new ArrayList<User>();
+        this.m_users = new ArrayList<>();
     }
 
     public List<User> getUsers() {
@@ -19,12 +19,12 @@ public class SocialNetwork {
         this.m_users = users;
     }
 
-    public boolean addUser(User e) {
-        return m_users.add(e);
+    public boolean addUser(User u) {
+        return m_users.add(u);
     }
 
-    public boolean removeUser(Object o) {
-        return m_users.remove(o);
+    public boolean removeUser(User u) {
+        return m_users.remove(u);
     }
 
     @Override

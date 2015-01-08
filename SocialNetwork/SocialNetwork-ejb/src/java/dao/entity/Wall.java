@@ -12,13 +12,20 @@ public class Wall {
     
     @Id
     private int m_id;
-
-    @OneToMany(mappedBy="Wall")
-    private List<PublicMessage> m_messages;
     
     @OneToOne
     @JoinColumn(name="user_fk")     
     private User m_user;
+    @OneToMany(mappedBy="wall")
+    public List<PublicMessage> m_messages;
+
+    public boolean addMessage(PublicMessage m) {
+        return m_messages.add(m);
+    }
+
+    public boolean removeMessage(PublicMessage m) {
+        return m_messages.remove(m);
+    }
 
     public Wall() {
         m_messages = new ArrayList<>();
