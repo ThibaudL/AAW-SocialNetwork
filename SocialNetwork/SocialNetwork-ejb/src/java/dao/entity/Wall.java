@@ -3,7 +3,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Wall {
@@ -12,7 +14,11 @@ public class Wall {
     private int m_id;
 
     @OneToMany(mappedBy="Wall")
-    public List<PublicMessage> m_messages;
+    private List<PublicMessage> m_messages;
+    
+    @OneToOne
+    @JoinColumn(name="user_fk")     
+    private User m_user;
 
     public Wall() {
         m_messages = new ArrayList<>();
@@ -24,6 +30,14 @@ public class Wall {
 
     public void setId(int id) {
             this.m_id = id;
+    }
+    
+    public User getUser() {
+        return m_user;
+    }
+
+    public void setUser(User user) {
+        this.m_user = user;
     }
 
     @Override

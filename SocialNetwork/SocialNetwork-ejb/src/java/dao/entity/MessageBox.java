@@ -3,7 +3,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class MessageBox {
@@ -13,6 +15,10 @@ public class MessageBox {
     
     @OneToMany(mappedBy="MessageBox")
     public List<PrivateMessage> m_messages ;
+    
+    @OneToOne
+    @JoinColumn(name="user_fk")     
+    private User m_user;
 
     public MessageBox() {
         m_messages = new ArrayList<>();
@@ -26,6 +32,16 @@ public class MessageBox {
     public void setId(int id) {
             this.m_id = id;
     }
+
+    public User getUser() {
+        return m_user;
+    }
+
+    public void setUser(User user) {
+        this.m_user = user;
+    }
+    
+    
 
     @Override
     public int hashCode() {

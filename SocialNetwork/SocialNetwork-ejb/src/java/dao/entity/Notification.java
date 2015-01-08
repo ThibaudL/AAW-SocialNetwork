@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -21,6 +23,10 @@ public class Notification implements Serializable {
     private boolean m_read;
     @Temporal(TemporalType.TIMESTAMP)
     private Date m_dateNotiFication;
+    
+    @ManyToOne
+    @JoinColumn(name="user_fk")
+    private User m_user;
     
     public int getId() {
             return this.m_id;
@@ -53,6 +59,16 @@ public class Notification implements Serializable {
     public void setDateNotiFication(Date dateNotiFication) {
         this.m_dateNotiFication = dateNotiFication;
     }
+
+    public User getUser() {
+        return m_user;
+    }
+
+    public void setUser(User user) {
+        this.m_user = user;
+    }
+    
+    
 
     @Override
     public int hashCode() {
