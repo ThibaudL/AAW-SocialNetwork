@@ -1,102 +1,76 @@
-package dao.entity;
-
-import java.io.Serializable;
-import java.sql.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 @Entity
-public class Notification implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int m_id;
-    @Column
-    private String m_content;
-    @Column
-    private boolean m_read;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date m_dateNotiFication;
-    
-    @ManyToOne
-    @JoinColumn(name="user_fk")
-    private User m_user;
-    
+public class Notification {
+    private int id;
+    private String content;
+    private boolean read;
+    private Date date;
+    public User notifications;
+
     public int getId() {
-            return this.m_id;
+        return this.id;
     }
 
     public void setId(int id) {
-            this.m_id = id;
+        this.id = id;
     }
 
     public String getContent() {
-            return this.m_content;
+        return this.content;
     }
 
     public void setContent(String content) {
-            this.m_content = content;
+        this.content = content;
     }
 
     public boolean getRead() {
-            return this.m_read;
+        return this.read;
     }
 
     public void setRead(boolean read) {
-            this.m_read = read;
-    }
-    
-    public Date getDateNotiFication() {
-        return this.m_dateNotiFication;
+        this.read = read;
     }
 
-    public void setDateNotiFication(Date dateNotiFication) {
-        this.m_dateNotiFication = dateNotiFication;
+    public Date getDate() {
+        return this.date;
     }
 
-    public User getUser() {
-        return m_user;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public void setUser(User user) {
-        this.m_user = user;
-    }
-    
-    
-
-    @Override
     public int hashCode() {
-            int lHashCode = 0;
-            if ( this.m_content != null ) {
-                    lHashCode += this.m_content.hashCode();
-            }
-            if ( lHashCode == 0 ) {
-                    lHashCode = super.hashCode();
-            }
-            return lHashCode;
+        int lHashCode = 0;
+        if ( this.content != null ) {
+            lHashCode += this.content.hashCode();
+        }
+        if ( this.date != null ) {
+            lHashCode += this.date.hashCode();
+        }
+        if ( this.notifications != null ) {
+            lHashCode += this.notifications.hashCode();
+        }
+        if ( lHashCode == 0 ) {
+            lHashCode = super.hashCode();
+        }
+        return lHashCode;
     }
 
-    @Override
     public boolean equals(Object object) {
-            if (this == object) {
-                    return true;
-            } else if (object instanceof Notification) {
-                    Notification lNotificationObject = (Notification) object;
-                    boolean lEquals = true;
-                    lEquals &= this.m_id == lNotificationObject.m_id;
-                    lEquals &= ((this.m_content == null ? lNotificationObject.m_content == null : this.m_content.equals(lNotificationObject.m_content))
-                            || (this.m_content != null && this.m_content.equals(lNotificationObject.m_content)));
-                    lEquals &= this.m_read == lNotificationObject.m_read;
-                    return lEquals;
-            }
-            return false;
+        if (this == object) {
+            return true;
+        } else if (object instanceof Notification) {
+            Notification lNotificationObject = (Notification) object;
+            boolean lEquals = true;
+            lEquals &= this.id == lNotificationObject.id;
+            lEquals &= ((this.content == lNotificationObject.content)
+                || (this.content != null && this.content.equals(lNotificationObject.content)));
+            lEquals &= this.read == lNotificationObject.read;
+            lEquals &= ((this.date == lNotificationObject.date)
+                || (this.date != null && this.date.equals(lNotificationObject.date)));
+            lEquals &= ((this.notifications == lNotificationObject.notifications)
+                || (this.notifications != null && this.notifications.equals(lNotificationObject.notifications)));
+            return lEquals;
+        }
+        return false;
     }
-    
-    
 }

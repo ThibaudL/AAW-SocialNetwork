@@ -11,4 +11,5 @@
         <property name="driverClass" value="org.apache.derby.jdbc.ClientDriver"/>
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" jndi-name="socialNetwork" object-type="user" pool-name="derby_net_socialNetwork_socialNetworkPool"/>
+    <jdbc-resource enabled="true" jndi-name="jdbc/socialNetwork" object-type="user" pool-name="derby_net_socialNetwork_socialNetworkPool"/>
 </resources>

@@ -1,39 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package dao.entity;
-
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-/**
- *
- * @author Thibaud
- */
 @Entity
-@DiscriminatorValue("PublicMessage")
 public class PublicMessage extends Message {
-    private static final long serialVersionUID = 1L;
+    public User unnamed_User_;
 
-    @ManyToOne
-    @JoinColumn(name="wall_fk")
-    private Wall m_wall;
-
-    public Wall getWall() {
-        return m_wall;
+    public int hashCode() {
+        int lHashCode = 0;
+        if ( this.unnamed_User_ != null ) {
+            lHashCode += this.unnamed_User_.hashCode();
+        }
+        if ( lHashCode == 0 ) {
+            lHashCode = super.hashCode();
+        }
+        return lHashCode;
     }
 
-    public void setWall(Wall wall) {
-        this.m_wall = wall;
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        } else if (object instanceof PublicMessage) {
+            PublicMessage lPublicMessageObject = (PublicMessage) object;
+            boolean lEquals = true;
+            lEquals &= ((this.unnamed_User_ == lPublicMessageObject.unnamed_User_)
+                || (this.unnamed_User_ != null && this.unnamed_User_.equals(lPublicMessageObject.unnamed_User_)));
+            return lEquals;
+        }
+        return false;
     }
-
-    @Override
-    public String toString() {
-        return "dao.entity.PublicMessage[ id=" + this.getId() + " ]";
-    }
-    
 }

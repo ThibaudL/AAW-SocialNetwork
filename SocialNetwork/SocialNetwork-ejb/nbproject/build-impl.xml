@@ -796,22 +796,30 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${libs.hibernate4-persistence.classpath}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.derbyclient.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${libs.jpa20-persistence.classpath}" todir="${build.classes.dir}"/>
+        <copyfiles files="${libs.JAVADB_DRIVER_LABEL.classpath}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.jandex-1.1.0.final.jar}" todir="${build.classes.dir}"/>
     </target>
     <target if="is.server.weblogic" name="-library-inclusion-in-archive-weblogic">
         <basename file="${libs.hibernate4-persistence.classpath}" property="manifest.libs.hibernate4-persistence.classpath"/>
         <basename file="${file.reference.derbyclient.jar}" property="manifest.file.reference.derbyclient.jar"/>
         <basename file="${libs.jpa20-persistence.classpath}" property="manifest.libs.jpa20-persistence.classpath"/>
+        <basename file="${libs.JAVADB_DRIVER_LABEL.classpath}" property="manifest.libs.JAVADB_DRIVER_LABEL.classpath"/>
+        <basename file="${file.reference.jandex-1.1.0.final.jar}" property="manifest.file.reference.jandex-1.1.0.final.jar"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Extension-List" value="jar-1 jar-2 jar-3 "/>
+            <attribute name="Extension-List" value="jar-1 jar-2 jar-3 jar-4 jar-5 "/>
             <attribute name="jar-1-Extension-Name" value="${manifest.libs.hibernate4-persistence.classpath}"/>
             <attribute name="jar-2-Extension-Name" value="${manifest.file.reference.derbyclient.jar}"/>
             <attribute name="jar-3-Extension-Name" value="${manifest.libs.jpa20-persistence.classpath}"/>
+            <attribute name="jar-4-Extension-Name" value="${manifest.libs.JAVADB_DRIVER_LABEL.classpath}"/>
+            <attribute name="jar-5-Extension-Name" value="${manifest.file.reference.jandex-1.1.0.final.jar}"/>
         </manifest>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${libs.hibernate4-persistence.classpath}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.derbyclient.jar}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.jpa20-persistence.classpath}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${libs.JAVADB_DRIVER_LABEL.classpath}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.jandex-1.1.0.final.jar}" todir="${dist.ear.dir}/lib"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update"/>
     </target>
     <target name="-copy-meta-inf">

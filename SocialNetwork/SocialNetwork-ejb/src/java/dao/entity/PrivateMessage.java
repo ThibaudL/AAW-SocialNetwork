@@ -1,39 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package dao.entity;
-
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-/**
- *
- * @author Thibaud
- */
 @Entity
-@DiscriminatorValue("PrivateMessage")
 public class PrivateMessage extends Message {
-    private static final long serialVersionUID = 1L;
+    public User unnamed_User_;
 
-    @ManyToOne
-    @JoinColumn(name="messageBox_fk")
-    private MessageBox m_messageBox;
-
-    public MessageBox getMessageBox() {
-        return m_messageBox;
+    public int hashCode() {
+        int lHashCode = 0;
+        if ( this.unnamed_User_ != null ) {
+            lHashCode += this.unnamed_User_.hashCode();
+        }
+        if ( lHashCode == 0 ) {
+            lHashCode = super.hashCode();
+        }
+        return lHashCode;
     }
 
-    public void setMessageBox(MessageBox messageBox) {
-        this.m_messageBox = messageBox;
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        } else if (object instanceof PrivateMessage) {
+            PrivateMessage lPrivateMessageObject = (PrivateMessage) object;
+            boolean lEquals = true;
+            lEquals &= ((this.unnamed_User_ == lPrivateMessageObject.unnamed_User_)
+                || (this.unnamed_User_ != null && this.unnamed_User_.equals(lPrivateMessageObject.unnamed_User_)));
+            return lEquals;
+        }
+        return false;
     }
-    
-    @Override
-    public String toString() {
-        return "dao.entity.PrivateMessage[ id=" + this.getId() + " ]";
-    }
-    
 }
