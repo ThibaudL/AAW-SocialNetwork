@@ -3,6 +3,12 @@
   <persistence-unit name="SocialNetwork-ejbPU" transaction-type="JTA">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <jta-data-source>socialNetwork</jta-data-source>
+    <class>dao.entity.Message</class>
+    <class>dao.entity.MessageBox</class>
+    <class>dao.entity.Notification</class>
+    <class>dao.entity.PrivateMessage</class>
+    <class>dao.entity.PublicMessage</class>
+    <class>dao.entity.Wall</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>

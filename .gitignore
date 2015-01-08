@@ -8,3 +8,10 @@ SocialNetwork/SocialNetwork-war/nbproject/project.properties
 SocialNetwork/nbproject/project.properties
 SocialNetwork/SocialNetwork-ejb/nbproject/project.properties
 SocialNetwork/SocialNetwork-war/nbproject/project.properties
+/SocialNetwork/SocialNetwork-ejb/build/
+/SocialNetwork/SocialNetwork-ejb/dist/
+/SocialNetwork/SocialNetwork-war/build/
+/SocialNetwork/SocialNetwork-war/dist/
+/SocialNetwork/build/
+/SocialNetwork/dist/
+*.properties
