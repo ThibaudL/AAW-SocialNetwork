@@ -1,4 +1,5 @@
 package dao.entity;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
@@ -8,7 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class MessageBox {
+public class MessageBox implements Serializable {
     
     @Id
     private int m_id;

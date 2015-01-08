@@ -1,9 +1,12 @@
 package dao.entity;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
-public class SocialNetwork {
+@Entity
+public class SocialNetwork implements Serializable {
     @OneToMany(mappedBy = "socialnetwork")
     private List<User> m_users;
 
