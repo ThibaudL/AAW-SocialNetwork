@@ -3,6 +3,7 @@ package dao.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -21,10 +22,10 @@ public class Notification implements Serializable {
     private String content;
     
     @Column
-    private boolean read;
+    private Integer readed;
     
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    private Date dateNotif;
     
     @OneToOne
     @JoinColumn(name = "user_fk")
@@ -38,20 +39,20 @@ public class Notification implements Serializable {
         this.content = content;
     }
 
-    public boolean getRead() {
-        return this.read;
+    public Integer getRead() {
+        return this.readed;
     }
 
-    public void setRead(boolean read) {
-        this.read = read;
+    public void setRead(Integer read) {
+        this.readed = read;
     }
 
     public Date getDate() {
-        return this.date;
+        return this.dateNotif;
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.dateNotif = date;
     }
 
     public Integer getId() {
@@ -78,8 +79,8 @@ public class Notification implements Serializable {
         if ( this.content != null ) {
             lHashCode += this.content.hashCode();
         }
-        if ( this.date != null ) {
-            lHashCode += this.date.hashCode();
+        if ( this.dateNotif != null ) {
+            lHashCode += this.dateNotif.hashCode();
         }
         if ( lHashCode == 0 ) {
             lHashCode = super.hashCode();
@@ -94,12 +95,12 @@ public class Notification implements Serializable {
         } else if (object instanceof Notification) {
             Notification lNotificationObject = (Notification) object;
             boolean lEquals = true;
-            lEquals &= this.id == lNotificationObject.id;
-            lEquals &= ((this.content == lNotificationObject.content)
+            lEquals &= Objects.equals(this.id, lNotificationObject.id);
+            lEquals &= ((this.content == null ? lNotificationObject.content == null : this.content.equals(lNotificationObject.content))
                 || (this.content != null && this.content.equals(lNotificationObject.content)));
-            lEquals &= this.read == lNotificationObject.read;
-            lEquals &= ((this.date == lNotificationObject.date)
-                || (this.date != null && this.date.equals(lNotificationObject.date)));
+            lEquals &= Objects.equals(this.readed, lNotificationObject.readed);
+            lEquals &= ((this.dateNotif == lNotificationObject.dateNotif)
+                || (this.dateNotif != null && this.dateNotif.equals(lNotificationObject.dateNotif)));
             return lEquals;
         }
         return false;
