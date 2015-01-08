@@ -2,6 +2,7 @@ package dao.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -127,7 +128,7 @@ public class Profile implements Serializable {
         } else if (object instanceof Profile) {
             Profile lProfileObject = (Profile) object;
             boolean lEquals = true;
-            lEquals &= this.id == lProfileObject.id;
+            lEquals &= Objects.equals(this.id, lProfileObject.id);
             lEquals &= ((this.firstname == null ? lProfileObject.firstname == null : this.firstname.equals(lProfileObject.firstname))
                 || (this.firstname != null && this.firstname.equals(lProfileObject.firstname)));
             lEquals &= ((this.lastname == null ? lProfileObject.lastname == null : this.lastname.equals(lProfileObject.lastname))

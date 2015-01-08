@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,16 +33,16 @@ public class User implements Serializable {
     private Date subcriptionDate;
     
     @OneToMany(mappedBy="user")
-    private List<Friend> friends = new ArrayList<Friend>();
+    private List<Friend> friends = new ArrayList<>();
 
     @OneToMany(mappedBy="user")
-    private List<PublicMessage> publicMessages = new ArrayList<PublicMessage>();
+    private List<PublicMessage> publicMessages = new ArrayList<>();
     
     @OneToMany(mappedBy="user")
-    private List<Notification> notifications = new ArrayList<Notification>();
+    private List<Notification> notifications = new ArrayList<>();
     
     @OneToMany(mappedBy="user")
-    private List<PrivateMessage> privateMessages = new ArrayList<PrivateMessage>();
+    private List<PrivateMessage> privateMessages = new ArrayList<>();
     
     @OneToOne(mappedBy="user")
     private Profile profile;
@@ -188,7 +189,7 @@ public class User implements Serializable {
         } else if (object instanceof User) {
             User lUserObject = (User) object;
             boolean lEquals = true;
-            lEquals &= this.id == lUserObject.id;
+            lEquals &= Objects.equals(this.id, lUserObject.id);
             lEquals &= ((this.email == null ? lUserObject.email == null : this.email.equals(lUserObject.email))
                 || (this.email != null && this.email.equals(lUserObject.email)));
             lEquals &= ((this.password == null ? lUserObject.password == null : this.password.equals(lUserObject.password))
