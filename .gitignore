@@ -18,3 +18,6 @@ SocialNetwork/SocialNetwork-war/nbproject/project.properties
 /SocialNetworkV2/nbproject/private/
 /SocialNetworkV2/SocialNetworkV2-war/nbproject/private/
 /SocialNetworkV2/SocialNetworkV2-ejb/nbproject/private/
+SocialNetwork/nbproject/project.properties
+SocialNetwork/SocialNetwork-ejb/nbproject/project.properties
+SocialNetwork/SocialNetwork-war/nbproject/project.properties
