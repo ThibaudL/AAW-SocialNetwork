@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,19 +33,19 @@ public class User implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date subcriptionDate;
     
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
     private List<Friend> friends = new ArrayList<>();
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
     private List<PublicMessage> publicMessages = new ArrayList<>();
     
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
     private List<Notification> notifications = new ArrayList<>();
     
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
     private List<PrivateMessage> privateMessages = new ArrayList<>();
     
-    @OneToOne(mappedBy="user")
+    @OneToOne(mappedBy="user", fetch = FetchType.EAGER)
     private Profile profile;
 
     public Integer getId() {
@@ -208,4 +209,27 @@ public class User implements Serializable {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        String str = "";
+        str += id;
+        str += " ";
+        str += this.email;
+        str += " ";
+        str += this.password;
+        str += " ";
+        str += this.friends;
+        str += " ";
+        str += this.publicMessages;
+        str += " ";
+        str += this.notifications;
+        str += " ";
+        str += this.privateMessages;
+        str += " ";
+        str += this.profile;
+        return str;
+    }
+    
+    
 }
