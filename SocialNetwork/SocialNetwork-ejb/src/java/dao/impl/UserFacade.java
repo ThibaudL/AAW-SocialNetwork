@@ -5,10 +5,16 @@
  */
 package dao.impl;
 
+import dao.entity.Friend;
 import dao.entity.User;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -27,5 +33,12 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
     public UserFacade() {
         super(User.class);
     }
+
+    @Override
+    public User find(Object id) {
+        return super.find(id); //To change body of generated methods, choose Tools | Templates.
+    }
+   
+    
     
 }

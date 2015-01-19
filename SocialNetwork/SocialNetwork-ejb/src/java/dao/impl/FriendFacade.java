@@ -27,5 +27,9 @@ public class FriendFacade extends AbstractFacade<Friend> implements FriendFacade
     public FriendFacade() {
         super(Friend.class);
     }
+
+ 
+    
+    
     
 }

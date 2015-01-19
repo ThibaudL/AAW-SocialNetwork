@@ -22,3 +22,4 @@ SocialNetwork/SocialNetwork-ejb/src/conf/persistence.xml
 SocialNetwork/setup/sun-resources.xml
 SocialNetwork/SocialNetwork-ejb/src/conf/persistence.xml
 SocialNetwork/SocialNetwork-ejb/src/conf/persistence.xml
+*.properties
