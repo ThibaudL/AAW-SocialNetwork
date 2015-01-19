@@ -19,6 +19,8 @@ import service.UserServiceLocal;
 @SessionScoped
 public class UserMB implements Serializable{
     private static final long serialVersionUID = 490994887388213027L;
+    private static final String CONNECTION_ERROR = "Connection error";
+    private static final String REGISTRATION_ERROR = "Registration error";
 
     @EJB
     UserServiceLocal userService;
@@ -27,6 +29,7 @@ public class UserMB implements Serializable{
     private String password;
     
     private boolean error;
+    private String errorMsg;
     
     /**
      * Creates a new instance of UserMB
@@ -57,6 +60,14 @@ public class UserMB implements Serializable{
     public void setError(boolean error) {
         this.error = error;
     }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
     
     public String checkConnection(){
         if(userService.connectUser(login, password)){
@@ -64,9 +75,11 @@ public class UserMB implements Serializable{
             return "manage.xhtml";
         }else{
             this.error = true;
+            this.errorMsg = CONNECTION_ERROR;
             return "index.xhtml";
         }
     }
+    
     
     public String displayProfile(){
         return userService.connectedUserToString();
@@ -75,9 +88,11 @@ public class UserMB implements Serializable{
     public String checkRegistration(){
         if(userService.registrationUser(login, password)){
             this.error = false;
+            this.errorMsg = "";
             return "manage.xhtml";
         }else{
             this.error = true;
+            this.errorMsg = REGISTRATION_ERROR;
             return "index.xhtml";
         }
     }
