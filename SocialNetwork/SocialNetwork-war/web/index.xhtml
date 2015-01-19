@@ -19,10 +19,14 @@
     <h:outputText value="Password"/>
     <h:inputSecret value="#{UserMB.password}" >
         <!---<core:validator validatorId="messageValidator" />-->
-    </h:inputSecret> 
+    </h:inputSecret>
+    <h:selectOneRadio id="registerRadio" value="#{UserMB.isRegistering}">
+      <core:selectItem id="connect" itemLabel="Connect" itemValue="1" />
+      <core:selectItem id="register" itemLabel="Register" itemValue="2" />
+    </h:selectOneRadio >
     <h:commandButton value="OK" action="#{UserMB.checkConnection()}" />
     </h:form>
-</h:body>
-    
+</h:body> 
+     
 </html>
 

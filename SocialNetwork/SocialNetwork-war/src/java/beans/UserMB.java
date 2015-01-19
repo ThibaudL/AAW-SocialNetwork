@@ -21,6 +21,8 @@ public class UserMB implements Serializable{
     private static final long serialVersionUID = 490994887388213027L;
     private static final String CONNECTION_ERROR = "Connection error";
     private static final String REGISTRATION_ERROR = "Registration error";
+    private static final int REGISTER = 2;
+    private static final int CONNECT = 1;
 
     @EJB
     UserServiceLocal userService;
@@ -30,6 +32,9 @@ public class UserMB implements Serializable{
     
     private boolean error;
     private String errorMsg;
+    
+    private Integer isRegistering=1;
+
     
     /**
      * Creates a new instance of UserMB
@@ -70,15 +75,29 @@ public class UserMB implements Serializable{
     }
     
     public String checkConnection(){
-        if(userService.connectUser(login, password)){
-            this.error = false;
-            return "manage.xhtml";
-        }else{
-            this.error = true;
-            this.errorMsg = CONNECTION_ERROR;
-            return "index.xhtml";
+        if(this.isRegistering == CONNECT){
+            if(userService.connectUser(login, password)){
+                this.error = false;
+                return "manage.xhtml";
+            }else{
+                this.error = true;
+                this.errorMsg = CONNECTION_ERROR;
+            }
+        }else if(this.isRegistering == REGISTER){
+            return checkRegistration();
         }
+        return "index.xhtml";
+
     }
+
+    public Integer getIsRegistering() {
+        return isRegistering;
+    }
+
+    public void setIsRegistering(Integer isRegistering) {
+        this.isRegistering = isRegistering;
+    }
+    
     
     
     public String displayProfile(){
@@ -93,8 +112,8 @@ public class UserMB implements Serializable{
         }else{
             this.error = true;
             this.errorMsg = REGISTRATION_ERROR;
-            return "index.xhtml";
         }
+        return "index.xhtml";
     }
     
     

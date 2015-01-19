@@ -33,20 +33,26 @@ public class User implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date subcriptionDate;
     
-    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="user")
     private List<Friend> friends = new ArrayList<>();
 
-    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="user")
     private List<PublicMessage> publicMessages = new ArrayList<>();
     
-    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="user")
     private List<Notification> notifications = new ArrayList<>();
     
-    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="user")
     private List<PrivateMessage> privateMessages = new ArrayList<>();
     
-    @OneToOne(mappedBy="user", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy="user")
     private Profile profile;
+
+    public User() {
+        this.subcriptionDate = new Date();
+    }
+    
+    
 
     public Integer getId() {
         return this.id;
