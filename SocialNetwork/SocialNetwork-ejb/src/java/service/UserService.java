@@ -42,15 +42,4 @@ public class UserService implements UserServiceLocal {
         return null;
     }
 
-    @Override
-    public Object getAttribute(String accesMethod) {
-        if(connectedUser != null){
-            try {
-                return connectedUser.getClass().getMethod("accesMethod", (Class<?>) null).invoke(connectedUser);
-            } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-                Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return null;
-    }
 }

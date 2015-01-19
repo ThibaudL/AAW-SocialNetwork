@@ -16,5 +16,4 @@ public interface UserServiceLocal {
     
     public boolean connectUser(String login, String password);
     public String connectedUserToString();
-    public Object getAttribute(String accesMethod);
 }
