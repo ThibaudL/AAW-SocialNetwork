@@ -97,7 +97,7 @@ public class Profile implements Serializable {
     @Override
     public int hashCode() {
         int lHashCode = 0;
-        if ( this.firstname != null ) {
+       /* if ( this.firstname != null ) {
             lHashCode += this.firstname.hashCode();
         }
         if ( this.lastname != null ) {
@@ -117,7 +117,7 @@ public class Profile implements Serializable {
         }
         if ( lHashCode == 0 ) {
             lHashCode = super.hashCode();
-        }
+        }*/
         return lHashCode;
     }
 
@@ -153,4 +153,25 @@ public class Profile implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        String str = "";
+        str += id;
+        str += " ";
+        str += this.firstname;
+        str += " ";
+        str += this.information;
+        str += " ";
+        str += this.lastname;
+        str += " ";
+        str += this.picture;
+        str += " ";
+        str += this.birthdate;
+        str += " ";
+        str += this.user.getEmail();
+        return str;
+    }
+    
+    
 }

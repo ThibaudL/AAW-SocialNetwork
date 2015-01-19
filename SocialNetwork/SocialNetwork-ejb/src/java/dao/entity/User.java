@@ -45,7 +45,7 @@ public class User implements Serializable {
     @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
     private List<PrivateMessage> privateMessages = new ArrayList<>();
     
-    @OneToOne(mappedBy="user", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy="user", fetch = FetchType.LAZY)
     private Profile profile;
 
     public Integer getId() {
@@ -156,7 +156,7 @@ public class User implements Serializable {
     @Override
     public int hashCode() {
         int lHashCode = 0;
-        if ( this.email != null ) {
+      /*  if ( this.email != null ) {
             lHashCode += this.email.hashCode();
         }
         if ( this.password != null ) {
@@ -179,7 +179,7 @@ public class User implements Serializable {
         }
         if ( lHashCode == 0 ) {
             lHashCode = super.hashCode();
-        }
+        }*/
         return lHashCode;
     }
 

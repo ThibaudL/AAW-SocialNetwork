@@ -24,10 +24,11 @@ public class UserService implements UserServiceLocal {
     
     @Override
     public boolean connectUser(String login, String password) {
-       connectedUser = userFacade.find(1);
-       if(connectedUser == null)
+       connectedUser = userFacade.findByEmail(login);
+       if(connectedUser == null){
            return false;
-       return true;
+       }
+       return connectedUser.getPassword().equals(password);
     }
 
     @Override
