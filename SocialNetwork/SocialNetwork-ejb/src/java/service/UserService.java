@@ -7,6 +7,9 @@ package service;
 
 import dao.entity.User;
 import dao.impl.UserFacadeLocal;
+import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
@@ -35,6 +38,18 @@ public class UserService implements UserServiceLocal {
     public String connectedUserToString() {
         if(connectedUser != null){
             return connectedUser.toString();
+        }
+        return null;
+    }
+
+    @Override
+    public Object getAttribute(String accesMethod) {
+        if(connectedUser != null){
+            try {
+                return connectedUser.getClass().getMethod("accesMethod", (Class<?>) null).invoke(connectedUser);
+            } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
     }
