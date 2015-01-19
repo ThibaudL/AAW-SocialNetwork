@@ -44,7 +44,15 @@ public class UserService implements UserServiceLocal {
 
     @Override
     public boolean registrationUser(String login, String password) {
-        return true;
+        if(userFacade.findByEmail(login) == null){
+            connectedUser = new User();
+            connectedUser.setEmail(login);
+            connectedUser.setPassword(password);
+            userFacade.create(connectedUser);
+            return true;
+        }else{
+            return false;
+        }
     }
     
     @Override
