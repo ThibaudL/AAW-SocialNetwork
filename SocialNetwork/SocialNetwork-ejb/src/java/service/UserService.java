@@ -38,4 +38,9 @@ public class UserService implements UserServiceLocal {
         }
         return null;
     }
+
+    @Override
+    public boolean registrationUser(String login, String password) {
+        return true;
+    }
 }

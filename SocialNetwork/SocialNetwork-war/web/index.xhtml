@@ -2,21 +2,26 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:core="http://java.sun.com/jsf/core">
+      xmlns:core="http://java.sun.com/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     
 <h:head>
 	<h1><h:outputText value="Page de connexion" /></h1>
 </h:head>
 <h:body>
-        <h:form>
-	<h:outputText value="Nom"/>
-        <h:inputText value="#{UserMB.login}"/>
-	<h:outputText value="Password"/>
-        <h:inputSecret value="#{UserMB.password}" >
-            <!---<core:validator validatorId="messageValidator" />-->
-        </h:inputSecret> 
-        <h:commandButton value="OK" action="#{UserMB.checkConnection()}" />
-	</h:form>
+    <c:if test="#{UserMB.error}">
+        <h2>Connection Error</h2>
+    </c:if>
+    <h:outputText value="Connection" />
+    <h:form>
+    <h:outputText value="Email"/>
+    <h:inputText value="#{UserMB.login}"/>
+    <h:outputText value="Password"/>
+    <h:inputSecret value="#{UserMB.password}" >
+        <!---<core:validator validatorId="messageValidator" />-->
+    </h:inputSecret> 
+    <h:commandButton value="OK" action="#{UserMB.checkConnection()}" />
+    </h:form>
 </h:body>
     
 </html>

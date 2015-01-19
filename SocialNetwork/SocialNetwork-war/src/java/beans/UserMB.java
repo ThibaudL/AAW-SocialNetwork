@@ -25,6 +25,9 @@ public class UserMB implements Serializable{
     
     private String login;
     private String password;
+    
+    private boolean error;
+    
     /**
      * Creates a new instance of UserMB
      */
@@ -46,17 +49,37 @@ public class UserMB implements Serializable{
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean isError() {
+        return error;
+    }
+
+    public void setError(boolean error) {
+        this.error = error;
+    }
     
     public String checkConnection(){
         if(userService.connectUser(login, password)){
+            this.error = false;
             return "manage.xhtml";
         }else{
+            this.error = true;
             return "index.xhtml";
         }
     }
     
     public String displayProfile(){
         return userService.connectedUserToString();
+    }
+    
+    public String checkRegistration(){
+        if(userService.registrationUser(login, password)){
+            this.error = false;
+            return "manage.xhtml";
+        }else{
+            this.error = true;
+            return "index.xhtml";
+        }
     }
     
     
