@@ -8,8 +8,12 @@
         <h:outputStylesheet name="css/bootstrap.min.css"></h:outputStylesheet>
         <h:outputStylesheet name="css/bootstrap-theme.min.css"></h:outputStylesheet>
         <h:outputStylesheet name="css/form.css"></h:outputStylesheet>
+        <h:outputStylesheet name="css/jquery-ui.css"></h:outputStylesheet>
 
-        <h:outputScript name="js/bootstrap.min.js"></h:outputScript>
+        <!--<h:outputScript name="js/bootstrap.min.js"></h:outputScript>-->
+        <h:outputScript name="js/jquery/jquery.js"></h:outputScript>
+        <h:outputScript name="js/jquery/jquery-ui.js"></h:outputScript>
+        
 </h:head>
 <h:body>
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -53,7 +57,7 @@
                 <div class="form-group">
                     <h:outputText value="Birthday" class="col-sm-2 control-label"/>
                     <div class="col-sm-10">
-                        <h:inputText value="" class="form-control"> 
+                        <h:inputText value="" class="form-control datepicker"> 
                         </h:inputText>
                     </div>
                 </div>
@@ -75,6 +79,17 @@
         </div>
     </div>
 
+        <script>          
+            jQuery(document).ready(function($){
+                alert('jQuery est prêt !');
+                 $(".datepicker" ).datepicker({
+                    changeMonth: true,
+                    changeYear: true
+                });
+            });
+
+        </script>
+        
 </h:body>
     
 </html>
