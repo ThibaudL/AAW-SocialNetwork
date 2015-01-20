@@ -7,7 +7,10 @@ package service;
 
 import dao.entity.User;
 import dao.impl.UserFacadeLocal;
-import java.lang.reflect.InvocationTargetException;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Formatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -31,7 +34,7 @@ public class UserService implements UserServiceLocal {
        if(connectedUser == null){
            return false;
        }
-       return connectedUser.getPassword().equals(password);
+       return connectedUser.getPassword().equals(hashToSHA1(password));
     }
 
     @Override
@@ -47,12 +50,30 @@ public class UserService implements UserServiceLocal {
         if(userFacade.findByEmail(login) == null){
             connectedUser = new User();
             connectedUser.setEmail(login);
-            connectedUser.setPassword(password);
+            connectedUser.setPassword(hashToSHA1(password));
             userFacade.create(connectedUser);
             return true;
         }else{
             return false;
         }
+    }
+    
+    private String hashToSHA1(String str){
+        try {
+            MessageDigest cript = MessageDigest.getInstance("SHA-1");
+            cript.reset();
+            cript.update(str.getBytes(Charset.forName("UTF8")));
+            Formatter formatter = new Formatter();
+            for(byte b : cript.digest()){
+                formatter.format("%02x",b);
+            }
+            String result = formatter.toString();
+            formatter.close();
+            return result;
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
 }
