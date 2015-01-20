@@ -19,8 +19,8 @@ import service.UserServiceLocal;
 @SessionScoped
 public class UserMB implements Serializable{
     private static final long serialVersionUID = 490994887388213027L;
-    private static final String CONNECTION_ERROR = "Connection error";
-    private static final String REGISTRATION_ERROR = "Registration error";
+    private static final String CONNECTION_ERROR = "Email / Password not found";
+    private static final String REGISTRATION_ERROR = "Email adress already used";
     private static final int REGISTER = 2;
     private static final int CONNECT = 1;
 
@@ -78,7 +78,7 @@ public class UserMB implements Serializable{
         if(this.isRegistering == CONNECT){
             if(userService.connectUser(login, password)){
                 this.error = false;
-                return "manage.xhtml";
+                return "home.xhtml";
             }else{
                 this.error = true;
                 this.errorMsg = CONNECTION_ERROR;
@@ -108,7 +108,7 @@ public class UserMB implements Serializable{
         if(userService.registrationUser(login, password)){
             this.error = false;
             this.errorMsg = "";
-            return "manage.xhtml";
+            return "profileSetUp.xhtml";
         }else{
             this.error = true;
             this.errorMsg = REGISTRATION_ERROR;

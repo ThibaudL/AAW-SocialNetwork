@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:core="http://java.sun.com/jsf/core">
+    
+<h:head>
+        <h:outputStylesheet name="css/bootstrap.min.css"></h:outputStylesheet>
+        <h:outputStylesheet name="css/bootstrap-theme.min.css"></h:outputStylesheet>
+        <h:outputStylesheet name="css/form.css"></h:outputStylesheet>
+
+        <h:outputScript name="js/bootstrap.min.js"></h:outputScript>
+</h:head>
+<h:body>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span> 
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Social Network</a>
+            </div>
+          </div>
+        </nav>
+
+        <br/>
+        <br/>
+    
+    
+    
+    
+    <div class="container">
+        <div class="row"> 
+            <h2><h:outputText value="Time to set up your profile" /></h2>
+            <h:form class="form-horizontal" enctype="multipart/form-data">
+                <div class="form-group">
+                    <h:outputText value="Firstname" class="col-sm-2 control-label"/>
+                    <div class="col-sm-10">
+                        <h:inputText value="" class="form-control"> 
+                        </h:inputText>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputText value="Lastname" class="col-sm-2 control-label"/>
+                    <div class="col-sm-10">
+                        <h:inputText value="" class="form-control"> 
+                        </h:inputText>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputText value="Birthday" class="col-sm-2 control-label"/>
+                    <div class="col-sm-10">
+                        <h:inputText value="" class="form-control"> 
+                        </h:inputText>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputText value="Information" class="col-sm-2 control-label"/>
+                    <div class="col-sm-10">
+                        <h:inputTextarea value="" rows="3" class="form-control"> 
+                        </h:inputTextarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputText value="Profile picture" class="col-sm-2 control-label"/>
+                    <div class="col-sm-10">
+                        <h:inputFile value="" class="form-control" > 
+                        </h:inputFile>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+    </div>
+
+</h:body>
+    
+</html>
+
