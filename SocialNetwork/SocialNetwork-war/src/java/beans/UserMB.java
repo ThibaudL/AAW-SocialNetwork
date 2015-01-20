@@ -115,6 +115,4 @@ public class UserMB implements Serializable{
         }
         return "index.xhtml";
     }
-    
-    
 }
