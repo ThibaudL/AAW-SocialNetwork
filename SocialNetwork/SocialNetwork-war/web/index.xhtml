@@ -4,12 +4,13 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:core="http://java.sun.com/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
     <h:head>
         <h:outputStylesheet name="css/bootstrap.min.css"></h:outputStylesheet>
         <h:outputStylesheet name="css/bootstrap-theme.min.css"></h:outputStylesheet>
         <h:outputStylesheet name="css/form.css"></h:outputStylesheet>
-
+        
         <h:outputScript name="js/bootstrap.min.js"></h:outputScript>
     </h:head>
 
@@ -44,17 +45,23 @@
                             <h:outputText value="#{UserMB.errorMsg}" />
                         </div> 
                     </c:if>
-                    <h:outputText value="Email"/>
-                    <h:inputText value="#{UserMB.login}"  class="input-block-level" p:placeholder="jane.doe@exemple.com" />
-                    <h:outputText value="Password"/>
-                    <h:inputSecret value="#{UserMB.password}" class="input-block-level" p:placeholder="Password" >
-                        <!---<core:validator validatorId="messageValidator" />-->
-                    </h:inputSecret>
+                    <div class="form-group">
+                        <label for="emailInput">Email </label>
+                        <input type="email" id="emailInput" jsf:value="#{UserMB.login}" placeholder="Email" required="true" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="emailInput">Password </label>
+                        <input type="password" id="emailInput" jsf:value="#{UserMB.password}" placeholder="Password" required="true" class="form-control"/>
+                    </div>
+                    
+                    
+                    
+                   
                     <h:selectOneRadio id="registerRadio" value="#{UserMB.isRegistering}">
                         <core:selectItem id="connect" itemLabel="Connect&nbsp;&nbsp;&nbsp;" itemValue="1" />
                         <core:selectItem id="register" itemLabel="Register" itemValue="2" />
                     </h:selectOneRadio >
-                    <h:commandButton value="Send" action="#{UserMB.checkConnection()}" class="btn btn-large btn-primary ladda-button" />
+                    <h:commandButton value="Send" action="#{UserMB.checkConnection()}" class="btn btn-large btn-primary ladda-button"/>
                 </h:form>
 
                 

@@ -76,4 +76,9 @@ public class UserService implements UserServiceLocal {
         return null;
     }
 
+    @Override
+    public boolean searchByEmail(String email) {
+        return userFacade.findByEmail(email) != null;
+    }
+
 }

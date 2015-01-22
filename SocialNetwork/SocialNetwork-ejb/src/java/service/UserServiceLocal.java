@@ -17,4 +17,5 @@ public interface UserServiceLocal {
     public boolean connectUser(String login, String password);
     public String connectedUserToString();
     public boolean registrationUser(String login, String password);
+    public boolean searchByEmail(String email);
 }
