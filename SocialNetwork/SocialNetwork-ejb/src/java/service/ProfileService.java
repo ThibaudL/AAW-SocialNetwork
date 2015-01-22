@@ -5,6 +5,7 @@
  */
 package service;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
 /**
@@ -14,6 +15,20 @@ import javax.ejb.Stateful;
 @Stateful
 public class ProfileService implements ProfileServiceLocal {
 
+    //@EJB
+    //UserService userService;
+    
+    
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+
+    @Override
+    public String getInformation() {
+        //return userService.getProfile().getInformation();
+        return "";
+    }
+
+    public void setInformation(String information) {
+        //userService.getProfile().setInformation(information);
+    }
 }

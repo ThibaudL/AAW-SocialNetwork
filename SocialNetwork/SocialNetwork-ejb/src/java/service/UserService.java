@@ -5,6 +5,7 @@
  */
 package service;
 
+import dao.entity.Profile;
 import dao.entity.User;
 import dao.impl.UserFacadeLocal;
 import java.nio.charset.Charset;
@@ -79,6 +80,10 @@ public class UserService implements UserServiceLocal {
     @Override
     public boolean searchByEmail(String email) {
         return userFacade.findByEmail(email) != null;
+    }
+    
+    public Profile getProfile(){
+        return connectedUser.getProfile();
     }
 
 }

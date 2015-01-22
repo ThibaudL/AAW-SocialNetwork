@@ -14,4 +14,6 @@ import javax.ejb.Local;
 @Local
 public interface ProfileServiceLocal {
     
+    public String getInformation();
+    public void setInformation(String information);
 }

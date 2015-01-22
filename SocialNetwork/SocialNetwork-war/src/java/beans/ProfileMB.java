@@ -9,7 +9,7 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import service.UserServiceLocal;
+import service.ProfileServiceLocal;
 
 /**
  *
@@ -26,7 +26,7 @@ public class ProfileMB implements Serializable{
     private Long birthdayTimestamp;
     
     @EJB
-    UserServiceLocal userService;
+    ProfileServiceLocal profileService;
 
     /**
      * Creates a new instance of ProfileBean
@@ -52,11 +52,12 @@ public class ProfileMB implements Serializable{
     }
 
     public String getInformation() {
-        return information;
+        return profileService.getInformation();
     }
 
     public void setInformation(String information) {
         this.information = information;
+        profileService.setInformation(information);
     }
 
     public String getProfilePicture() {
