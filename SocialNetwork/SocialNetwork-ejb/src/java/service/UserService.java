@@ -117,3 +117,4 @@ public class UserService implements UserServiceLocal {
         return "Bonjour "+ userFacade.findByEmail(firstName).toString();
     }
 }
+ 
