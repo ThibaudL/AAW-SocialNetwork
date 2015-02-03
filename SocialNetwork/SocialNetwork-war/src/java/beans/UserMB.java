@@ -85,7 +85,6 @@ public class UserMB implements Serializable{
     public String checkConnection(){
         if(this.isRegistering == CONNECT){
             if(userService.connectUser(login, password)){
-                profileService.loadProfile(userService.getProfileId());
                 SessionUtils.setItem(SessionUtils.ID_KEY,userService.getUserId());
                 this.error = false;
                 return "home.xhtml";

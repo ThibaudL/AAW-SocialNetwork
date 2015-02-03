@@ -40,22 +40,16 @@ public class ProfileService implements ProfileServiceLocal {
         profileFacade.edit(currentProfile);
     }
 
-    @Override
-    public void loadProfile(Integer id) {
-        if(id != null)
-            currentProfile = profileFacade.find(id);
-        else
-            currentProfile = new Profile();
-    }
 
     @Override
     public void createProfile(String firstname, String lastname, String information, String profilePicture, Long birthdayTimestamp, Integer userId) {
-        currentProfile = new Profile();
+        currentProfile = profileFacade.findByUserId(userId);
         currentProfile.setBirthdate(new Date());
         currentProfile.setFirstname(firstname);
         currentProfile.setLastname(lastname);
         currentProfile.setInformation(information);
         currentProfile.setPicture(profilePicture);
         currentProfile.setUser(userFacade.find(userId));
+        profileFacade.edit(currentProfile);
     }
 }

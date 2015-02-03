@@ -6,9 +6,11 @@
 package dao.impl;
 
 import dao.entity.Profile;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,6 +28,13 @@ public class ProfileFacade extends AbstractFacade<Profile> implements ProfileFac
 
     public ProfileFacade() {
         super(Profile.class);
+    }
+
+    @Override
+    public Profile findByUserId(Integer id) {
+        Query q = em.createQuery("SELECT p FROM Profile p WHERE p.user.id="+id);
+        List<Profile> l = q.getResultList();
+        return l.size() > 0 ? l.get(0) : null;
     }
     
 }

@@ -16,7 +16,6 @@ public interface ProfileServiceLocal {
     
     public String getInformation();
     public void setInformation(String information);
-    public void loadProfile(Integer id);
 
     public void createProfile(String firstname, String lastname, String information, String profilePicture, Long birthdayTimestamp,Integer userId);
 }

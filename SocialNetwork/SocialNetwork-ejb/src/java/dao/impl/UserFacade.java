@@ -45,7 +45,15 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
         Query q = em.createQuery("SELECT u FROM User u WHERE u.email = '"+email+"'");
         return (User) (q.getResultList().size() > 0 ? q.getResultList().get(0) : null);
     }
+
+    @Override
+    public void create(User entity) {
+        entity.getProfile().setUser(entity);
+        super.create(entity); 
+    }
    
+    
+    
     
     
 }
