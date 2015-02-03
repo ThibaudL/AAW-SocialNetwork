@@ -41,6 +41,7 @@ public class UserService implements UserServiceLocal {
     @Override
     public String connectedUserToString() {
         if(connectedUser != null){
+            refresh();
             return connectedUser.toString();
         }
         return null;
@@ -97,6 +98,7 @@ public class UserService implements UserServiceLocal {
         return connectedUser.getProfile().getId();
     }
     
-
-
+    private void refresh(){
+        this.connectedUser = userFacade.find(this.connectedUser.getId());
+    }
 }
