@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import service.ProfileServiceLocal;
 import service.UserServiceLocal;
+import utils.SessionUtils;
 
 /**
  *
@@ -104,18 +105,12 @@ public class ProfileMB implements Serializable{
     }
     
     public String createProfile(){
-        int userId = getId();
+        Integer userId = (Integer)SessionUtils.getItem(SessionUtils.ID_KEY);
         profileService.createProfile(firstname, lastname,information,profilePicture,birthdayTimestamp,userId);
         return "home.xhtml";
     }
     
-    private Integer getId(){
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
-        HttpSession session = request.getSession(true);
-        
-        return (Integer)session.getAttribute("userId");
-    }
+
     
     
 }

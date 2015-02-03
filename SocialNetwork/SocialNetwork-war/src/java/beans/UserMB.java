@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import service.ProfileServiceLocal;
 import service.UserServiceLocal;
+import utils.SessionUtils;
 
 /**
  *
@@ -85,7 +86,7 @@ public class UserMB implements Serializable{
         if(this.isRegistering == CONNECT){
             if(userService.connectUser(login, password)){
                 profileService.loadProfile(userService.getProfileId());
-                storeId(userService.getUserId());
+                SessionUtils.setItem(SessionUtils.ID_KEY,userService.getUserId());
                 this.error = false;
                 return "home.xhtml";
             }else{
@@ -117,7 +118,7 @@ public class UserMB implements Serializable{
         if(userService.registrationUser(login, password)){
             this.error = false;
             this.errorMsg = "";
-            storeId(userService.getUserId());
+            SessionUtils.setItem(SessionUtils.ID_KEY,userService.getUserId());
             return "profileSetUp.xhtml";
         }else{
             this.error = true;
@@ -133,13 +134,6 @@ public class UserMB implements Serializable{
     public void setId(Integer id) {
         this.id = id;
     }
-    
-    private void storeId(Integer id){
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
-        HttpSession session = request.getSession(true);
-        
-        session.setAttribute("userId", id);
-    }
+
     
 }
