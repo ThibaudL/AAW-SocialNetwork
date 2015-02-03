@@ -24,24 +24,85 @@
               </button>
               <a class="navbar-brand" href="#">Social Network</a>
             </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Profile</a></li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                  <input type="text" class="form-control" placeholder="Search..."/>
+                </form>
+            </div>
           </div>
-        </nav>
+    </nav>
 
         <br/>
         <br/>
     <br/>
-        <br/><br/>
-        <br/><br/>
-        <br/>
-    <div class="row">
-        <div class="col-md-2">
-            <img class="img-circle"></img>
-            Success : <h:outputText value="#{UserMB.displayProfile()}" />
-        </div>
-        <div class="col-md-2">
-            
+
+    <div class ="container">
+        <div class="row">
+            <div class="col-md-2" style="border-right: #e3e3e3 solid 1px;">
+                <div class="infoUser">
+                    <p class="text-center">
+                    <img class="img-circle" src="http://dummyimage.com/150x150/cccccc/fff.png" alt="avatar"/>
+                    <strong><a href="#">Firstname LastName</a></strong>
+                    </p>
+                </div>
+                <div class="profileUser">
+                    <p class="text-left">
+                        <h4><small><strong><a href="#">Profile</a></strong></small></h4>
+                        <ul>
+                            <li>
+                                Lorem ipsum
+                            </li>
+                            <li>
+                                Lorem ipsum
+                            </li>
+                            <li>
+                                Lorem ipsum
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="messagesUser">
+                    <p class="text-left">
+                        <h4><small><strong><a href="#">Messages <span class="badge">3</span></a></strong></small></h4>
+                        <ul>
+                            <li>
+                                Lorem ipsum
+                            </li>
+                            <li>
+                                Lorem ipsum
+                            </li>
+                            <li>
+                                Lorem ipsum
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="FriendsUser">
+                    <p class="text-left">
+                        <h4><small><strong><a href="#">Friends</a></strong></small></h4>
+                        <ul>
+                            <li>
+                                Lorem ipsum
+                            </li>
+                            <li>
+                                Lorem ipsum
+                            </li>
+                            <li>
+                                Lorem ipsum
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-10">
+
+            </div>
         </div>
     </div>
+    
 </h:body>
     
 </html>
