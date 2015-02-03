@@ -17,8 +17,10 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 /**
@@ -109,8 +111,9 @@ public class UserService implements UserServiceLocal {
     }
     
     @GET
+    @Path("tutu/{firstName}")
     @Produces("text/html")
-    public String getTutu(){
-        return "tutu FROM UserService";
+    public String getTutu(@PathParam("firstName")String firstName){
+        return "Bonjour "+ userFacade.findByEmail(firstName).toString();
     }
 }
