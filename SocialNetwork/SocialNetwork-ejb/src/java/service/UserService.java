@@ -116,5 +116,7 @@ public class UserService implements UserServiceLocal {
     public String getTutu(@PathParam("firstName")String firstName){
         return "Bonjour "+ userFacade.findByEmail(firstName).toString();
     }
+    
+    
 }
  

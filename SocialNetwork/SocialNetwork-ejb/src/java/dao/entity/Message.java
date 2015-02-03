@@ -38,10 +38,6 @@ public class Message implements Serializable {
     @Column
     private String content;
     
-    @OneToOne
-    @JoinColumn(name = "destinataire_fk")
-    private User destinataire;
-    
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     
@@ -62,14 +58,6 @@ public class Message implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public User getDestinataire() {
-        return this.destinataire;
-    }
-
-    public void setDestinataire(User destinataire) {
-        this.destinataire = destinataire;
     }
 
     public Date getDate() {
@@ -107,9 +95,6 @@ public class Message implements Serializable {
         if ( this.content != null ) {
             lHashCode += this.content.hashCode();
         }
-        if ( this.destinataire != null ) {
-            lHashCode += this.destinataire.hashCode();
-        }
         if ( this.date != null ) {
             lHashCode += this.date.hashCode();
         }
@@ -134,8 +119,6 @@ public class Message implements Serializable {
                 || (this.author != null && this.author.equals(lMessageObject.author)));
             lEquals &= ((null == this.content ? lMessageObject.content == null : this.content.equals(lMessageObject.content))
                 || (this.content != null && this.content.equals(lMessageObject.content)));
-            lEquals &= ((this.destinataire == lMessageObject.destinataire)
-                || (this.destinataire != null && this.destinataire.equals(lMessageObject.destinataire)));
             lEquals &= ((this.date == lMessageObject.date)
                 || (this.date != null && this.date.equals(lMessageObject.date)));
             lEquals &= ((this.comments == lMessageObject.comments)

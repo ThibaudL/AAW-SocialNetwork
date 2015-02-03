@@ -41,8 +41,6 @@ public class ProfileMB implements Serializable{
     
     @EJB
     ProfileServiceLocal profileService;
-    @EJB
-    UserServiceLocal userService;
     
     /**
      * Creates a new instance of ProfileBean

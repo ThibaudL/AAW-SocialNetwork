@@ -39,13 +39,13 @@ public class User implements Serializable {
     @OneToMany(mappedBy="user", cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     private List<Friend> friends = new ArrayList<>();
 
-    @OneToMany(mappedBy="user", cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="author", cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     private List<PublicMessage> publicMessages = new ArrayList<>();
     
     @OneToMany(mappedBy="user", cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     private List<Notification> notifications = new ArrayList<>();
     
-    @OneToMany(mappedBy="user", cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="author", cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     private List<PrivateMessage> privateMessages = new ArrayList<>();
     
     @OneToOne(mappedBy="user", cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)

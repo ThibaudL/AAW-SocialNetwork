@@ -137,8 +137,8 @@
                         </div>
                         <div class="panel-body">
                             <!--  case text--> 
-                            <textarea ng-show="publishAction==0" type="text" row="10" class="form-control" placeholder="Want to say something ?" jsf:value="#{UserMB.messageText}"/>
-                            <button class="btn btn-default" ng-show="publishAction==0" width="100%" jsf:action="#{UserMB.publishMessage()}">Publish message</button>
+                            <textarea ng-show="publishAction==0" type="text" row="10" class="form-control" placeholder="Want to say something ?" jsf:value="#{MessageMB.messageText}"/>
+                            <button class="btn btn-default" ng-show="publishAction==0" width="100%" jsf:action="#{MessageMB.publishMessage()}">Publish message</button>
                             <!--  case Picture--> 
                             <img height="200" src="" ng-show="publishAction==1" />
                             <input ng-show="publishAction==1" type="text" class="form-control" placeholder="Want to publish a picture ?"/>

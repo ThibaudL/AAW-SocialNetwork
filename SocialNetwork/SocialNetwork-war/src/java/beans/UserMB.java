@@ -41,7 +41,6 @@ public class UserMB implements Serializable{
     private boolean error;
     private String errorMsg;
     
-    private String messageText;
     
     private Integer isRegistering=1;
     private Integer id;
@@ -136,16 +135,8 @@ public class UserMB implements Serializable{
         this.id = id;
     }
 
-    public String getMessageText() {
-        return messageText;
-    }
+   
 
-    public void setMessageText(String messageText) {
-        this.messageText = messageText;
-    }
-
-    public void publishMessage(){
-        
-    }
+    
     
 }

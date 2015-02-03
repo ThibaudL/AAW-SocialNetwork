@@ -11,13 +11,13 @@ public class PrivateMessage extends Message {
     
     @OneToOne
     @JoinColumn(name = "user_fk")
-    public User user;
+    public User destinataire;
 
     @Override
     public int hashCode() {
         int lHashCode = 0;
-        if ( this.user != null ) {
-            lHashCode += this.user.hashCode();
+        if ( this.destinataire != null ) {
+            lHashCode += this.destinataire.hashCode();
         }
         if ( lHashCode == 0 ) {
             lHashCode = super.hashCode();
@@ -32,19 +32,19 @@ public class PrivateMessage extends Message {
         } else if (object instanceof PrivateMessage) {
             PrivateMessage lPrivateMessageObject = (PrivateMessage) object;
             boolean lEquals = true;
-            lEquals &= ((this.user == lPrivateMessageObject.user)
-                || (this.user != null && this.user.equals(lPrivateMessageObject.user)));
+            lEquals &= ((this.destinataire == lPrivateMessageObject.destinataire)
+                || (this.destinataire != null && this.destinataire.equals(lPrivateMessageObject.destinataire)));
             return lEquals;
         }
         return false;
     }
 
-    public User getUser() {
-        return user;
+    public User getDestinataire() {
+        return destinataire;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setDestinataire(User destinataire) {
+        this.destinataire = destinataire;
     }
     
     
