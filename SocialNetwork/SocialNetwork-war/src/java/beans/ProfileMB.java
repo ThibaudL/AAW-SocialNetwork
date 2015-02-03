@@ -6,17 +6,27 @@
 package beans;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import service.ProfileServiceLocal;
+import service.UserServiceLocal;
 
 /**
  *
  * @author Thibaud
  */
 @ManagedBean(name = "ProfileMB")
-@RequestScoped
+@SessionScoped
 public class ProfileMB implements Serializable{
 
     private String firstname;
@@ -24,10 +34,15 @@ public class ProfileMB implements Serializable{
     private String information;
     private String profilePicture;
     private Long birthdayTimestamp;
+    private String birthdayString;
+
+ 
     
     @EJB
     ProfileServiceLocal profileService;
-
+    @EJB
+    UserServiceLocal userService;
+    
     /**
      * Creates a new instance of ProfileBean
      */ 
@@ -52,12 +67,11 @@ public class ProfileMB implements Serializable{
     }
 
     public String getInformation() {
-        return profileService.getInformation();
+        return this.information;
     }
 
     public void setInformation(String information) {
         this.information = information;
-        profileService.setInformation(information);
     }
 
     public String getProfilePicture() {
@@ -76,6 +90,32 @@ public class ProfileMB implements Serializable{
         this.birthdayTimestamp = birthdayTimestamp;
     }
     
+    public String getBirthdayString() {
+        return birthdayString;
+    }
+
+    public void setBirthdayString(String birthdayString) {
+        this.birthdayString = birthdayString;
+        try {
+            this.birthdayTimestamp = (DateFormat.getDateInstance().parse(birthdayString)).getTime();
+        } catch (ParseException ex) {
+            Logger.getLogger(ProfileMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public String createProfile(){
+        int userId = getId();
+        profileService.createProfile(firstname, lastname,information,profilePicture,birthdayTimestamp,userId);
+        return "home.xhtml";
+    }
+    
+    private Integer getId(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
+        HttpSession session = request.getSession(true);
+        
+        return (Integer)session.getAttribute("userId");
+    }
     
     
 }

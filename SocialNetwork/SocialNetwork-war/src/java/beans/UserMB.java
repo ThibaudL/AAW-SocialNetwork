@@ -8,7 +8,12 @@ package beans;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import service.ProfileServiceLocal;
 import service.UserServiceLocal;
 
 /**
@@ -26,6 +31,8 @@ public class UserMB implements Serializable{
 
     @EJB
     UserServiceLocal userService;
+    @EJB
+    ProfileServiceLocal profileService;
     
     private String login;
     private String password;
@@ -34,7 +41,7 @@ public class UserMB implements Serializable{
     private String errorMsg;
     
     private Integer isRegistering=1;
-
+    private Integer id;
     
     /**
      * Creates a new instance of UserMB
@@ -77,6 +84,8 @@ public class UserMB implements Serializable{
     public String checkConnection(){
         if(this.isRegistering == CONNECT){
             if(userService.connectUser(login, password)){
+                profileService.loadProfile(userService.getProfileId());
+                storeId(userService.getUserId());
                 this.error = false;
                 return "home.xhtml";
             }else{
@@ -108,6 +117,7 @@ public class UserMB implements Serializable{
         if(userService.registrationUser(login, password)){
             this.error = false;
             this.errorMsg = "";
+            storeId(userService.getUserId());
             return "profileSetUp.xhtml";
         }else{
             this.error = true;
@@ -115,4 +125,21 @@ public class UserMB implements Serializable{
         }
         return "index.xhtml";
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
+    private void storeId(Integer id){
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
+        HttpSession session = request.getSession(true);
+        
+        session.setAttribute("userId", id);
+    }
+    
 }

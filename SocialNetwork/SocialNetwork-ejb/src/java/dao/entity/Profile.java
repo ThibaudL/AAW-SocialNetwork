@@ -168,8 +168,6 @@ public class Profile implements Serializable {
         str += this.picture;
         str += " ";
         str += this.birthdate;
-        str += " ";
-        str += this.user.getEmail();
         return str;
     }
     

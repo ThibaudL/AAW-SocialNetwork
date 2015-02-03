@@ -5,6 +5,10 @@
  */
 package service;
 
+import dao.entity.Profile;
+import dao.impl.ProfileFacadeLocal;
+import dao.impl.UserFacadeLocal;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
@@ -15,9 +19,12 @@ import javax.ejb.Stateful;
 @Stateful
 public class ProfileService implements ProfileServiceLocal {
 
-    //@EJB
-    //UserService userService;
+    private Profile currentProfile;
     
+    @EJB
+    private ProfileFacadeLocal profileFacade;
+    @EJB 
+    private UserFacadeLocal userFacade;
     
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
@@ -25,10 +32,30 @@ public class ProfileService implements ProfileServiceLocal {
     @Override
     public String getInformation() {
         //return userService.getProfile().getInformation();
-        return "";
+        return currentProfile != null ? currentProfile.getInformation() : "";
     }
 
     public void setInformation(String information) {
-        //userService.getProfile().setInformation(information);
+        currentProfile.setInformation(information);
+        profileFacade.edit(currentProfile);
+    }
+
+    @Override
+    public void loadProfile(Integer id) {
+        if(id != null)
+            currentProfile = profileFacade.find(id);
+        else
+            currentProfile = new Profile();
+    }
+
+    @Override
+    public void createProfile(String firstname, String lastname, String information, String profilePicture, Long birthdayTimestamp, Integer userId) {
+        currentProfile = new Profile();
+        currentProfile.setBirthdate(new Date());
+        currentProfile.setFirstname(firstname);
+        currentProfile.setLastname(lastname);
+        currentProfile.setInformation(information);
+        currentProfile.setPicture(profilePicture);
+        currentProfile.setUser(userFacade.find(userId));
     }
 }

@@ -18,4 +18,6 @@ public interface UserServiceLocal {
     public String connectedUserToString();
     public boolean registrationUser(String login, String password);
     public boolean searchByEmail(String email);
+    public Integer getUserId();
+    public Integer getProfileId();
 }

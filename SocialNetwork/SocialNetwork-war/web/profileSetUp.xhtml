@@ -57,7 +57,7 @@
                 <div class="form-group">
                     <h:outputText value="Birthday" class="col-sm-2 control-label"/>
                     <div class="col-sm-10">
-                        <h:inputText value="#{ProfileMB.birthdayTimestamp}" class="form-control datepicker"> 
+                        <h:inputText value="#{ProfileMB.birthdayString}" class="form-control datepicker"> 
                         </h:inputText>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                         </h:inputFile>
                     </div>
                 </div>
-                <h:commandButton value="Send" action="profileSetUp.xhtml" class="btn btn-large btn-primary ladda-button"/>
+                <h:commandButton value="Send" action="#{ProfileMB.createProfile()}" class="btn btn-large btn-primary ladda-button"/>
 
             </h:form>
         </div>

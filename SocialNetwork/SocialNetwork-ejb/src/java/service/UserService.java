@@ -53,6 +53,7 @@ public class UserService implements UserServiceLocal {
             connectedUser.setEmail(login);
             connectedUser.setPassword(hashToSHA1(password));
             userFacade.create(connectedUser);
+            connectedUser = userFacade.findByEmail(connectedUser.getEmail());
             return true;
         }else{
             return false;
@@ -85,5 +86,17 @@ public class UserService implements UserServiceLocal {
     public Profile getProfile(){
         return connectedUser.getProfile();
     }
+
+    @Override
+    public Integer getUserId() {      
+        return connectedUser.getId();
+    }
+
+    @Override
+    public Integer getProfileId() {
+        return connectedUser.getProfile().getId();
+    }
+    
+
 
 }

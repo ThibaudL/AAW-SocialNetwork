@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -35,23 +36,24 @@ public class User implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date subcriptionDate;
     
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     private List<Friend> friends = new ArrayList<>();
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     private List<PublicMessage> publicMessages = new ArrayList<>();
     
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     private List<Notification> notifications = new ArrayList<>();
     
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     private List<PrivateMessage> privateMessages = new ArrayList<>();
     
-    @OneToOne(mappedBy="user")
+    @OneToOne(mappedBy="user", cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     private Profile profile;
 
     public User() {
         this.subcriptionDate = new Date();
+        this.profile = new Profile();
     }
     
     
