@@ -2,7 +2,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:core="http://java.sun.com/jsf/core">
+      xmlns:core="http://java.sun.com/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
     
 <h:head>
         <h:outputStylesheet name="css/bootstrap.min.css"></h:outputStylesheet>
@@ -105,53 +106,54 @@
                     
                 </div>
                 <div class="col-md-8 panel panel-default">
-
-                    <div class="panel-title">
-                        <ul class="nav nav-tabs" ng-init="publishAction=0">
-                            <li role="presentation" ng-hide="publishAction==0"> 
-                                <a href="#"  ng-click="publishAction=0"><i class="glyphicon glyphicon-pencil"/> Text</a>
-                            </li>
-                            <li role="presentation" class="active" ng-show="publishAction==0"> 
-                                <a href="#"><i class="glyphicon glyphicon-pencil"/> Text</a>
-                            </li>
-                            <li role="presentation" ng-hide="publishAction==1">
-                                <a href="#"  ng-click="publishAction=1"><i class="glyphicon glyphicon-picture"/> Picture</a>
-                            </li>
-                            <li role="presentation" class="active" ng-show="publishAction==1">
-                                <a href="#"><i class="glyphicon glyphicon-picture"/> Picture</a>
-                            </li>
-                            <li role="presentation" ng-hide="publishAction==2">
-                               <a href="#" ng-click="publishAction=2"><i class="glyphicon glyphicon-link"/> Link</a>
-                            </li>
-                            <li role="presentation" class="active" ng-show="publishAction==2">
-                               <a href="#"><i class="glyphicon glyphicon-link"/> Link</a>
-                            </li>
-                            <li role="presentation" ng-hide="publishAction==3">
-                               <a href="#" ng-click="publishAction=3"><i class="glyphicon glyphicon-facetime-video"/> Video</a>
-                            </li>
-                            <li role="presentation" class="active" ng-show="publishAction==3">
-                               <a href="#"><i class="glyphicon glyphicon-facetime-video"/> Video</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="panel-body">
-                        <!--  case text--> 
-                        <textarea ng-show="publishAction==0" type="text" row="10" class="form-control" placeholder="Want to say something ?"/>
-                        
-                        <!--  case Picture--> 
-                        <img height="200" src="" ng-show="publishAction==1" />
-                        <input ng-show="publishAction==1" type="text" class="form-control" placeholder="Want to publish a picture ?"/>
-                        
-                        <!-- case link -->
-                        <input ng-show="publishAction==2" type="text" class="form-control" placeholder="Want to publish a video ?"/>
-                         
-                        <!--  case Video--> 
-                        <div ng-show="publishAction==3" class="embed-responsive embed-responsive-16by9">
-                            <iframe ng-show="publishAction==3" class="embed-responsive-item" height="200" src="http://www.w3schools.com/html/movie.mp4" frameborder="1" controls="controls"></iframe>
+                    <h:form>
+                        <div class="panel-title">
+                            <ul class="nav nav-tabs" ng-init="publishAction=0">
+                                <li role="presentation" ng-hide="publishAction==0"> 
+                                    <a href="#"  ng-click="publishAction=0"><i class="glyphicon glyphicon-pencil"/> Text</a>
+                                </li>
+                                <li role="presentation" class="active" ng-show="publishAction==0"> 
+                                    <a href="#"><i class="glyphicon glyphicon-pencil"/> Text</a>
+                                </li>
+                                <li role="presentation" ng-hide="publishAction==1">
+                                    <a href="#"  ng-click="publishAction=1"><i class="glyphicon glyphicon-picture"/> Picture</a>
+                                </li>
+                                <li role="presentation" class="active" ng-show="publishAction==1">
+                                    <a href="#"><i class="glyphicon glyphicon-picture"/> Picture</a>
+                                </li>
+                                <li role="presentation" ng-hide="publishAction==2">
+                                   <a href="#" ng-click="publishAction=2"><i class="glyphicon glyphicon-link"/> Link</a>
+                                </li>
+                                <li role="presentation" class="active" ng-show="publishAction==2">
+                                   <a href="#"><i class="glyphicon glyphicon-link"/> Link</a>
+                                </li>
+                                <li role="presentation" ng-hide="publishAction==3">
+                                   <a href="#" ng-click="publishAction=3"><i class="glyphicon glyphicon-facetime-video"/> Video</a>
+                                </li>
+                                <li role="presentation" class="active" ng-show="publishAction==3">
+                                   <a href="#"><i class="glyphicon glyphicon-facetime-video"/> Video</a>
+                                </li>
+                            </ul>
                         </div>
-                        <input ng-show="publishAction==3" type="text" ng-model="videoPath" class="form-control" placeholder="Want to publish a video ?"/>
-                        
-                    </div>
+                        <div class="panel-body">
+                            <!--  case text--> 
+                            <textarea ng-show="publishAction==0" type="text" row="10" class="form-control" placeholder="Want to say something ?" jsf:value="#{UserMB.messageText}"/>
+                            <button class="btn btn-default" ng-show="publishAction==0" width="100%" jsf:action="#{UserMB.publishMessage()}">Publish message</button>
+                            <!--  case Picture--> 
+                            <img height="200" src="" ng-show="publishAction==1" />
+                            <input ng-show="publishAction==1" type="text" class="form-control" placeholder="Want to publish a picture ?"/>
+
+                            <!-- case link -->
+                            <input ng-show="publishAction==2" type="text" class="form-control" placeholder="Want to publish a video ?"/>
+
+                            <!--  case Video--> 
+                            <div ng-show="publishAction==3" class="embed-responsive embed-responsive-16by9">
+                                <video ng-show="publishAction==3" class="embed-responsive-item" height="200" src="http://www.w3schools.com/html/movie.mp4" controls="controls"></video>
+                            </div>
+                            <input ng-show="publishAction==3" type="text" ng-model="videoPath" class="form-control" placeholder="Want to publish a video ?"/>
+
+                        </div>
+                    </h:form>
                 </div>
             </div>
         </div>

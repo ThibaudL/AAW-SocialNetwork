@@ -16,9 +16,6 @@ public class PublicMessage extends Message {
     @Override
     public int hashCode() {
         int lHashCode = 0;
-        if ( this.user != null ) {
-            lHashCode += this.user.hashCode();
-        }
         if ( lHashCode == 0 ) {
             lHashCode = super.hashCode();
         }
