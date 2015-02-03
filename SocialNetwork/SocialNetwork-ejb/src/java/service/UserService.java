@@ -15,12 +15,18 @@ import java.util.Formatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 
 /**
  *
  * @author Thibaud
  */
+@LocalBean
+@Path("toto") 
 @Stateful
 public class UserService implements UserServiceLocal {
 
@@ -100,5 +106,11 @@ public class UserService implements UserServiceLocal {
     
     private void refresh(){
         this.connectedUser = userFacade.find(this.connectedUser.getId());
+    }
+    
+    @GET
+    @Produces("text/html")
+    public String getTutu(){
+        return "tutu FROM UserService";
     }
 }
