@@ -55,7 +55,7 @@ public class MessageMB {
         return messages;
     }
     
-    public void setMessages(List<Object[]>  m){
+    public void setMessages(List<Object[]>  m){  
         messages = m;
     }
     
