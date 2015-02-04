@@ -11,6 +11,7 @@ import dao.entity.User;
 import dao.impl.PublicMessageFacadeLocal;
 import dao.impl.UserFacadeLocal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -47,7 +48,7 @@ public class MessageService implements MessageServiceLocal {
         for (Friend f : currentUser.getFriends()) {
             messages.addAll(publicMessageFacade.findByAuthorId(f.friend.getId()));
         }
-        messages.sort(new Comparator<PublicMessage>() {
+        Collections.sort(messages, new Comparator<PublicMessage>() {
             @Override
             public int compare(PublicMessage o1, PublicMessage o2) {
                 return -(o1.getDate().compareTo(o2.getDate()));                  
