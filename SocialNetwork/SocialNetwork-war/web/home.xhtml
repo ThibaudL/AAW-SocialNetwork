@@ -159,15 +159,14 @@
                     </div>
                     <div>
                         <ui:repeat var="messageContent" value="#{MessageMB.messages}" varStatus="status">
-                            <div class="panel panel-default">
-                                <div class="panel-title">
-                                    #{messageContent[0]}
-                                </div>
-                                <div class="panel-body">
-                                    #{messageContent[1]}
-                                </div>
-                                <div class="panel-footer">
-                                    #{messageContent[2]}
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <img class="img-circle" width="30" height="30" src="http://dummyimage.com/30x30/cccccc/fff.png"/> #{messageContent[0][0]} #{messageContent[0][1]} said #{messageContent[2]} :
+                                    </div>
+                                    <div class="panel-body">
+                                        #{messageContent[1]}
+                                    </div>
                                 </div>
                             </div>
                         </ui:repeat>

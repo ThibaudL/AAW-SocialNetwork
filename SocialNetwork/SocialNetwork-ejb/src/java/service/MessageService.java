@@ -5,10 +5,13 @@
  */
 package service;
 
+import dao.entity.Friend;
 import dao.entity.PublicMessage;
+import dao.entity.User;
 import dao.impl.PublicMessageFacadeLocal;
 import dao.impl.UserFacadeLocal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -40,16 +43,31 @@ public class MessageService implements MessageServiceLocal {
     @Override
     public void loadPublicMessages(Integer authorId) {
         messages = publicMessageFacade.findByAuthorId(authorId);
+        User currentUser = userFacade.find(authorId);
+        for (Friend f : currentUser.getFriends()) {
+            messages.addAll(publicMessageFacade.findByAuthorId(f.friend.getId()));
+        }
+        messages.sort(new Comparator<PublicMessage>() {
+            @Override
+            public int compare(PublicMessage o1, PublicMessage o2) {
+                return o1.getDate().compareTo(o2.getDate());                  
+            }
+        });
     }
 
     @Override
     public List<Object[]> getMessagesContents() {
         List<Object[]> contents = new ArrayList<>();
-        if(messages != null){
+        if(messages != null && messages.size()>0){
             for (PublicMessage msg : messages) {
                 Object[] content = new Object[3];
+                Object[] author = new Object[3];
+
+                author[0] = msg.getAuthor().getProfile().getFirstname();
+                author[1] = msg.getAuthor().getProfile().getLastname();
+                author[2] = msg.getAuthor().getProfile().getPicture();
                 
-                content[0] = msg.getAuthor().getId();
+                content[0] = author;
                 content[1] = msg.getContent();
                 content[2] = msg.getDate();
                 

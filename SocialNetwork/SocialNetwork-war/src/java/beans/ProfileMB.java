@@ -5,10 +5,12 @@
  */
 package beans;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -18,6 +20,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import service.ProfileServiceLocal;
 import service.UserServiceLocal;
 import utils.SessionUtils;
@@ -36,8 +39,8 @@ public class ProfileMB implements Serializable{
     private String profilePicture;
     private Long birthdayTimestamp;
     private String birthdayString;
+    private Part profilePictureFile;
 
- 
     
     @EJB
     ProfileServiceLocal profileService;
@@ -93,6 +96,16 @@ public class ProfileMB implements Serializable{
         return birthdayString;
     }
 
+    public Part getProfilePictureFile() {
+        return profilePictureFile;
+    }
+
+    public void setProfilePictureFile(Part profilePictureFile) {
+        this.profilePictureFile = profilePictureFile;
+    }
+    
+    
+
     public void setBirthdayString(String birthdayString) {
         this.birthdayString = birthdayString;
         try {
@@ -104,8 +117,19 @@ public class ProfileMB implements Serializable{
     
     public String createProfile(){
         Integer userId = (Integer)SessionUtils.getItem(SessionUtils.ID_KEY);
+        upload();
         profileService.createProfile(firstname, lastname,information,profilePicture,birthdayTimestamp,userId);
         return "home.xhtml";
+    }
+    
+    private void upload(){
+        try {
+            if(profilePictureFile != null)
+                profilePicture = new Scanner(profilePictureFile.getInputStream())
+                    .useDelimiter("\\A").next();
+        } catch (IOException ex) {
+            Logger.getLogger(ProfileMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 
