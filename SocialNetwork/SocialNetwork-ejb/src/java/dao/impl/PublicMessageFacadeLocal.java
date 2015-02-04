@@ -23,6 +23,8 @@ public interface PublicMessageFacadeLocal {
     void remove(PublicMessage publicMessage);
 
     PublicMessage find(Object id);
+    
+    List<PublicMessage> findByAuthorId(Object id);
 
     List<PublicMessage> findAll();
 

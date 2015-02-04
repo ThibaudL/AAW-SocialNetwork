@@ -5,6 +5,7 @@
  */
 package service;
 
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -14,4 +15,8 @@ import javax.ejb.Local;
 @Local
 public interface MessageServiceLocal {
     public void publishPublicMessage(String content, Integer userId);
+    
+    public void loadPublicMessages(Integer authorId);
+    
+    public List<Object[]> getMessagesContents(); 
 }

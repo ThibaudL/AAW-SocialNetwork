@@ -7,9 +7,10 @@ package service;
 
 import dao.entity.PublicMessage;
 import dao.impl.PublicMessageFacadeLocal;
-import dao.impl.UserFacade;
 import dao.impl.UserFacadeLocal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -25,6 +26,8 @@ public class MessageService implements MessageServiceLocal {
     @EJB
     UserFacadeLocal userFacade;
     
+    List<PublicMessage> messages;
+    
     @Override
     public void publishPublicMessage(String content, Integer userId) {
         PublicMessage publicMessage = new PublicMessage();
@@ -33,6 +36,30 @@ public class MessageService implements MessageServiceLocal {
         publicMessage.setDate(new Date());
         publicMessageFacade.create(publicMessage);
     }
+
+    @Override
+    public void loadPublicMessages(Integer authorId) {
+        messages = publicMessageFacade.findByAuthorId(authorId);
+    }
+
+    @Override
+    public List<Object[]> getMessagesContents() {
+        List<Object[]> contents = new ArrayList<>();
+        if(messages != null){
+            for (PublicMessage msg : messages) {
+                Object[] content = new Object[3];
+                
+                content[0] = msg.getAuthor().getId();
+                content[1] = msg.getContent();
+                content[2] = msg.getDate();
+                
+                contents.add(content);
+            }
+        }
+        return contents;
+    }
+    
+    
     
     
 }
