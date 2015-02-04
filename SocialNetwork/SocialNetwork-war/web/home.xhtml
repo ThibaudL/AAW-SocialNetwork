@@ -48,11 +48,13 @@
         <div class ="container">
             <div class="row">
                 <div class="col-md-2" >
-                    <div class="infoUser">
-                        <p class="text-center">
-                        <img class="img-circle" src="http://dummyimage.com/150x150/cccccc/fff.png" alt="avatar"/>
-                        <strong><a href="#">Firstname LastName</a></strong>
-                        </p>
+                     <div class="infoUser">
+                        <div class="thumbnail">
+                            <img class="img-circle" src="http://dummyimage.com/150x150/cccccc/fff.png" alt="avatar"/>
+                            <div class="caption text-center">
+                                <strong><a href="#">Firstname LastName</a></strong>
+                            </div>
+                        </div>
                     </div>
                     <div class="profileUser">
                         <p class="text-left">
@@ -88,7 +90,7 @@
                     </div>
                     <div class="FriendsUser">
                         <p class="text-left">
-                            <h4><small><strong><a href="#">Friends</a></strong></small></h4>
+                            <h4><small><strong><a href="friend.xhtml">Friends</a></strong></small></h4>
                             <ul>
                                 <li>
                                     Lorem ipsum
@@ -178,7 +180,7 @@
         <script>          
             jQuery(document).ready(function($){
                 $.get( "http://localhost:8080/SocialNetwork-war/webresources/toto/tutu/#{UserMB.login}", function( data ) {
-                    alert(data);
+                    //alert(data);
                 });
             });
             
