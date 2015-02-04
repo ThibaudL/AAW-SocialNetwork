@@ -5,6 +5,7 @@
  */
 package beans;
 
+import dao.entity.PublicMessage;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -24,7 +25,7 @@ public class MessageMB {
      MessageServiceLocal messageService; 
 
     private String messageText;
-    private List<Object[]>  messages;
+    private List<PublicMessage>  messages;
     /**
      * Creates a new instance of MessageBean
      */
@@ -49,13 +50,13 @@ public class MessageMB {
         messageService.loadPublicMessages(userId);
     }
     
-    public List<Object[]> getMessages(){
+    public List<PublicMessage> getMessages(){
         loadMessages();
         messages = messageService.getMessagesContents();
         return messages;
     }
     
-    public void setMessages(List<Object[]>  m){  
+    public void setMessages(List<PublicMessage>  m){  
         messages = m;
     }
     

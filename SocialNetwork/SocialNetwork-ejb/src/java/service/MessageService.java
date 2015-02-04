@@ -57,25 +57,8 @@ public class MessageService implements MessageServiceLocal {
     }
 
     @Override
-    public List<Object[]> getMessagesContents() {
-        List<Object[]> contents = new ArrayList<>();
-        if(messages != null && messages.size()>0){
-            for (PublicMessage msg : messages) {
-                Object[] content = new Object[3];
-                Object[] author = new Object[3];
-
-                author[0] = msg.getAuthor().getProfile().getFirstname();
-                author[1] = msg.getAuthor().getProfile().getLastname();
-                author[2] = msg.getAuthor().getProfile().getPicture();
-                
-                content[0] = author;
-                content[1] = msg.getContent();
-                content[2] = msg.getDate();
-                
-                contents.add(content);
-            }
-        }
-        return contents;
+    public List<PublicMessage> getMessagesContents() {
+        return messages;
     }
     
     

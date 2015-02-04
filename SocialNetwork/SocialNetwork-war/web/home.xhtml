@@ -162,10 +162,29 @@
                             <div class="col-md-6">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <img class="img-circle" width="30" height="30" src="http://dummyimage.com/30x30/cccccc/fff.png"/> #{messageContent[0][0]} #{messageContent[0][1]} said #{messageContent[2]} :
+                                        <img class="img-circle" width="30" height="30" src="http://dummyimage.com/30x30/cccccc/fff.png"/> #{messageContent.author.profile.firstname} #{messageContent.author.profile.lastname} said #{messageContent.date} :
                                     </div>
                                     <div class="panel-body">
-                                        #{messageContent[1]}
+                                        <div>
+                                            #{messageContent.content}
+                                        </div>
+                                        <div>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div  class="panel-info">
+                                        <div class="text-right">
+                                            <a href="#" ng-click="afficherComment[#{messageContent.id}]=true" ng-show="afficherComment[#{messageContent.id}]==false">Display comments ...</a>
+                                            <a href="#" ng-click="afficherComment[#{messageContent.id}]=false" ng-show="afficherComment[#{messageContent.id}]==true">Hide comments ...</a>
+                                        </div>
+                                        <div  ng-show="afficherComment[#{messageContent.id}]==true" ng-init="afficherComment[#{messageContent.id}]=false">
+                                            <ui:repeat var="comment" value="#{messageContent.comments}" varStatus="status">
+                                                <div>
+                                                    #{comment.content}
+                                                </div>
+                                            </ui:repeat>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

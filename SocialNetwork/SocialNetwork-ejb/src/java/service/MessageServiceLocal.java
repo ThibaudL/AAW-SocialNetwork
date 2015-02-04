@@ -5,6 +5,7 @@
  */
 package service;
 
+import dao.entity.PublicMessage;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -18,5 +19,5 @@ public interface MessageServiceLocal {
     
     public void loadPublicMessages(Integer authorId);
     
-    public List<Object[]> getMessagesContents(); 
+    public List<PublicMessage> getMessagesContents(); 
 }

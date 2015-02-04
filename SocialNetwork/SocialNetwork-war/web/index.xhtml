@@ -47,11 +47,17 @@
                     </c:if>
                     <div class="form-group">
                         <label for="emailInput">Email </label>
-                        <input type="email" id="emailInput" jsf:value="#{UserMB.login}" placeholder="Email" required="true" class="form-control" />
+                        <div class="input-group">
+                            <span class="input-group-addon ">@</span>
+                            <input type="email" id="emailInput" jsf:value="#{UserMB.login}" placeholder="Email" required="true" class="form-control" />
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="emailInput">Password </label>
-                        <input type="password" id="emailInput" jsf:value="#{UserMB.password}" placeholder="Password" required="true" class="form-control"/>
+                        <div class="input-group">
+                            <span class="input-group-addon "><span class="glyphicon glyphicon-asterisk"></span></span>
+                            <input type="password" id="emailInput" jsf:value="#{UserMB.password}" placeholder="Password" required="true" class="input-group-lg form-control"/>
+                        </div>
                     </div>
                     
                     
