@@ -43,6 +43,7 @@ public class MessageMB {
     public void publishMessage(){
         Integer userId = (Integer) SessionUtils.getItem(SessionUtils.ID_KEY);
         messageService.publishPublicMessage(messageText, userId);
+        messageText = "";
     }
     
     private void loadMessages(){

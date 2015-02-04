@@ -40,7 +40,6 @@ public class ProfileMB implements Serializable{
     private Long birthdayTimestamp;
     private String birthdayString;
     private Part profilePictureFile;
-
     
     @EJB
     ProfileServiceLocal profileService;
