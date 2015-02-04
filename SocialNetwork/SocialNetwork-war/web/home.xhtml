@@ -108,7 +108,7 @@
               
                 <div class="col-md-8 panel panel-default">
                     <div>
-                        <h:form>
+                        <h:form enctype="multipart/form-data">
                             <div class="panel-title">
                                 <ul class="nav nav-tabs" ng-init="publishAction=0">
                                     <li role="presentation" ng-hide="publishAction==0"> 
@@ -142,9 +142,11 @@
                                 <textarea ng-show="publishAction==0" type="text" row="10" class="form-control" placeholder="Want to say something ?" jsf:value="#{MessageMB.messageText}"/>
                                 <button class="btn btn-default" ng-show="publishAction==0" width="100%" jsf:action="#{MessageMB.publishMessage()}">Publish message</button>
                                 <!--  case Picture--> 
-                                <img height="200" src="" ng-show="publishAction==1" />
-                                <input ng-show="publishAction==1" type="text" class="form-control" placeholder="Want to publish a picture ?"/>
-
+                                <div class="text-center">
+                                    <img id="uploadPreview" height="200" width="200" style="border:none;" ng-show="publishAction==1" />
+                                </div>
+                                <input id="uploadImage" type="file" jsf:value="#{MessageMB.publishPicture}" onchange="PreviewImage();" ng-show="publishAction==1" class="form-control" placeholder="Want to publish a picture ?"/>
+                   
                                 <!-- case link -->
                                 <input ng-show="publishAction==2" type="text" class="form-control" placeholder="Want to publish a video ?"/>
 
@@ -207,7 +209,14 @@
                     //alert(data);
                 });
             });
-            
+            function PreviewImage() {
+                var oFReader = new FileReader();
+                oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+
+                oFReader.onload = function (oFREvent) {
+                    document.getElementById("uploadPreview").src = oFREvent.target.result;
+                };
+            };
 
         </script>
 </html>

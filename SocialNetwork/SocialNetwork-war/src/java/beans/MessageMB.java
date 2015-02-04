@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.servlet.http.Part;
 import service.MessageServiceLocal;
 import utils.SessionUtils;
 
@@ -26,6 +27,7 @@ public class MessageMB {
 
     private String messageText;
     private List<PublicMessage>  messages;
+    private Part publishPicture;
     /**
      * Creates a new instance of MessageBean
      */
@@ -44,7 +46,7 @@ public class MessageMB {
         Integer userId = (Integer) SessionUtils.getItem(SessionUtils.ID_KEY);
         messageService.publishPublicMessage(messageText, userId);
         messageText = "";
-    }
+    } 
     
     private void loadMessages(){
         Integer userId = (Integer) SessionUtils.getItem(SessionUtils.ID_KEY);
@@ -60,5 +62,15 @@ public class MessageMB {
     public void setMessages(List<PublicMessage>  m){  
         messages = m;
     }
+
+    public Part getPublishPicture() {
+        return publishPicture;
+    }
+
+    public void setPublishPicture(Part publishPicture) {
+        this.publishPicture = publishPicture;
+    }
+    
+    
     
 }

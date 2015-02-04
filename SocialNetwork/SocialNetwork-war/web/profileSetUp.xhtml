@@ -71,8 +71,12 @@
                 <div class="form-group">
                     <h:outputText value="Profile picture" class="col-sm-2 control-label"/>
                     <div class="col-sm-10">
-                        <h:inputFile value="#{ProfileMB.profilePictureFile}" class="form-control" > 
+                        <h:inputFile  id="uploadImage"    value="#{ProfileMB.profilePictureFile}"  onchange="PreviewImage();" class="form-control" > 
                         </h:inputFile>
+
+                    </div>
+                    <div class="text-center">
+                        <img id="uploadPreview" style="width: 200px; height: 200px;" />
                     </div>
                 </div>
                 <h:commandButton value="Send" action="#{ProfileMB.createProfile()}" class="btn btn-large btn-primary ladda-button"/>
@@ -90,6 +94,15 @@
                     yearRange: "c-110:c+0"
                 });
             });
+            
+            function PreviewImage() {
+                var oFReader = new FileReader();
+                oFReader.readAsDataURL(document.getElementById("j_idt14:uploadImage").files[0]);
+
+                oFReader.onload = function (oFREvent) {
+                    document.getElementById("uploadPreview").src = oFREvent.target.result;
+                };
+            };
 
         </script>
         
