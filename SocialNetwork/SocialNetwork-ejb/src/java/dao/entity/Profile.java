@@ -28,7 +28,7 @@ public class Profile implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date birthdate;
     @Column
-    private String picture;
+    private byte[] picture;
     @Column
     private String information;
     
@@ -68,11 +68,11 @@ public class Profile implements Serializable {
         this.birthdate = birthdate;
     }
 
-    public String getPicture() {
+    public byte[] getPicture() {
         return this.picture;
     }
 
-    public void setPicture(String picture) {
+    public void setPicture(byte[] picture) {
         this.picture = picture;
     }
 

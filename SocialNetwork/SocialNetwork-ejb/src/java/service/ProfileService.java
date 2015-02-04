@@ -42,14 +42,14 @@ public class ProfileService implements ProfileServiceLocal {
 
 
     @Override
-    public void createProfile(String firstname, String lastname, String information, String profilePicture, Long birthdayTimestamp, Integer userId) {
-        currentProfile = profileFacade.findByUserId(userId);
-        currentProfile.setBirthdate(new Date());
-        currentProfile.setFirstname(firstname);
-        currentProfile.setLastname(lastname);
-        currentProfile.setInformation(information);
-        currentProfile.setPicture(profilePicture);
-        currentProfile.setUser(userFacade.find(userId));
+    public void editProfile(Profile profile) {
+        currentProfile = profile;
         profileFacade.edit(currentProfile);
+    }
+
+    @Override
+    public Profile getProfile(Integer userId) {
+        currentProfile = profileFacade.findByUserId(userId);
+        return currentProfile;
     }
 }

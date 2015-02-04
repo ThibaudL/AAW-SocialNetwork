@@ -5,6 +5,7 @@
  */
 package service;
 
+import dao.entity.User;
 import javax.ejb.Local;
 
 /**
@@ -20,4 +21,5 @@ public interface UserServiceLocal {
     public boolean searchByEmail(String email);
     public Integer getUserId();
     public Integer getProfileId();
+    public User getUser(Integer userId);
 }

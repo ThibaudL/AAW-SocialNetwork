@@ -5,6 +5,7 @@
  */
 package service;
 
+import dao.entity.Profile;
 import javax.ejb.Local;
 
 /**
@@ -17,5 +18,6 @@ public interface ProfileServiceLocal {
     public String getInformation();
     public void setInformation(String information);
 
-    public void createProfile(String firstname, String lastname, String information, String profilePicture, Long birthdayTimestamp,Integer userId);
+    public void editProfile(Profile profile);
+    public Profile getProfile(Integer userId);
 }

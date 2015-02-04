@@ -5,6 +5,8 @@
  */
 package beans;
 
+import dao.entity.Profile;
+import dao.entity.User;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -33,64 +35,24 @@ import utils.SessionUtils;
 @SessionScoped
 public class ProfileMB implements Serializable{
 
-    private String firstname;
-    private String lastname;
-    private String information;
-    private String profilePicture;
-    private Long birthdayTimestamp;
+    private Profile profile;
+    
     private String birthdayString;
     private Part profilePictureFile;
     
+    
     @EJB
     ProfileServiceLocal profileService;
+    @EJB
+    UserServiceLocal userServiceLocal;
     
     /**
      * Creates a new instance of ProfileBean
      */ 
     public ProfileMB() {
-        
+        profile = new Profile();
     }
 
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getInformation() {
-        return this.information;
-    }
-
-    public void setInformation(String information) {
-        this.information = information;
-    }
-
-    public String getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
-    }
-
-    public Long getBirthdayTimestamp() {
-        return birthdayTimestamp;
-    }
-
-    public void setBirthdayTimestamp(Long birthdayTimestamp) {
-        this.birthdayTimestamp = birthdayTimestamp;
-    }
-    
     public String getBirthdayString() {
         return birthdayString;
     }
@@ -108,28 +70,40 @@ public class ProfileMB implements Serializable{
     public void setBirthdayString(String birthdayString) {
         this.birthdayString = birthdayString;
         try {
-            this.birthdayTimestamp = (DateFormat.getDateInstance().parse(birthdayString)).getTime();
+            this.profile.setBirthdate(DateFormat.getDateInstance().parse(birthdayString));
         } catch (ParseException ex) {
             Logger.getLogger(ProfileMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public String createProfile(){
+    public String editProfile(){
         Integer userId = (Integer)SessionUtils.getItem(SessionUtils.ID_KEY);
+        User user =userServiceLocal.getUser(userId);
+        profile.setId(user.getProfile().getId());
+        profile.setUser(user);
         upload();
-        profileService.createProfile(firstname, lastname,information,profilePicture,birthdayTimestamp,userId);
+        profileService.editProfile(profile);
         return "home.xhtml";
     }
     
     private void upload(){
         try {
             if(profilePictureFile != null)
-                profilePicture = new Scanner(profilePictureFile.getInputStream())
-                    .useDelimiter("\\A").next();
+                profile.setPicture(new Scanner(profilePictureFile.getInputStream())
+                    .useDelimiter("\\A").next().getBytes());
         } catch (IOException ex) {
             Logger.getLogger(ProfileMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+    
     
 
     
