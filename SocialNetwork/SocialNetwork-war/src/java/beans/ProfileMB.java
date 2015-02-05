@@ -16,6 +16,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -51,6 +52,16 @@ public class ProfileMB implements Serializable{
     /**
      * Creates a new instance of ProfileBean
      */ 
+    @PostConstruct
+    public void init(){
+        Integer userId = (Integer)SessionUtils.getItem(SessionUtils.ID_KEY);
+        User user =userServiceLocal.getUser(userId);
+        profile = user != null ? user.getProfile() : new Profile();
+        profile.setUser(user);
+        Logger.getLogger(ProfileMB.class.getName()).log(Level.SEVERE, userId + "!!!!!!!!!!!!!!!!!!!!!!!!!! INIT !!!!!!!!!!!"+user+"!!!!!!!!!!!!"+ profile );
+
+    }
+    
     public ProfileMB() {
         profile = new Profile();
     }
@@ -89,10 +100,6 @@ public class ProfileMB implements Serializable{
     }
     
     public String editProfile(){
-        Integer userId = (Integer)SessionUtils.getItem(SessionUtils.ID_KEY);
-        User user =userServiceLocal.getUser(userId);
-        profile.setId(user.getProfile().getId());
-        profile.setUser(user);
         upload();
         profileService.editProfile(profile);
         return "home.xhtml";

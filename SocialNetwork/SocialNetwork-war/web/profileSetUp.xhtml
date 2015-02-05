@@ -2,7 +2,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:core="http://java.sun.com/jsf/core">
+      xmlns:core="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     
 <h:head>
         <h:outputStylesheet name="css/bootstrap.min.css"></h:outputStylesheet>
@@ -43,21 +44,21 @@
                 <div class="form-group">
                     <h:outputText value="Firstname" class="col-sm-2 control-label"/>
                     <div class="col-sm-10">
-                        <h:inputText value="#{ProfileMB.profile.firstname}" class="form-control"> 
+                        <h:inputText value="#{ProfileMB.profile.firstname}" class="form-control" required="true" > 
                         </h:inputText>
                     </div>
                 </div>
                 <div class="form-group">
                     <h:outputText value="Lastname" class="col-sm-2 control-label"/>
                     <div class="col-sm-10">
-                        <h:inputText value="#{ProfileMB.profile.lastname}" class="form-control"> 
+                        <h:inputText value="#{ProfileMB.profile.lastname}" class="form-control" required="true" > 
                         </h:inputText>
                     </div>
                 </div>
                 <div class="form-group">
                     <h:outputText value="Birthday" class="col-sm-2 control-label"/>
                     <div class="col-sm-10">
-                        <h:inputText value="#{ProfileMB.birthdayString}" class="form-control datepicker"> 
+                        <h:inputText value="#{ProfileMB.birthdayString}" class="form-control datepicker" required="true" > 
                         </h:inputText>
                     </div>
                 </div>
@@ -71,8 +72,7 @@
                 <div class="form-group">
                     <h:outputText value="Profile picture" class="col-sm-2 control-label"/>
                     <div class="col-sm-10">
-                        <h:inputFile  id="uploadImage"    value="#{ProfileMB.profilePictureFile}"  onchange="PreviewImage();" class="form-control" > 
-                        </h:inputFile>
+                        <p:fileUpload id="uploadImage"  class="form-control fileUploadPicture" value="#{ProfileMB.profilePictureFile}" multiple="false" required="true" mode="simple"/>
 
                     </div>
                     <div class="text-center">
@@ -93,16 +93,20 @@
                     changeYear: true,
                     yearRange: "c-110:c+0"
                 });
+                
+                $(".fileUploadPicture").change(function(){
+                    var oFReader = new FileReader();
+                    oFReader.readAsDataURL(document.getElementById("j_idt14:uploadImage").files[0]);
+
+                    oFReader.onload = function (oFREvent) {
+                       $('#uploadPreview').attr('src',oFREvent.target.result).fadeIn("slow");
+                    };
+                });
+                
+                
             });
             
-            function PreviewImage() {
-                var oFReader = new FileReader();
-                oFReader.readAsDataURL(document.getElementById("j_idt14:uploadImage").files[0]);
-
-                oFReader.onload = function (oFREvent) {
-                    document.getElementById("uploadPreview").src = oFREvent.target.result;
-                };
-            };
+        
 
         </script>
         
