@@ -58,8 +58,6 @@ public class ProfileMB implements Serializable{
         User user =userServiceLocal.getUser(userId);
         profile = user != null ? user.getProfile() : new Profile();
         profile.setUser(user);
-        Logger.getLogger(ProfileMB.class.getName()).log(Level.SEVERE, userId + "!!!!!!!!!!!!!!!!!!!!!!!!!! INIT !!!!!!!!!!!"+user+"!!!!!!!!!!!!"+ profile );
-
     }
     
     public ProfileMB() {

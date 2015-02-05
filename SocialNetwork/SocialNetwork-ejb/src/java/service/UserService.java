@@ -41,7 +41,7 @@ public class UserService implements UserServiceLocal {
     public boolean connectUser(String login, String password) {
         connectedUser = userFacade.findByEmail(login);
         if(connectedUser == null){
-            return false;
+            return false; 
         }
         boolean retour = connectedUser.getPassword().equals(hashToSHA1(password));
            if(retour)
