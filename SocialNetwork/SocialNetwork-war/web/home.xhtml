@@ -11,6 +11,7 @@
         <h:outputStylesheet name="css/bootstrap.min.css"></h:outputStylesheet>
         <h:outputStylesheet name="css/bootstrap-theme.min.css"></h:outputStylesheet>
         <h:outputStylesheet name="css/form.css"></h:outputStylesheet>
+        <h:outputStylesheet name="css/jquery-ui.css"></h:outputStylesheet>
 
                <!--<h:outputScript name="js/bootstrap.min.js"></h:outputScript>-->
         <h:outputScript name="js/jquery/jquery.js"></h:outputScript>
@@ -36,7 +37,7 @@
                         <li><a href="#">Profile</a></li>
                     </ul>
                     <form class="navbar-form navbar-right">
-                      <input type="text" class="form-control" placeholder="Search..."/>
+                      <input id="autocomplete" class="form-control ui-autocomplete-input"  />
                     </form>
                 </div>
               </div>
@@ -213,9 +214,35 @@
 </h:body>
         <script>          
             jQuery(document).ready(function($){
-                $.get( "http://localhost:8080/SocialNetwork-war/webresources/toto/tutu/#{UserMB.login}", function( data ) {
-                    //alert(data);
+
+                var availableTags = [
+                    "ActionScript",
+                    "AppleScript",
+                    "Asp",
+                    "BASIC",
+                    "C",
+                    "C++",
+                    "Clojure",
+                    "COBOL",
+                    "ColdFusion",
+                    "Erlang",
+                    "Fortran",
+                    "Groovy",
+                    "Haskell",
+                    "Java",
+                    "JavaScript",
+                    "Lisp",
+                    "Perl",
+                    "PHP",
+                    "Python",
+                    "Ruby",
+                    "Scala",
+                    "Scheme"
+                    ];
+                $( "#autocomplete" ).autocomplete({
+                        source: availableTags
                 });
+
             });
             function PreviewImage() {
                 var oFReader = new FileReader();
@@ -224,8 +251,11 @@
                 oFReader.onload = function (oFREvent) {
                     document.getElementById("uploadPreview").src = oFREvent.target.result;
                 };
-            };
+                
 
+            };
+            
+        
         </script>
 </html>
 
