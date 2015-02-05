@@ -7,6 +7,7 @@ package dao.impl;
 
 import dao.entity.Friend;
 import dao.entity.User;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -51,6 +52,11 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
         entity.getProfile().setUser(entity);
         super.create(entity); 
     }
+
+
+    
+    
+    
    
     
     

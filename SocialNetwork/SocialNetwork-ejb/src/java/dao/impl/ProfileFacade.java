@@ -6,6 +6,7 @@
 package dao.impl;
 
 import dao.entity.Profile;
+import dao.entity.User;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -37,4 +38,10 @@ public class ProfileFacade extends AbstractFacade<Profile> implements ProfileFac
         return l.size() > 0 ? l.get(0) : null;
     }
     
+    
+    @Override
+    public List<Profile> searchProfile(String nameStartWith) {
+         Query q = em.createQuery("SELECT p FROM Profile p WHERE LOWER(p.firstname) LIKE LOWER('"+ nameStartWith+"%') OR LOWER(p.lastname) LIKE LOWER('"+ nameStartWith+"%')");
+         return q.getResultList();
+    }
 }

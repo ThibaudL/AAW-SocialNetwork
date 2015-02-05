@@ -32,4 +32,6 @@ public interface ProfileFacadeLocal {
 
     int count();
     
+    List<Profile> searchProfile(String nameStartWith);
+    
 }

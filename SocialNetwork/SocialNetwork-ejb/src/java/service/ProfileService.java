@@ -9,13 +9,23 @@ import dao.entity.Profile;
 import dao.impl.ProfileFacadeLocal;
 import dao.impl.UserFacadeLocal;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
+import javax.ws.rs.GET;
+import static javax.ws.rs.HttpMethod.POST;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 
 /**
  *
  * @author Thibaud
  */
+@LocalBean
+@Path("serviceProfile") 
 @Stateful
 public class ProfileService implements ProfileServiceLocal {
 
@@ -51,5 +61,26 @@ public class ProfileService implements ProfileServiceLocal {
     public Profile getProfile(Integer userId) {
         currentProfile = profileFacade.findByUserId(userId);
         return currentProfile;
+    }
+    
+    @GET
+    @Path("startWith/{nameStartWith}")
+    @Produces("text/plain")
+    public String getProfileByName(@PathParam("nameStartWith") String nameStartWith){
+       
+        List<Profile> profiles = profileFacade.searchProfile(nameStartWith);
+        String result = "[";
+        
+        if(profiles != null && profiles.size() > 0){
+            for (Profile profile : profiles) {
+                result += "{\"id\":\"" + profile.getUser().getId()+ "\", \"firstname\":\"" + profile.getFirstname()+"\", \"lastname\":\"" + profile.getLastname()+"\"},";
+            }
+            result = result.substring(0, result.length()-1);
+            result += "]";
+
+            return result;
+        }else{
+            return "notfound";
+        }  
     }
 }

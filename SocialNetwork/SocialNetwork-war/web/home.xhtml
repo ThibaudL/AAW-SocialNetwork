@@ -218,34 +218,32 @@
 </h:body>
         <script>          
             jQuery(document).ready(function($){
-
-                var availableTags = [
-                    "ActionScript",
-                    "AppleScript",
-                    "Asp",
-                    "BASIC",
-                    "C",
-                    "C++",
-                    "Clojure",
-                    "COBOL",
-                    "ColdFusion",
-                    "Erlang",
-                    "Fortran",
-                    "Groovy",
-                    "Haskell",
-                    "Java",
-                    "JavaScript",
-                    "Lisp",
-                    "Perl",
-                    "PHP",
-                    "Python",
-                    "Ruby",
-                    "Scala",
-                    "Scheme"
-                    ];
                 $( "#autocomplete" ).autocomplete({
-                        source: availableTags
+                    source: function(request, response) {
+                        $.ajax({
+                            url: 'http://localhost:8080/SocialNetwork-war/webresources/serviceProfile/startWith/'+$('#autocomplete').val(),
+                            success: function(data){
+                                try{
+                                    var obj = jQuery.parseJSON(data);
+                                    var array = $.map(obj, function(m) {
+                                        return {
+                                            label: m.firstname + " " + m.lastname ,
+                                            value: m.id
+                                        };
+                                    });
+                                }catch(e){
+                                }
+                                response(array);
+                            },
+                        });
+                    },
+                    select: function (event, ui) {
+                        alert(ui.item.label);
+                        alert("id user : " + ui.item.value);
+                    }
+
                 });
+                
 
             });
             function PreviewImage() {

@@ -21,6 +21,7 @@ public class ApplicationConfig extends Application{
     public Set<Class<?>> getClasses() {
         HashSet<Class<?>> set = new HashSet<Class<?>>();
         set.add(UserService.class);
+        set.add(ProfileService.class);
         return set; //To change body of generated methods, choose Tools | Templates.
     }
  
