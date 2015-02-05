@@ -4,7 +4,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:core="http://java.sun.com/jsf/core"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     
 <h:head>
         <h:outputStylesheet name="css/bootstrap.min.css"></h:outputStylesheet>
@@ -50,7 +51,9 @@
                 <div class="col-md-2" >
                      <div class="infoUser">
                         <div class="thumbnail">
-                            <img class="img-circle" src="http://dummyimage.com/150x150/cccccc/fff.png"  alt="avatar"/>
+                            <!--<img class="img-circle" jsf:value="#{ProfileMB.readableProfilePicture}"  alt="avatar"/>-->
+                            <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:200px;" value="#{ProfileMB.readableProfilePicture}" />
+
                             <div class="caption text-center">
                                 <strong><a href="#">#{ProfileMB.profile.firstname} #{ProfileMB.profile.lastname}</a></strong>
                             </div>
@@ -164,7 +167,12 @@
                             <div class="col-md-6">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <img class="img-circle" width="30" height="30" src="http://dummyimage.com/30x30/cccccc/fff.png"/> #{messageContent.author.profile.firstname} #{messageContent.author.profile.lastname} said #{messageContent.date} :
+                                        <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:30px;" value="#{MessageMB.readableProfilePicture}" >
+                                            <core:param name="messageId" value="#{messageContent.id}" />
+                                        </p:graphicImage>
+                                        <!--<img class="img-circle" width="30" height="30" src="http://dummyimage.com/30x30/cccccc/fff.png"/>--> 
+                                        #{messageContent.author.profile.firstname} #{messageContent.author.profile.lastname} said #{messageContent.date} :
+                                        
                                     </div>
                                     <div class="panel-body">
                                         <div>
