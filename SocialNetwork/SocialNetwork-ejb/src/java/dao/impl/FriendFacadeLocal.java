@@ -30,4 +30,6 @@ public interface FriendFacadeLocal {
 
     int count();
     
+    List<Friend> findByUserId(Integer id);
+    
 }

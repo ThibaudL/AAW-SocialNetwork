@@ -2,6 +2,7 @@ package dao.entity;
 
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +25,9 @@ public class Friend implements Serializable{
     @OneToOne
     @JoinColumn(name = "friend_fk")
     public User friend;
+    
+    @Column
+    public boolean valid = false;
 
     @Override
     public int hashCode() {
@@ -80,4 +84,14 @@ public class Friend implements Serializable{
     public void setFriend(User friend) {
         this.friend = friend;
     }
+
+    public boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
+    }
+    
+    
 }

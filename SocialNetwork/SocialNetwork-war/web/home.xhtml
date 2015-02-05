@@ -52,7 +52,7 @@
                      <div class="infoUser">
                         <div class="thumbnail">
                             <!--<img class="img-circle" jsf:value="#{ProfileMB.readableProfilePicture}"  alt="avatar"/>-->
-                            <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:200px;" value="#{ProfileMB.readableProfilePicture}" />
+                            <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:150px; height:150px;"  value="#{ProfileMB.readableProfilePicture}" />
 
                             <div class="caption text-center">
                                 <strong><a href="#">#{ProfileMB.profile.firstname} #{ProfileMB.profile.lastname}</a></strong>
@@ -167,7 +167,7 @@
                             <div class="col-md-6">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:30px;" value="#{MessageMB.readableProfilePicture}" >
+                                        <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:30px; height: 30px;" value="#{MessageMB.readableProfilePicture}" >
                                             <core:param name="messageId" value="#{messageContent.id}" />
                                         </p:graphicImage>
                                         <!--<img class="img-circle" width="30" height="30" src="http://dummyimage.com/30x30/cccccc/fff.png"/>--> 

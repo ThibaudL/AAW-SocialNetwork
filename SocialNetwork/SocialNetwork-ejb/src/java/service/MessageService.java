@@ -15,6 +15,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -45,7 +47,10 @@ public class MessageService implements MessageServiceLocal {
     public void loadPublicMessages(Integer authorId) {
         messages = publicMessageFacade.findByAuthorId(authorId);
         User currentUser = userFacade.find(authorId);
+        Logger.getLogger(MessageService.class.getName()).log(Level.SEVERE,  currentUser.toString());
+        
         for (Friend f : currentUser.getFriends()) {
+             
             messages.addAll(publicMessageFacade.findByAuthorId(f.friend.getId()));
         }
         Collections.sort(messages, new Comparator<PublicMessage>() {

@@ -6,9 +6,12 @@
 package dao.impl;
 
 import dao.entity.Friend;
+import dao.entity.Profile;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +30,19 @@ public class FriendFacade extends AbstractFacade<Friend> implements FriendFacade
     public FriendFacade() {
         super(Friend.class);
     }
+    
+    @Override
+    public List<Friend> findByUserId(Integer id) {
+        Query q = em.createQuery("SELECT f FROM Friend f WHERE f.user.id="+id);
+        return q.getResultList();
+    }
+
+    @Override
+    public void create(Friend entity) {
+        super.create(entity); 
+    }
+    
+    
 
  
     
