@@ -55,9 +55,11 @@ public class ProfileMB implements Serializable{
     @PostConstruct
     public void init(){
         Integer userId = (Integer)SessionUtils.getItem(SessionUtils.ID_KEY);
-        User user =userServiceLocal.getUser(userId);
-        profile = user != null ? user.getProfile() : new Profile();
-        profile.setUser(user);
+        if(userId != null){
+            User user =userServiceLocal.getUser(userId);
+            profile = user != null ? user.getProfile() : new Profile();
+            profile.setUser(user);
+        }
     }
     
     public ProfileMB() {

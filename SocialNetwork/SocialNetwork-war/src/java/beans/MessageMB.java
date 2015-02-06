@@ -36,6 +36,7 @@ public class MessageMB {
 
     private String messageText;
     private List<PublicMessage>  messages; 
+    private List<PublicMessage>  myMessages; 
     private Part publishPicture;
     private StreamedContent readableProfilePicture;
     /**
@@ -54,18 +55,21 @@ public class MessageMB {
     
     public void publishMessage(){
         Integer userId = (Integer) SessionUtils.getItem(SessionUtils.ID_KEY);
-        messageService.publishPublicMessage(messageText, userId);
-        messageText = "";
+        if(userId != null){
+            messageService.publishPublicMessage(messageText, userId);
+            messageText = "";
+        }
     } 
     
     private void loadMessages(){
         Integer userId = (Integer) SessionUtils.getItem(SessionUtils.ID_KEY);
-        messageService.loadPublicMessages(userId);
+        if(userId != null)
+            messageService.loadPublicMessages(userId);
     }
     
     public List<PublicMessage> getMessages(){
         loadMessages();
-        messages = messageService.getMessagesContents();
+        messages = messageService.getMyNews();
         return messages;
     }
     
@@ -102,6 +106,18 @@ public class MessageMB {
     public void setReadableProfitePicture(StreamedContent readableProfilePicture) {
         this.readableProfilePicture = readableProfilePicture;
     }
+
+    public List<PublicMessage> getMyMessages() {
+        loadMessages();
+        myMessages = messageService.getMyMessages();
+        return myMessages;
+    }
+
+    public void setMyMessages(List<PublicMessage> myMessages) {
+        this.myMessages = myMessages;
+    }
+    
+    
     
     
 }
