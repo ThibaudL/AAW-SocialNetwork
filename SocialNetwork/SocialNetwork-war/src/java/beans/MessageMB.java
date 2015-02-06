@@ -62,9 +62,14 @@ public class MessageMB {
     } 
     
     private void loadMessages(){
-        Integer userId = (Integer) SessionUtils.getItem(SessionUtils.ID_KEY);
-        if(userId != null)
-            messageService.loadPublicMessages(userId);
+        Integer userId;
+        String idString = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("wallId");
+        if(idString == null){
+            userId = (Integer)SessionUtils.getItem(SessionUtils.ID_KEY);
+        }else{
+            userId = Integer.parseInt(idString);
+        }
+        messageService.loadPublicMessages(userId);
     }
     
     public List<PublicMessage> getMessages(){
