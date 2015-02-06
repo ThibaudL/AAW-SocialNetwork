@@ -19,6 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import service.FriendServiceLocal;
 import service.ProfileServiceLocal;
 import utils.SessionUtils;
 
@@ -35,6 +36,9 @@ public class WallMB {
     private Profile profile;
     @EJB
     ProfileServiceLocal profileService;
+    
+    @EJB
+    FriendServiceLocal friendService;
     
     
     public void init() {
@@ -88,6 +92,11 @@ public class WallMB {
 
     public void setProfile(Profile profile) {
         this.profile = profile;
+    }
+    
+    public String addFriend(){
+        friendService.addFriend((Integer)SessionUtils.getItem(SessionUtils.ID_KEY), userId);
+        return "#";
     }
     
     

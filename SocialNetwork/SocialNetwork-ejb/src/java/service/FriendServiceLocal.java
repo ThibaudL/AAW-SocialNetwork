@@ -19,5 +19,7 @@ public interface FriendServiceLocal {
     List<Friend> getFriends(Integer userId);
 
     void addFriend(Integer userId, Integer friendId);
+
+    void validFriendShip(Integer userId, Integer friendId);
     
 }

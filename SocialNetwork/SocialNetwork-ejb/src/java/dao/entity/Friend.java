@@ -14,14 +14,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Friends")
 public class Friend implements Serializable{
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
     
+    @Id
     @OneToOne
     @JoinColumn(name = "user_fk")
     public User user;
     
+    @Id
     @OneToOne
     @JoinColumn(name = "friend_fk")
     public User friend;
@@ -58,15 +57,6 @@ public class Friend implements Serializable{
             return lEquals;
         }
         return false;
-    }
-
-    
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
     
      public User getUser() {

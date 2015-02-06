@@ -37,6 +37,19 @@ public class FriendService implements FriendServiceLocal {
         f.setFriend(userFacade.find(friendId));
         friendFacade.create(f);
     }
+
+    @Override
+    public void validFriendShip(Integer userId, Integer friendId) {
+        Friend f = new Friend();
+        f.setValid(true);
+        f.setUser(userFacade.find(userId));
+        f.setFriend(userFacade.find(friendId));
+        friendFacade.create(f);
+        friendFacade.addValidFriend(userId, friendId);
+        
+    }
+    
+    
     
     
 }

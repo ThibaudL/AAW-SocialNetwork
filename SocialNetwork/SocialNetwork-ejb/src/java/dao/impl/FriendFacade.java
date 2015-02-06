@@ -41,6 +41,12 @@ public class FriendFacade extends AbstractFacade<Friend> implements FriendFacade
     public void create(Friend entity) {
         super.create(entity); 
     }
+
+    @Override
+    public void addValidFriend(Integer userId, Integer friendId) {
+        Query q = em.createQuery("UPDATE Friend f SET f.valid = 0 WHERE f.user.id="+friendId+ " AND f.friend.id="+userId);  
+    }
+    
     
     
 
