@@ -18,8 +18,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "users")
@@ -47,6 +45,9 @@ public class User implements Serializable {
     
     @OneToMany(mappedBy="author", cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     private List<PrivateMessage> privateMessages = new ArrayList<>();
+    
+    @OneToMany(mappedBy="author", cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+    private List<Album> albums = new ArrayList<>();
     
     @OneToOne(mappedBy="user", cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     private Profile profile;
@@ -161,6 +162,15 @@ public class User implements Serializable {
     public boolean removePublicMessage(PublicMessage pm) {
         return publicMessages.remove(pm);
     }
+
+    public List<Album> getAlbums() {
+        return albums;
+    }
+
+    public void setAlbums(List<Album> albums) {
+        this.albums = albums;
+    }
+    
     
 
     @Override

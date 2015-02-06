@@ -19,5 +19,7 @@ public interface MessageServiceLocal {
     
     public void loadPublicMessages(Integer authorId);
     
-    public List<PublicMessage> getMessagesContents(); 
+    public List<PublicMessage> getMyMessages();
+    
+    public List<PublicMessage> getMyNews(); 
 }

@@ -32,7 +32,8 @@ public class MessageService implements MessageServiceLocal {
     @EJB
     UserFacadeLocal userFacade;
     
-    List<PublicMessage> messages;
+    List<PublicMessage> myNewsMessages;
+    List<PublicMessage> myMessages;
     
     @Override
     public void publishPublicMessage(String content, Integer userId) {
@@ -45,15 +46,16 @@ public class MessageService implements MessageServiceLocal {
 
     @Override
     public void loadPublicMessages(Integer authorId) {
-        messages = publicMessageFacade.findByAuthorId(authorId);
+        myMessages = publicMessageFacade.findByAuthorId(authorId);
+        myNewsMessages = myMessages;
         User currentUser = userFacade.find(authorId);
         Logger.getLogger(MessageService.class.getName()).log(Level.SEVERE,  currentUser.toString());
         
         for (Friend f : currentUser.getFriends()) {
              
-            messages.addAll(publicMessageFacade.findByAuthorId(f.friend.getId()));
+            myNewsMessages.addAll(publicMessageFacade.findByAuthorId(f.friend.getId()));
         }
-        Collections.sort(messages, new Comparator<PublicMessage>() {
+        Collections.sort(myNewsMessages, new Comparator<PublicMessage>() {
             @Override
             public int compare(PublicMessage o1, PublicMessage o2) {
                 return -(o1.getDate().compareTo(o2.getDate()));                  
@@ -62,8 +64,13 @@ public class MessageService implements MessageServiceLocal {
     }
 
     @Override
-    public List<PublicMessage> getMessagesContents() {
-        return messages;
+    public List<PublicMessage> getMyNews() {
+        return myNewsMessages;
+    }
+
+    @Override
+    public List<PublicMessage> getMyMessages() {
+        return myMessages;
     }
     
     

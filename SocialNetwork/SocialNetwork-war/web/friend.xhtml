@@ -34,14 +34,16 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <h:form>
-                                <h:commandButton value="Logout" action="#{LogoutMB.logout()}" class="form-control"/>
+                            <form class="navbar-form navbar-right">
+                                <input id="autocomplete" class="form-control ui-autocomplete-input"  />
+                            </form>
+                        </li>
+                        <li>
+                            <h:form class="navbar-form navbar-right">
+                                <h:commandButton value="Logout" action="#{LogoutMB.logout()}" class="form-control btn-primary "/>
                             </h:form>
                         </li>
                     </ul>
-                    <form class="navbar-form navbar-right">
-                      <input type="text" class="form-control" placeholder="Search..."/>
-                    </form>
                 </div>
               </div>
         </nav>
@@ -66,7 +68,7 @@
                     <div class="profileUser">
                         
                         <p class="text-left">
-                            <h4><small><strong><a href="#">Profile</a></strong></small></h4>
+                            <h4><small><strong><a href="wall.xhtml">Profile</a></strong></small></h4>
                             <ul>
                                 <li>
                                     Lorem ipsum
