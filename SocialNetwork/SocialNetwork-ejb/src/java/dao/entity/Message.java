@@ -52,6 +52,11 @@ public class Message implements Serializable {
     
     @OneToMany(mappedBy = "source")
     public List<Comment> comments = new ArrayList<>();
+    
+    @OneToOne
+    @JoinColumn(name = "picture_fk")
+    public Picture picture;
+    
 
     public User getAuthor() {
         return this.author;
@@ -91,6 +96,14 @@ public class Message implements Serializable {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public Picture getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Picture picture) {
+        this.picture = picture;
     }
     
     

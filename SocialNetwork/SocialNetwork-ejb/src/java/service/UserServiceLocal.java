@@ -11,7 +11,7 @@ import javax.ejb.Local;
 /**
  *
  * @author Thibaud
- */
+ */ 
 @Local
 public interface UserServiceLocal {
     

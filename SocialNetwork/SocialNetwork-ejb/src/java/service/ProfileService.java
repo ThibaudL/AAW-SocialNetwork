@@ -8,6 +8,7 @@ package service;
 import dao.entity.Profile;
 import dao.impl.ProfileFacadeLocal;
 import dao.impl.UserFacadeLocal;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -73,7 +74,7 @@ public class ProfileService implements ProfileServiceLocal {
         
         if(profiles != null && profiles.size() > 0){
             for (Profile profile : profiles) {
-                result += "{\"id\":\"" + profile.getUser().getId()+ "\", \"firstname\":\"" + profile.getFirstname()+"\", \"lastname\":\"" + profile.getLastname()+"\"},";
+                result += "{\"id\":\"" + profile.getUser().getId()+ "\", \"firstname\":\"" + profile.getFirstname()+"\", \"lastname\":\"" + profile.getLastname()+"\", \"picture\":\"" +Arrays.toString(profile.getPicture())+"\"},";
             }
             result = result.substring(0, result.length()-1);
             result += "]";
@@ -82,5 +83,5 @@ public class ProfileService implements ProfileServiceLocal {
         }else{
             return "notfound";
         }  
-    }
+    } 
 }

@@ -231,7 +231,8 @@
                                     var array = $.map(obj, function(m) {
                                         return {
                                             label: m.firstname + " " + m.lastname ,
-                                            value: m.id
+                                            value: m.id,
+                                            logo: m.picture
                                         };
                                     });
                                 }catch(e){
@@ -243,12 +244,20 @@
                     select: function (event, ui) {
                         alert(ui.item.label);
                         alert("id user : " + ui.item.value);
+                        alert("picture : " + ui.item.logo);
                     }
-
-                });
-                
-
+                }).autocomplete( "instance" )._renderItem = function( ul, item ) {
+                    var image = new Image;
+                    if(item.logo){
+                        image.src = 'data:image/png;base64,'+item.logo;
+                    }
+                    return $( "<li>" )
+                      .append( image.src+ "<a>" + item.label + "</a></li>" )
+                      .appendTo( ul );
+                  };
+    
             });
+                
             function PreviewImage() {
                 var oFReader = new FileReader();
                 oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
