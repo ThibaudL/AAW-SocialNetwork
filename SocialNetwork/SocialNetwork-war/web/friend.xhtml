@@ -9,6 +9,7 @@
         <h:outputStylesheet name="css/bootstrap.min.css"></h:outputStylesheet>
         <h:outputStylesheet name="css/bootstrap-theme.min.css"></h:outputStylesheet>
         <h:outputStylesheet name="css/form.css"></h:outputStylesheet>
+        <h:outputStylesheet name="css/jquery-ui.css"></h:outputStylesheet>
 
                <!--<h:outputScript name="js/bootstrap.min.js"></h:outputScript>-->
         <h:outputScript name="js/jquery/jquery.js"></h:outputScript>
@@ -131,11 +132,53 @@
     </div>
 </h:body>
         <script>          
-            jQuery(document).ready(function($){
-                $.get( "http://localhost:8080/SocialNetwork-war/webresources/toto/tutu/#{UserMB.login}", function( data ) {
-                   // alert(data);
-                });
-            });
+        jQuery(document).ready(function($){
+            $( "#autocomplete" ).autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: 'http://localhost:8080/SocialNetwork-war/webresources/serviceProfile/startWith/'+$('#autocomplete').val(),
+                        success: function(data){
+                            try{
+                                var obj = jQuery.parseJSON(data);
+                                var array = $.map(obj, function(m) {
+                                    return {
+                                        label: m.firstname + " " + m.lastname ,
+                                        id: m.id,
+                                        logo: m.picture
+                                    };
+                                });
+                            }catch(e){
+                            }
+                            response(array);
+                        },
+                    });
+                },
+                select: function (event, ui) {
+                   window.location.href = "wall.xhtml?wallId="+ui.item.id;
+                }
+            }).autocomplete( "instance" )._renderItem = function( ul, item ) {
+                var src;
+                var style = 'width:25px;height:25px;';
+                var classIMG = 'img-circle';
+                if(item.logo){
+                    src = 'data:image/png;base64,'+item.logo;
+                }
+                return $( "<li>" )
+                  .append( "<a><img class="+classIMG+" style="+style+" src="+src+ "/>"  +item.label + "</a></li>" )
+                  .appendTo( ul );
+              };
+
+        });
+        function PreviewImage() {
+                var oFReader = new FileReader();
+                oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+
+                oFReader.onload = function (oFREvent) {
+                    document.getElementById("uploadPreview").src = oFREvent.target.result;
+                };
+                
+
+            };
             
 
         </script>
