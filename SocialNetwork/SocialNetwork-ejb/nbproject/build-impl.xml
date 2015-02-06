@@ -800,6 +800,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.derbyclient.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.jandex-1.1.0.final.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${libs.eclipselink.classpath}" todir="${build.classes.dir}"/>
+        <copyfiles files="${libs.primefaces.classpath}" todir="${build.classes.dir}"/>
     </target>
     <target if="is.server.weblogic" name="-library-inclusion-in-archive-weblogic">
         <basename file="${libs.jpa20-persistence.classpath}" property="manifest.libs.jpa20-persistence.classpath"/>
@@ -809,8 +810,9 @@ exists or setup the property manually. For example like this:
         <basename file="${file.reference.derbyclient.jar}" property="manifest.file.reference.derbyclient.jar"/>
         <basename file="${file.reference.jandex-1.1.0.final.jar}" property="manifest.file.reference.jandex-1.1.0.final.jar"/>
         <basename file="${libs.eclipselink.classpath}" property="manifest.libs.eclipselink.classpath"/>
+        <basename file="${libs.primefaces.classpath}" property="manifest.libs.primefaces.classpath"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Extension-List" value="jar-1 jar-2 jar-3 jar-4 jar-5 jar-6 jar-7 "/>
+            <attribute name="Extension-List" value="jar-1 jar-2 jar-3 jar-4 jar-5 jar-6 jar-7 jar-8 "/>
             <attribute name="jar-1-Extension-Name" value="${manifest.libs.jpa20-persistence.classpath}"/>
             <attribute name="jar-2-Extension-Name" value="${manifest.libs.JAVADB_DRIVER_LABEL.classpath}"/>
             <attribute name="jar-3-Extension-Name" value="${manifest.libs.eclipselinkmodelgen.classpath}"/>
@@ -818,6 +820,7 @@ exists or setup the property manually. For example like this:
             <attribute name="jar-5-Extension-Name" value="${manifest.file.reference.derbyclient.jar}"/>
             <attribute name="jar-6-Extension-Name" value="${manifest.file.reference.jandex-1.1.0.final.jar}"/>
             <attribute name="jar-7-Extension-Name" value="${manifest.libs.eclipselink.classpath}"/>
+            <attribute name="jar-8-Extension-Name" value="${manifest.libs.primefaces.classpath}"/>
         </manifest>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
@@ -828,6 +831,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.derbyclient.jar}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.jandex-1.1.0.final.jar}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.eclipselink.classpath}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${libs.primefaces.classpath}" todir="${dist.ear.dir}/lib"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update"/>
     </target>
     <target name="-copy-meta-inf">

@@ -231,7 +231,7 @@
                                     var array = $.map(obj, function(m) {
                                         return {
                                             label: m.firstname + " " + m.lastname ,
-                                            value: m.id,
+                                            id: m.id,
                                             logo: m.picture
                                         };
                                     });
@@ -242,17 +242,17 @@
                         });
                     },
                     select: function (event, ui) {
-                        alert(ui.item.label);
-                        alert("id user : " + ui.item.value);
-                        alert("picture : " + ui.item.logo);
+                       window.location.href = "wall.xhtml?id="+ui.item.id;
                     }
                 }).autocomplete( "instance" )._renderItem = function( ul, item ) {
-                    var image = new Image;
+                    var src;
+                    var style = 'width:25px;height:25px;';
+                    var classIMG = 'img-circle';
                     if(item.logo){
-                        image.src = 'data:image/png;base64,'+item.logo;
+                        src = 'data:image/png;base64,'+item.logo;
                     }
                     return $( "<li>" )
-                      .append( image.src+ "<a>" + item.label + "</a></li>" )
+                      .append( "<a><img class="+classIMG+" style="+style+" src="+src+ "/>"  +item.label + "</a></li>" )
                       .appendTo( ul );
                   };
     

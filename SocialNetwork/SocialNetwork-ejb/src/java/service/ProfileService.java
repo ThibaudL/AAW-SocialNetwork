@@ -20,6 +20,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import org.primefaces.util.Base64;
 
 /**
  *
@@ -74,7 +75,8 @@ public class ProfileService implements ProfileServiceLocal {
         
         if(profiles != null && profiles.size() > 0){
             for (Profile profile : profiles) {
-                result += "{\"id\":\"" + profile.getUser().getId()+ "\", \"firstname\":\"" + profile.getFirstname()+"\", \"lastname\":\"" + profile.getLastname()+"\", \"picture\":\"" +Arrays.toString(profile.getPicture())+"\"},";
+                
+                result += "{\"id\":\"" + profile.getUser().getId()+ "\", \"firstname\":\"" + profile.getFirstname()+"\", \"lastname\":\"" + profile.getLastname()+"\", \"picture\":\"" +Base64.encodeToString(profile.getPicture(),false)+"\"},";
             }
             result = result.substring(0, result.length()-1);
             result += "]";
