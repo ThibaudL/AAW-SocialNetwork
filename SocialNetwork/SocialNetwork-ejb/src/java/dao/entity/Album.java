@@ -27,7 +27,7 @@ public class Album implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
     
     @Column
     private String title;
@@ -39,11 +39,11 @@ public class Album implements Serializable {
     @JoinColumn(name = "author_fk")
     private User author;
     
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -71,7 +71,13 @@ public class Album implements Serializable {
         this.author = author;
     }
     
+    public void addPicture(Picture p){
+        pictures.add(p);
+    }
     
+    public void removePicture(Picture p){
+        pictures.remove(p);
+    }
     
     
 

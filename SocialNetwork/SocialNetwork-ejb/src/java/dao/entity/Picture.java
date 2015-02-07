@@ -23,7 +23,7 @@ public class Picture implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
     
     @Column
     private byte[] content;
@@ -32,11 +32,11 @@ public class Picture implements Serializable {
     @JoinColumn(name = "album_fk")
     private Album album;
     
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

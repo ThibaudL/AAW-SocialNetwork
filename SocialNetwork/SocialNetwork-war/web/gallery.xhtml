@@ -13,16 +13,18 @@
         <h:outputStylesheet name="css/form.css"></h:outputStylesheet>
         <h:outputStylesheet name="css/jquery-ui.css"></h:outputStylesheet>
         <h:outputStylesheet name="css/alert.css"></h:outputStylesheet>
+        <h:outputStylesheet name="css/least.min.css"></h:outputStylesheet>
 
                <!--<h:outputScript name="js/bootstrap.min.js"></h:outputScript>-->
         <h:outputScript name="js/jquery/jquery.js"></h:outputScript>
         <h:outputScript name="js/jquery/jquery-ui.js"></h:outputScript>
         <h:outputScript name="js/angular.min.js"></h:outputScript>
         <h:outputScript name="js/jquery/ohsnap.js"></h:outputScript>
+        <h:outputScript name="js/jquery/least.min.js"></h:outputScript>
 
 </h:head>
 <h:body>
-
+    #{AlbumMB.init()}
     <div ng-app="" >
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
               <div class="container-fluid">
@@ -75,7 +77,10 @@
                             <h4><small><strong><a href="wall.xhtml">Profile</a></strong></small></h4>
                             <ul>
                                 <li>
-                                    <a href="album.xhtml">Albums</a>
+                                    Lorem ipsum
+                                </li>
+                                <li>
+                                    Lorem ipsum
                                 </li>
                                 <li>
                                     Lorem ipsum
@@ -119,110 +124,46 @@
               
                 <div class="col-md-8 panel panel-default">
                     <div class="panel-body">
-                        <h:form class="" enctype="multipart/form-data">
-                            <div class="">
-                                <ul class="nav nav-tabs" ng-init="publishAction=0">
-                                    <li role="presentation" ng-hide="publishAction==0"> 
-                                        <a href="#"  ng-click="publishAction=0"><i class="glyphicon glyphicon-pencil"/> Text</a>
-                                    </li>
-                                    <li role="presentation" class="active" ng-show="publishAction==0"> 
-                                        <a href="#"><i class="glyphicon glyphicon-pencil"/> Text</a>
-                                    </li>
-                                    <li role="presentation" ng-hide="publishAction==1">
-                                        <a href="#"  ng-click="publishAction=1"><i class="glyphicon glyphicon-picture"/> Picture</a>
-                                    </li>
-                                    <li role="presentation" class="active" ng-show="publishAction==1">
-                                        <a href="#"><i class="glyphicon glyphicon-picture"/> Picture</a>
-                                    </li>
-                                    <li role="presentation" ng-hide="publishAction==2">
-                                       <a href="#" ng-click="publishAction=2"><i class="glyphicon glyphicon-link"/> Link</a>
-                                    </li>
-                                    <li role="presentation" class="active" ng-show="publishAction==2">
-                                       <a href="#"><i class="glyphicon glyphicon-link"/> Link</a>
-                                    </li>
-                                    <li role="presentation" ng-hide="publishAction==3">
-                                       <a href="#" ng-click="publishAction=3"><i class="glyphicon glyphicon-facetime-video"/> Video</a>
-                                    </li>
-                                    <li role="presentation" class="active" ng-show="publishAction==3">
-                                       <a href="#"><i class="glyphicon glyphicon-facetime-video"/> Video</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="">
-                                <!--  case text--> 
-                                <div>
-                                    <textarea ng-show="publishAction==0" type="text" row="10" class="form-control" placeholder="Want to say something ?" jsf:value="#{MessageMB.messageText}"/>
-                                </div>
-                                <div>
-                                    <button class="btn btn-default btn-block" ng-show="publishAction==0" width="100%" jsf:action="#{MessageMB.publishMessage()}">Publish message</button>
-                                </div>
-                                
-                                <!--  case Picture--> 
-                                <div class="text-center">
-                                    <img id="uploadPreview" height="200" width="200" style="border:none;" ng-show="publishAction==1" />
-                                    <textarea ng-show="publishAction==1" type="text" row="10" class="form-control" placeholder="Want to say something ?" jsf:value="#{MessageMB.messageTextPicture}"/>
-                                </div>
-                                <div>
-                                    <input id="uploadImage" type="file" jsf:value="#{MessageMB.publishPicture}" onchange="PreviewImage();" ng-show="publishAction==1" class="form-control" placeholder="Want to publish a picture ?"/>
-                                </div>
-                                <div>
-                                    <button class="btn btn-default btn-block" ng-show="publishAction==1" width="100%" jsf:action="#{MessageMB.publishMessage()}">Publish picture</button>
-                                </div>
-                                <!-- case link -->
-                                <input ng-show="publishAction==2" type="text" class="form-control" placeholder="Want to publish a link ?"/>
+                        <div>
+                            <h3><h:outputText value="Add picture : " /></h3>
+                            <h:form class="form-horizontal" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <h:outputText value="Picture" class="col-sm-2 control-label"/>
+                                    <div class="col-sm-10">
+                                        <p:fileUpload id="uploadImage"  class="form-control fileUploadPicture" value="#{AlbumMB.pictureFile}" multiple="false" required="true" mode="simple"/>
 
-                                <!--  case Video--> 
-                                <div ng-show="publishAction==3" class="embed-responsive embed-responsive-16by9">
-                                    <video ng-show="publishAction==3" class="embed-responsive-item" height="200" src="http://www.w3schools.com/html/movie.mp4" controls="controls"></video>
+                                    </div>
                                 </div>
-                                <input ng-show="publishAction==3" type="text" ng-model="videoPath" class="form-control" placeholder="Want to publish a video ?"/>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <h:commandButton value="Add" action="#{AlbumMB.upload()}" class="btn btn-large btn-primary ladda-button"/>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                        
+                        
+                        <!-- Least Gallery -->
+                        <section id="least">
 
-                            </div>
-                        </h:form>
-                    </div>
-                    <div>
-                        <ui:repeat var="messageContent" value="#{MessageMB.messages}" varStatus="status">
-                            <div class="col-md-6">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:30px; height: 30px;" value="#{MessageMB.readableProfilePicture}" >
-                                            <core:param name="messageId" value="#{messageContent.id}" />
-                                        </p:graphicImage>
-                                        <!--<img class="img-circle" width="30" height="30" src="http://dummyimage.com/30x30/cccccc/fff.png"/>--> 
-                                        #{messageContent.author.profile.firstname} #{messageContent.author.profile.lastname} said #{messageContent.date} :
-                                        
-                                    </div>
-                                    <div class="panel-body">
-                                        <div>
-                                            #{messageContent.content}
-                                        </div>
-                                        <div>
-                                            
-                                        </div>
-                                    </div>
-                                    
-                                    <div  class="panel-info">
-                                        <div class="">
-                                            <form class="form-group">
-                                                <input type="text" width="80%" class="form-control" placeholder="What do you feel about this ?" />
-                                                <button class="btn btn-block">Send</button>
-                                            </form>
-                                        </div>
-                                        <div class="text-right">
-                                            <a href="#" ng-click="afficherComment[#{messageContent.id}]=true" ng-show="afficherComment[#{messageContent.id}]==false">Display comments ...</a>
-                                            <a href="#" ng-click="afficherComment[#{messageContent.id}]=false" ng-show="afficherComment[#{messageContent.id}]==true">Hide comments ...</a>
-                                        </div>
-                                        <div  ng-show="afficherComment[#{messageContent.id}]==true" ng-init="afficherComment[#{messageContent.id}]=false">
-                                            <ui:repeat var="comment" value="#{messageContent.comments}" varStatus="status">
-                                                <div>
-                                                    #{comment.content}
-                                                </div>
-                                            </ui:repeat>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </ui:repeat>
+                          <!-- Least Gallery: Fullscreen Preview -->
+                          <div class="least-preview"></div>
+
+                            <!-- Least Gallery: Thumbnails -->
+                            <ul class="least-gallery">
+                              <!-- 1th thumbnail -->
+                              <ui:repeat var="picture" value="#{AlbumMB.pictures}" varStatus="status">
+                                    <li>
+                                      <a href="data:image/jpg;base64,#{picture}" data-subtitle="View Picture"  >
+                                        <img src="data:image/jpg;base64,#{picture}" class="img-thumbnail" alt="Picture" />
+                                      </a>
+                                    </li>
+                                </ui:repeat>
+
+                            </ul>
+
+                        </section>
+                        <!-- Least Gallery end -->
                     </div>
                     
                 </div>
@@ -233,6 +174,8 @@
 </h:body>
         <script>    
         jQuery(document).ready(function($){
+            $('.least-gallery').least();
+            
             $( "#autocomplete" ).autocomplete({
                 source: function(request, response) {
                     $.ajax({

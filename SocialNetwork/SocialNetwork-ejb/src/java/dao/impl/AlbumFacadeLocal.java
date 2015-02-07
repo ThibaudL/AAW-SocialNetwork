@@ -30,4 +30,7 @@ public interface AlbumFacadeLocal {
 
     int count();
     
+    List<Album> findByUserId(Integer id);
+    
+    Album findAlbumByUser(Integer id, Integer userId);
 }

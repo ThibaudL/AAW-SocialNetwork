@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:core="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+<h:head>
+        <h:outputStylesheet name="css/bootstrap.min.css"></h:outputStylesheet>
+        <h:outputStylesheet name="css/bootstrap-theme.min.css"></h:outputStylesheet>
+        <h:outputStylesheet name="css/form.css"></h:outputStylesheet>
+        <h:outputStylesheet name="css/jquery-ui.css"></h:outputStylesheet>
+
+               <!--<h:outputScript name="js/bootstrap.min.js"></h:outputScript>-->
+        <h:outputScript name="js/jquery/jquery.js"></h:outputScript>
+        <h:outputScript name="js/jquery/jquery-ui.js"></h:outputScript>
+        <h:outputScript name="js/angular.min.js"></h:outputScript>
+
+</h:head>
+<h:body>
+    <div ng-app="">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span> 
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="home.xhtml#">Social Network</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <form class="navbar-form navbar-right">
+                                <input id="autocomplete" class="form-control ui-autocomplete-input"  />
+                            </form>
+                        </li>
+                        <li>
+                            <h:form class="navbar-form navbar-right">
+                                <h:commandButton value="Logout" action="#{LogoutMB.logout()}" class="form-control btn-primary "/>
+                            </h:form>
+                        </li>
+                    </ul>
+                </div>
+              </div>
+        </nav>
+
+            <br/>
+            <br/>
+        <br/>
+
+        <div class ="container">
+            <div class="row">
+                <div class="col-md-2" >
+                    <div class="infoUser">
+                        <div class="thumbnail">
+                            <!--<img class="img-circle" jsf:value="#{ProfileMB.readableProfilePicture}"  alt="avatar"/>-->
+                            <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:150px; height:150px;" value="#{ProfileMB.readableProfilePicture}" />
+
+                            <div class="caption text-center">
+                                <strong><a href="#">#{ProfileMB.profile.firstname} #{ProfileMB.profile.lastname}</a></strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profileUser">
+                        
+                        <p class="text-left">
+                            <h4><small><strong><a href="wall.xhtml">Profile</a></strong></small></h4>
+                            <ul>
+                                <li>
+                                    Lorem ipsum
+                                </li>
+                                <li>
+                                    Lorem ipsum
+                                </li>
+                                <li>
+                                    Lorem ipsum
+                                </li>
+                            </ul>
+                        </p>
+                    </div>
+                    <div class="messagesUser">
+                        <p class="text-left">
+                            <h4><small><strong><a href="#">Messages <span class="badge">3</span></a></strong></small></h4>
+                            <ul>
+                                <li>
+                                    Lorem ipsum
+                                </li>
+                                <li>
+                                    Lorem ipsum
+                                </li>
+                                <li>
+                                    Lorem ipsum
+                                </li>
+                            </ul>
+                        </p>
+                    </div> 
+                    <div class="FriendsUser">
+                        <p class="text-left">
+                            <h4><small><strong><a href="#">Friends</a></strong></small></h4>
+                            <ul>
+                                <li>
+                                    Lorem ipsum
+                                </li>
+                                <li>
+                                    Lorem ipsum
+                                </li>
+                                <li>
+                                    Lorem ipsum
+                                </li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-8 panel panel-default panel-body">
+                    <div>
+                        <h3>Create an album :</h3>
+                        <h:form class="form-horizontal">
+                            <div class="form-group">
+                                <h:outputText value="Name" class="col-sm-2 control-label"/>
+                                <div class="col-sm-10">
+                                    <h:inputText value="#{AlbumMB.name}" class="form-control" required="true" > 
+                                    </h:inputText>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                  <h:commandButton value="Create" action="#{AlbumMB.createAlbum()}" class="btn btn-large btn-primary ladda-button"/>
+                                </div>
+                            </div>
+                            
+
+                        </h:form>
+                    </div>
+                    <h3>Albums list :</h3>
+                    <ui:repeat var="album" value="#{AlbumMB.albums}" varStatus="status">
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <h4><small><a href="gallery.xhtml?albumId=#{album.id}">#{album.title}</a></small></h4>
+                              <p><a href="#" class="btn btn-primary btn-xs" role="button">Supprimer</a></p>
+                            </div>
+                        </div> 
+                    </ui:repeat>
+                </div>
+            </div>
+        </div>
+    </div>
+</h:body>
+        <script>          
+        jQuery(document).ready(function($){
+            $( "#autocomplete" ).autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: 'http://localhost:8080/SocialNetwork-war/webresources/serviceProfile/startWith/'+$('#autocomplete').val(),
+                        success: function(data){
+                            try{
+                                var obj = jQuery.parseJSON(data);
+                                var array = $.map(obj, function(m) {
+                                    return {
+                                        label: m.firstname + " " + m.lastname ,
+                                        id: m.id,
+                                        logo: m.picture
+                                    };
+                                });
+                            }catch(e){
+                            }
+                            response(array);
+                        },
+                    });
+                },
+                select: function (event, ui) {
+                   window.location.href = "wall.xhtml?wallId="+ui.item.id;
+                }
+            }).autocomplete( "instance" )._renderItem = function( ul, item ) {
+                var src;
+                var style = 'width:25px;height:25px;';
+                var classIMG = 'img-circle';
+                if(item.logo){
+                    src = 'data:image/png;base64,'+item.logo;
+                }
+                return $( "<li>" )
+                  .append( "<a><img class="+classIMG+" style="+style+" src="+src+ "/>"  +item.label + "</a></li>" )
+                  .appendTo( ul );
+              };
+
+        });
+        function PreviewImage() {
+                var oFReader = new FileReader();
+                oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+
+                oFReader.onload = function (oFREvent) {
+                    document.getElementById("uploadPreview").src = oFREvent.target.result;
+                };
+                
+
+            };
+            
+
+        </script>
+</html>
+
