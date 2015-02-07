@@ -22,6 +22,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import websocket.SocketMediator;
 
 /**
  *
@@ -54,6 +55,7 @@ public class UserService implements UserServiceLocal {
     public String connectedUserToString() {
         if(connectedUser != null){
             refresh();
+            SocketMediator.send("MESSAGE TEST", 1);
             return connectedUser.toString();
         }
         return null;

@@ -150,16 +150,26 @@
                             </div>
                             <div class="">
                                 <!--  case text--> 
-                                <textarea ng-show="publishAction==0" type="text" row="10" class="form-control" placeholder="Want to say something ?" jsf:value="#{MessageMB.messageText}"/>
-                                <button class="btn btn-default" ng-show="publishAction==0" width="100%" jsf:action="#{MessageMB.publishMessage()}">Publish message</button>
+                                <div>
+                                    <textarea ng-show="publishAction==0" type="text" row="10" class="form-control" placeholder="Want to say something ?" jsf:value="#{MessageMB.messageText}"/>
+                                </div>
+                                <div>
+                                    <button class="btn btn-default btn-block" ng-show="publishAction==0" width="100%" jsf:action="#{MessageMB.publishMessage()}">Publish message</button>
+                                </div>
+                                
                                 <!--  case Picture--> 
                                 <div class="text-center">
                                     <img id="uploadPreview" height="200" width="200" style="border:none;" ng-show="publishAction==1" />
+                                    <textarea ng-show="publishAction==1" type="text" row="10" class="form-control" placeholder="Want to say something ?" jsf:value="#{MessageMB.messageTextPicture}"/>
                                 </div>
-                                <input id="uploadImage" type="file" jsf:value="#{MessageMB.publishPicture}" onchange="PreviewImage();" ng-show="publishAction==1" class="form-control" placeholder="Want to publish a picture ?"/>
-                   
+                                <div>
+                                    <input id="uploadImage" type="file" jsf:value="#{MessageMB.publishPicture}" onchange="PreviewImage();" ng-show="publishAction==1" class="form-control" placeholder="Want to publish a picture ?"/>
+                                </div>
+                                <div>
+                                    <button class="btn btn-default btn-block" ng-show="publishAction==1" width="100%" jsf:action="#{MessageMB.publishMessage()}">Publish picture</button>
+                                </div>
                                 <!-- case link -->
-                                <input ng-show="publishAction==2" type="text" class="form-control" placeholder="Want to publish a video ?"/>
+                                <input ng-show="publishAction==2" type="text" class="form-control" placeholder="Want to publish a link ?"/>
 
                                 <!--  case Video--> 
                                 <div ng-show="publishAction==3" class="embed-responsive embed-responsive-16by9">
@@ -213,6 +223,9 @@
                                 </div>
                             </div>
                         </ui:repeat>
+                    </div>
+                    <div id="notification">
+                        
                     </div>
                 </div>
             </div>
@@ -272,6 +285,26 @@
                 
 
             };
+             
+            var wsUri = "ws://" + document.location.host + "/SocialNetwork-war/mediatorendpoint";
+            var websocket = new WebSocket(wsUri);
+            
+            websocket.onmessage = function(evt){
+                console.log("received : " + evt.data);
+                document.getElementById("notification").innerHTML = "<h2>" + evt.data +"</h2>";
+            }
+            
+            websocket.ontext = function(evt){
+                console.log("text received : "+evt.data);
+            }
+            
+            websocket.onerror = function(evt){
+                console.log("Error : " + evt.data);
+            }
+            
+            websocket.onopen = function(evt){
+                console.log("Open : " + evt.data);
+            }
             
         
         </script>

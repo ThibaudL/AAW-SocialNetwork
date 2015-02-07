@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import websocket.SocketMediator;
 
 /**
  *
@@ -42,6 +43,7 @@ public class MessageService implements MessageServiceLocal {
         publicMessage.setContent(content);
         publicMessage.setDate(new Date());
         publicMessageFacade.create(publicMessage);
+        SocketMediator.send("Message published by " + publicMessage.getAuthor().getProfile().getFirstname() + " : " + content , userId);
     }
 
     @Override

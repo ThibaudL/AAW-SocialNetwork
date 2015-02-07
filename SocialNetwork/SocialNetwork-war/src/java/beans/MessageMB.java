@@ -35,6 +35,7 @@ public class MessageMB {
     MessageServiceLocal messageService; 
 
     private String messageText;
+    private String messageTextPicture;
     private List<PublicMessage>  messages; 
     private List<PublicMessage>  myMessages; 
     private Part publishPicture;
@@ -121,6 +122,16 @@ public class MessageMB {
     public void setMyMessages(List<PublicMessage> myMessages) {
         this.myMessages = myMessages;
     }
+
+    public String getMessageTextPicture() {
+        return messageTextPicture;
+    }
+
+    public void setMessageTextPicture(String messageTextPicture) {
+        this.messageTextPicture = messageTextPicture;
+    }
+    
+    
     
     
     
