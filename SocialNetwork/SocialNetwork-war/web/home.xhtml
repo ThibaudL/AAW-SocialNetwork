@@ -12,14 +12,17 @@
         <h:outputStylesheet name="css/bootstrap-theme.min.css"></h:outputStylesheet>
         <h:outputStylesheet name="css/form.css"></h:outputStylesheet>
         <h:outputStylesheet name="css/jquery-ui.css"></h:outputStylesheet>
+        <h:outputStylesheet name="css/alert.css"></h:outputStylesheet>
 
                <!--<h:outputScript name="js/bootstrap.min.js"></h:outputScript>-->
         <h:outputScript name="js/jquery/jquery.js"></h:outputScript>
         <h:outputScript name="js/jquery/jquery-ui.js"></h:outputScript>
         <h:outputScript name="js/angular.min.js"></h:outputScript>
+        <h:outputScript name="js/jquery/ohsnap.js"></h:outputScript>
 
 </h:head>
 <h:body>
+
     <div ng-app="" >
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
               <div class="container-fluid">
@@ -30,7 +33,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                   </button>
-                  <a class="navbar-brand" href="home.xhtml#">Social Network</a>
+                  <a class="navbar-brand" id="accueil" href="home.xhtml#">Social Network</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -224,13 +227,12 @@
                             </div>
                         </ui:repeat>
                     </div>
-                    <div id="notification">
-                        
-                    </div>
+                    
                 </div>
             </div>
         </div>
     </div>
+    <div id="ohsnap"></div>
 </h:body>
         <script>    
         jQuery(document).ready(function($){
@@ -256,6 +258,7 @@
                 },
                 select: function (event, ui) {
                    window.location.href = "wall.xhtml?wallId="+ui.item.id;
+                   
                 }
             }).autocomplete( "instance" )._renderItem = function( ul, item ) {
                 var src;
@@ -291,7 +294,7 @@
             
             websocket.onmessage = function(evt){
                 console.log("received : " + evt.data);
-                document.getElementById("notification").innerHTML = "<h2>" + evt.data +"</h2>";
+                ohSnap(evt.data, 'blue');
             }
             
             websocket.ontext = function(evt){
