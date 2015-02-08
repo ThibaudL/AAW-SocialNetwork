@@ -140,7 +140,7 @@
                         </div>
                         <ui:repeat var="friend" value="#{FriendMB.waitingInvit}" varStatus="status">
                             <div class="panel-body">
-                                <div class="thumbnail" style="margin-right: 2px;">
+                                <div class="thumbnail" style="margin-right: 2px;" ng-show="#{friend.friend.id != ProfileMB.profile.user.id}">
                                     <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:100px; height: 100px;" value="#{FriendMB.readableProfilePicture}" >
                                         <core:param name="friendId" value="#{friend.friend.id}" />
                                     </p:graphicImage>
@@ -151,14 +151,29 @@
                                         <div class="form-group">
                                             
                                             <h:form class="">
-                                                <div ng-show="#{friend.user.id != ProfileMB.profile.user.id}">
-                                                    <h:commandLink value="Accept"  action="#{FriendMB.validFriendship(friend)}" class="form-control btn btn-primary btn-xs "/>
-                                                </div>
                                                 <h:commandLink value="Decline" action="#{FriendMB.removeFriendship(friend)}" class="form-control btn btn-primary btn-xs "/>
                                             </h:form>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="thumbnail" style="margin-right: 2px;" ng-show="#{friend.user.id != ProfileMB.profile.user.id}">
+                                    <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:100px; height: 100px;" value="#{FriendMB.readableProfilePicture}" >
+                                        <core:param name="friendId" value="#{friend.user.id}" />
+                                    </p:graphicImage>
+
+
+                                    <div class="caption text-center">
+                                        <h4><small><a href="wall.xhtml?wallId=#{friend.user.id}">#{friend.user.profile.firstname} #{friend.user.profile.lastname}</a></small></h4>
+                                        <div class="form-group">
+                                            
+                                            <h:form class="">
+                                                <h:commandLink value="Accept"  action="#{FriendMB.validFriendship(friend)}" class="form-control btn btn-primary btn-xs "/>
+                                                <h:commandLink value="Decline" action="#{FriendMB.removeFriendship(friend)}" class="form-control btn btn-primary btn-xs "/>
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div> 
                         </ui:repeat>
                     </div>

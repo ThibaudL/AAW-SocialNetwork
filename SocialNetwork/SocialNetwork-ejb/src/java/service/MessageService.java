@@ -54,8 +54,8 @@ public class MessageService implements MessageServiceLocal {
         Logger.getLogger(MessageService.class.getName()).log(Level.SEVERE,  currentUser.toString());
         
         for (Friend f : currentUser.getFriends()) {
-             
-            myNewsMessages.addAll(publicMessageFacade.findByAuthorId(f.friend.getId()));
+            if(f.isValid())
+                myNewsMessages.addAll(publicMessageFacade.findByAuthorId(f.friend.getId()));
         }
         Collections.sort(myNewsMessages, new Comparator<PublicMessage>() {
             @Override

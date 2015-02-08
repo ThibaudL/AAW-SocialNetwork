@@ -44,12 +44,10 @@ public class FriendService implements FriendServiceLocal {
     public void validFriendShip(Integer userId, Integer friendId) {
         Friend f = new Friend();
         f.setValid(true);
-        f.setUser(userFacade.find(userId));
-        f.setFriend(userFacade.find(friendId));
-        //friendFacade.create(f);
+        f.setUser(userFacade.find(friendId));
+        f.setFriend(userFacade.find(userId));
+        friendFacade.create(f);
         friendFacade.validFriendship(userId, friendId);
-        Logger.getLogger(FriendService.class.getName()).log(Level.SEVERE, "HERE :: "+ userId +" - " + friendId);
-
     }
     
     @Override

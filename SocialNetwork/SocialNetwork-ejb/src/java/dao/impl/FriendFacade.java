@@ -43,19 +43,29 @@ public class FriendFacade extends AbstractFacade<Friend> implements FriendFacade
 
     @Override
     public void validFriendship(Integer userId, Integer friendId) {
-        Query q = em.createQuery("UPDATE Friend f SET f.valid = 1 WHERE f.user.id="+userId+ " AND f.friend.id="+friendId);  
+        Query q = em.createQuery("UPDATE Friend f SET f.valid = 1 WHERE (f.user.id="+userId+ " AND f.friend.id="+friendId+")"
+                                                                        + " OR "
+                                                                        + "(f.friend.id="+userId+ " AND f.user.id="+friendId+")"
+        );  
         q.executeUpdate();
     }
     
     @Override
     public void removeFriendship(Integer userId, Integer friendId){
-        Query q = em.createQuery("DELETE FROM Friend f WHERE f.user.id="+userId+" AND f.friend.id="+friendId);
+        Query q = em.createQuery("DELETE FROM Friend f WHERE (f.user.id="+userId+" AND f.friend.id="+friendId+")"
+                                                        + " OR "
+                                                        + "(f.friend.id="+userId+ " AND f.user.id="+friendId+")"
+        
+        );
         q.executeUpdate();
     }
 
     @Override
     public List<Friend> findWaitingInvit(Integer userId) {
-        Query q = em.createQuery("SELECT f FROM Friend f WHERE f.user.id="+userId+" AND f.valid = 0");
+        Query q = em.createQuery("SELECT f FROM Friend f WHERE (f.user.id="+userId
+                                                                + " OR "
+                                                                + "f.friend.id="+userId+")"
+                                                                 +" AND f.valid = 0");
         return q.getResultList();
     }
     

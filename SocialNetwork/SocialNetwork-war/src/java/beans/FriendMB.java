@@ -8,6 +8,7 @@ package beans;
 import dao.entity.Friend;
 import dao.entity.Profile;
 import dao.entity.PublicMessage;
+import dao.entity.User;
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.List;
@@ -44,11 +45,15 @@ public class FriendMB implements Serializable{
     
     public List<Friend> getFriends(){
         //addFriend();
-        return friendService.getFriends((Integer) SessionUtils.getItem(SessionUtils.ID_KEY));
+        Integer userId = (Integer) SessionUtils.getItem(SessionUtils.ID_KEY);
+        List<Friend> friends = friendService.getFriends(userId);
+        return friends;
     }
      
     public List<Friend> getWaitingInvit(){
-        return friendService.getWaitingInvit((Integer) SessionUtils.getItem(SessionUtils.ID_KEY));
+        Integer userId = (Integer) SessionUtils.getItem(SessionUtils.ID_KEY);
+        List<Friend> friends = friendService.getWaitingInvit(userId);
+        return friends;
     }
     
     public String addFriend(){
