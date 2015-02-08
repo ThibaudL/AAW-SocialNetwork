@@ -9,6 +9,8 @@ import dao.entity.Friend;
 import dao.impl.FriendFacadeLocal;
 import dao.impl.UserFacadeLocal;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
@@ -27,7 +29,7 @@ public class FriendService implements FriendServiceLocal {
     @Override
     public List<Friend> getFriends(Integer userId) {
         return friendFacade.findByUserId(userId);
-    }
+    } 
 
     @Override
     public void addFriend(Integer userId, Integer friendId) {
@@ -44,12 +46,32 @@ public class FriendService implements FriendServiceLocal {
         f.setValid(true);
         f.setUser(userFacade.find(userId));
         f.setFriend(userFacade.find(friendId));
-        friendFacade.create(f);
-        friendFacade.addValidFriend(userId, friendId);
-        
+        //friendFacade.create(f);
+        friendFacade.validFriendship(userId, friendId);
+        Logger.getLogger(FriendService.class.getName()).log(Level.SEVERE, "HERE :: "+ userId +" - " + friendId);
+
     }
     
+    @Override
+    public void sendFriendInvit(Integer userId, Integer friendId){
+        Friend f = new Friend();
+        f.setValid(true);
+        f.setUser(userFacade.find(userId));
+        f.setFriend(userFacade.find(friendId));
+        friendFacade.create(f);
+    }
+
+    @Override
+    public List<Friend> getWaitingInvit(Integer userId) {
+        return friendFacade.findWaitingInvit(userId);
+    }
+
+    @Override
+    public void removeFriendship(Integer userId, Integer friendId) {
+        friendFacade.removeFriendship(userId,friendId);
+    }
     
+     
     
     
 }

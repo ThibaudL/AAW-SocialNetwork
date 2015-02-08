@@ -17,9 +17,14 @@ import javax.ejb.Local;
 public interface FriendServiceLocal {
 
     List<Friend> getFriends(Integer userId);
+    
+    List<Friend> getWaitingInvit(Integer userId);
 
     void addFriend(Integer userId, Integer friendId);
 
     void validFriendShip(Integer userId, Integer friendId);
     
+    void removeFriendship(Integer userId, Integer friendId);
+    
+    void sendFriendInvit(Integer userId, Integer friendId);
 }

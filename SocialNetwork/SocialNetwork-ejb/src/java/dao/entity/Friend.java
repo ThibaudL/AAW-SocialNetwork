@@ -31,7 +31,7 @@ public class Friend implements Serializable{
     @Override
     public int hashCode() {
         int lHashCode = 0;
-      /*  if ( this.user != null ) {
+      /*  if ( this.user != null ) { 
             lHashCode += this.user.hashCode();
         }
         if ( this.friend != null ) {

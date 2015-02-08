@@ -17,6 +17,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
+import org.jboss.logging.Logger;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import service.FriendServiceLocal;
@@ -45,6 +46,10 @@ public class FriendMB implements Serializable{
         //addFriend();
         return friendService.getFriends((Integer) SessionUtils.getItem(SessionUtils.ID_KEY));
     }
+     
+    public List<Friend> getWaitingInvit(){
+        return friendService.getWaitingInvit((Integer) SessionUtils.getItem(SessionUtils.ID_KEY));
+    }
     
     public String addFriend(){
         friendService.addFriend((Integer) SessionUtils.getItem(SessionUtils.ID_KEY), 3);
@@ -62,5 +67,20 @@ public class FriendMB implements Serializable{
                 Profile p = profileService.getProfile(id);
                 return new DefaultStreamedContent(new ByteArrayInputStream(p.getPicture()));
         } 
+    }
+    
+    public String validFriendship(Friend friend){
+        friendService.validFriendShip(friend.getUser().getId(), friend.getFriend().getId());
+
+        return "friend.xhtml";
+    }
+    
+    public String removeFriendship(Friend friend){
+        friendService.removeFriendship(friend.getUser().getId(), friend.getFriend().getId());
+        return "friend.xhtml";
+    }
+    
+    public void sendFriendInvit(Integer userID, Integer friendID){
+        friendService.sendFriendInvit(userID, friendID);
     }
 }

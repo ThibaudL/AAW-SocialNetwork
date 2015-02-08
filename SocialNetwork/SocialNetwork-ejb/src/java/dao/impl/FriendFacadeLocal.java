@@ -32,6 +32,10 @@ public interface FriendFacadeLocal {
     
     List<Friend> findByUserId(Integer id);
 
-    void addValidFriend(Integer userId, Integer friendId);
+    void validFriendship(Integer userId, Integer friendId);
+
+    public List<Friend> findWaitingInvit(Integer userId);
+    
+    public void removeFriendship(Integer userId, Integer friendId);
     
 }

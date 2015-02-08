@@ -6,7 +6,6 @@
 package dao.impl;
 
 import dao.entity.Friend;
-import dao.entity.Profile;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -33,7 +32,7 @@ public class FriendFacade extends AbstractFacade<Friend> implements FriendFacade
     
     @Override
     public List<Friend> findByUserId(Integer id) {
-        Query q = em.createQuery("SELECT f FROM Friend f WHERE f.user.id="+id);
+        Query q = em.createQuery("SELECT f FROM Friend f WHERE f.user.id="+id + " AND f.valid=1");
         return q.getResultList();
     }
 
@@ -43,8 +42,21 @@ public class FriendFacade extends AbstractFacade<Friend> implements FriendFacade
     }
 
     @Override
-    public void addValidFriend(Integer userId, Integer friendId) {
-        Query q = em.createQuery("UPDATE Friend f SET f.valid = 0 WHERE f.user.id="+friendId+ " AND f.friend.id="+userId);  
+    public void validFriendship(Integer userId, Integer friendId) {
+        Query q = em.createQuery("UPDATE Friend f SET f.valid = 1 WHERE f.user.id="+userId+ " AND f.friend.id="+friendId);  
+        q.executeUpdate();
+    }
+    
+    @Override
+    public void removeFriendship(Integer userId, Integer friendId){
+        Query q = em.createQuery("DELETE FROM Friend f WHERE f.user.id="+userId+" AND f.friend.id="+friendId);
+        q.executeUpdate();
+    }
+
+    @Override
+    public List<Friend> findWaitingInvit(Integer userId) {
+        Query q = em.createQuery("SELECT f FROM Friend f WHERE f.user.id="+userId+" AND f.valid = 0");
+        return q.getResultList();
     }
     
     
