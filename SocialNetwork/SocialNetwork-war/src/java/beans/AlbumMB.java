@@ -10,6 +10,7 @@ import dao.entity.Picture;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -33,7 +34,8 @@ import utils.SessionUtils;
  */
 @ManagedBean(name = "AlbumMB")
 @SessionScoped
-public class AlbumMB {
+public class AlbumMB implements Serializable{
+    private final static long IMAGE_SIZE = 2000000;
     private String name;
     private UploadedFile pictureFile;
     private StreamedContent readablePicture;
@@ -81,25 +83,27 @@ public class AlbumMB {
     
     public void upload(){
         String idAlbum = this.albumId;
-        
-        try {
-            FacesMessage msg = new FacesMessage("Success! ", pictureFile.getFileName() + " is uploaded.");
+        if(pictureFile.getSize() < IMAGE_SIZE && pictureFile.getSize() > 0){
+            try {
             
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            Logger.getLogger(ProfileMB.class.getName()).log(Level.SEVERE, "DEBUG DEBUG DEBUG : "+pictureFile.getFileName() + " - "+pictureFile.getInputstream() + " - "+pictureFile.getSize());
-           
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            InputStream in = pictureFile.getInputstream();
-            byte[] buffer = new byte[1024];
-            while (true) {
-                int r = in.read(buffer);
-                if (r == -1) break;
-                out.write(buffer, 0, r);
+                FacesMessage msg = new FacesMessage("Success! ", pictureFile.getFileName() + " is uploaded.");
+
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                Logger.getLogger(AlbumMB.class.getName()).log(Level.SEVERE, "DEBUG DEBUG DEBUG : "+pictureFile.getFileName() + " - "+pictureFile.getInputstream() + " - "+pictureFile.getSize());
+
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
+                InputStream in = pictureFile.getInputstream();
+                byte[] buffer = new byte[1024];
+                while (true) {
+                    int r = in.read(buffer);
+                    if (r == -1) break;
+                    out.write(buffer, 0, r);
+                }
+                Integer id = Integer.parseInt(idAlbum);
+                pictureService.createPicture(id, out.toByteArray());
+            } catch (IOException ex) {
+                Logger.getLogger(AlbumMB.class.getName()).log(Level.SEVERE, null, ex);
             }
-            Integer id = Integer.parseInt(idAlbum);
-            pictureService.createPicture(id, out.toByteArray());
-        } catch (IOException ex) {
-            Logger.getLogger(ProfileMB.class.getName()).log(Level.SEVERE, null, ex);
         }
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         try {

@@ -7,11 +7,11 @@ package beans;
 
 import dao.entity.PublicMessage;
 import java.io.ByteArrayInputStream;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
@@ -27,7 +27,7 @@ import utils.SessionUtils;
  */
 @ManagedBean(name = "MessageMB")
 @SessionScoped
-public class MessageMB {
+public class MessageMB implements Serializable{
     
     @EJB
     MessageServiceLocal messageService; 
