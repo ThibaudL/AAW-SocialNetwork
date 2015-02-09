@@ -30,4 +30,6 @@ public interface PictureFacadeLocal {
 
     int count();
     
+    void deletePicture(Integer id);
+    
 }

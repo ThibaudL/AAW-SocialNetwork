@@ -16,4 +16,5 @@ import javax.ejb.Local;
 public interface PictureServiceLocal {
     void createPicture(Integer albumId, byte[] content);
     Picture findPicture(Integer id);
+    void removePicture(Integer id);
 }

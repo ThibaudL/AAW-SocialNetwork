@@ -54,9 +54,12 @@
                         <div class="col-md-4">
                             <div class="text-center">
                                 <h4><small><a href="gallery.xhtml?albumId=#{album.id}&amp;wallId=#{album.author.id}">#{album.title}</a></small></h4>
-                                <h:form>
-                                    <h:commandButton value="Remove" action="#{AlbumMB.remove(album.id)}" class="btn btn-primary btn-xs"/>
-                                </h:form>
+                                <div ng-show="#{AlbumMB.userId} == #{ProfileMB.profile.user.id}">
+                                    <h:form>
+                                        <h:commandButton value="Remove" action="#{AlbumMB.remove(album.id)}" class="btn btn-primary btn-xs"/>
+                                    </h:form>
+                                </div>
+
                             </div>
                         </div> 
                     </ui:repeat>

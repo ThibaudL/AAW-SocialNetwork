@@ -9,6 +9,7 @@ import dao.entity.Picture;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,6 +27,11 @@ public class PictureFacade extends AbstractFacade<Picture> implements PictureFac
 
     public PictureFacade() {
         super(Picture.class);
+    }
+    
+    public void deletePicture(Integer id){
+        Query q = em.createQuery("DELETE FROM Picture p WHERE p.id="+id);
+        q.executeUpdate();
     }
     
 }

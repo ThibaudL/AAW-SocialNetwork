@@ -71,10 +71,16 @@
                               <!-- 1th thumbnail -->
                               <ui:repeat var="picture" value="#{AlbumMB.pictures}" varStatus="status">
                                     <li>
-                                      <a href="data:image/jpg;base64,#{picture}" data-subtitle="View Picture"  >
-                                        <img src="data:image/jpg;base64,#{picture}" class="img-thumbnail" alt="Picture" />
-                                      </a>
+                                        <a href="data:image/jpg;base64,#{picture[1]}" data-subtitle="View Picture"  >
+                                          <img src="data:image/jpg;base64,#{picture[1]}" class="img-thumbnail" alt="Picture" />
+                                        </a>
+                                        <div ng-show="#{AlbumMB.userId} == #{ProfileMB.profile.user.id}">
+                                            <h:form>
+                                                <h:commandButton value="Remove" action="#{AlbumMB.removePicture(picture[0])}" class="btn btn-primary btn-xs"/>
+                                            </h:form>
+                                        </div>
                                     </li>
+
                                 </ui:repeat>
 
                             </ul>
@@ -90,6 +96,10 @@
     <ui:include src="WEB-INF/notification.xhtml" />
 </h:body>
         <script>    
+            jQuery(document).ready(function($){
+                $('.least-gallery').least();
+            });
+            
             function PreviewImage() {
                 var oFReader = new FileReader();
                 oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);

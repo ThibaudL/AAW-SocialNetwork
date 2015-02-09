@@ -32,7 +32,12 @@ public class PictureService implements PictureServiceLocal {
 
     @Override
     public Picture findPicture(Integer id) {
-        return pictureFacade.find(id);
+        return this.pictureFacade.find(id);
+    }
+    
+    @Override
+    public void removePicture(Integer id){
+        this.pictureFacade.deletePicture(id);
     }
 
 }

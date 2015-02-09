@@ -132,13 +132,17 @@ public class AlbumMB implements Serializable{
         this.readablePicture = readablePicture;
     }
     
-    public List<String> getPictures(){
-        List<String> pictures = new ArrayList<>();
+    public List<Object[]> getPictures(){
+        List<Object[]> pictures = new ArrayList<>();
         Album a = albumService.viewAlbum(Integer.parseInt(this.albumId), this.userId);
         if(a != null){
             if(a.getPictures() != null){
+                
                 for (Picture p : a.getPictures()) {
-                    pictures.add(Base64.encodeToString(p.getContent(),false));
+                    Object[] pituresData = new Object[2];
+                    pituresData[0] = p.getId();
+                    pituresData[1] = Base64.encodeToString(p.getContent(),false);
+                    pictures.add(pituresData);
                 }
             }
         }
@@ -165,7 +169,15 @@ public class AlbumMB implements Serializable{
         this.albumId = albumId;
     }
     
-    
+    public void removePicture(Integer id){
+        this.pictureService.removePicture(id);
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            context.redirect(context.getRequestContextPath() + "/faces/gallery.xhtml?albumId="+Integer.parseInt(this.albumId));
+        } catch (IOException ex) {
+            Logger.getLogger(AlbumMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     
   
