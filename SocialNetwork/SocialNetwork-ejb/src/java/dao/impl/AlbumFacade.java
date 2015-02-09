@@ -39,6 +39,7 @@ public class AlbumFacade extends AbstractFacade<Album> implements AlbumFacadeLoc
     @Override
     public Album findAlbumByUser(Integer id, Integer userId) {
         Query q = em.createQuery("SELECT a FROM Album a WHERE a.id="+id+" AND a.author.id="+userId);
+        //q.setHint("javax.persistence.cache.storeMode", "REFRESH");
         List<Album> l = q.getResultList();
         return l.size() > 0 ? l.get(0) : null;
     }

@@ -38,6 +38,8 @@ public class AlbumMB {
     private UploadedFile pictureFile;
     private StreamedContent readablePicture;
     private String albumId;
+    private Integer userId;
+    
 
     @EJB
     AlbumServiceLocal albumService;
@@ -50,16 +52,23 @@ public class AlbumMB {
     }
     
     public void init(){
+        this.userId = null;
         this.albumId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("albumId");
+        
+        try{
+            this.userId = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("wallId"));
+        }catch(NumberFormatException nfe){
+            this.userId = (Integer) SessionUtils.getItem(SessionUtils.ID_KEY);
+        }
     }
     
     
     public List<Album> getAlbums(){
-        return albumService.getAlbums((Integer) SessionUtils.getItem(SessionUtils.ID_KEY));
+        return albumService.getAlbums(this.userId);
     }
     
     public void createAlbum(){
-        albumService.createAlbum(name, (Integer) SessionUtils.getItem(SessionUtils.ID_KEY));
+        albumService.createAlbum(name, this.userId);
     }
 
     public String getName() {
@@ -72,6 +81,7 @@ public class AlbumMB {
     
     public void upload(){
         String idAlbum = this.albumId;
+        
         try {
             FacesMessage msg = new FacesMessage("Success! ", pictureFile.getFileName() + " is uploaded.");
             
@@ -97,6 +107,7 @@ public class AlbumMB {
         } catch (IOException ex) {
             Logger.getLogger(AlbumMB.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     public UploadedFile getPictureFile() {
@@ -127,5 +138,15 @@ public class AlbumMB {
         }
         return pictures;        
     }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+    
+    
   
 }
