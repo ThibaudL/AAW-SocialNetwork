@@ -10,10 +10,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -105,6 +103,32 @@ public class WallMB {
         } catch (IOException ex) {
             Logger.getLogger(WallMB.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public boolean areFriends(){
+        Integer uID;
+        Integer fID;
+        String idString = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("wallId");
+        uID = (Integer)SessionUtils.getItem(SessionUtils.ID_KEY);
+        fID = Integer.parseInt(idString);
+        return friendService.areFriends(uID, fID);
+    }
+    
+    public void removeFriendship(){
+        try {
+            Integer uID;
+            Integer fID;
+            String idString = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("wallId");
+            uID = (Integer)SessionUtils.getItem(SessionUtils.ID_KEY);
+            fID = Integer.parseInt(idString);
+            friendService.removeFriendship(uID, fID);
+            
+            ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+            context.redirect(context.getRequestContextPath() + "/faces/wall.xhtml?wallId="+getUserId());
+        } catch (IOException ex) {
+            Logger.getLogger(WallMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
     
     

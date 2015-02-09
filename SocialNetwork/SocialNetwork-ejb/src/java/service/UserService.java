@@ -6,7 +6,7 @@
 package service;
 
 import dao.entity.Profile;
-import dao.entity.User;
+import dao.entity.User; 
 import dao.impl.UserFacadeLocal;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;

@@ -27,4 +27,6 @@ public interface FriendServiceLocal {
     void removeFriendship(Integer userId, Integer friendId);
     
     void sendFriendInvit(Integer userId, Integer friendId);
+    
+    boolean areFriends(Integer userID, Integer friendId);
 }

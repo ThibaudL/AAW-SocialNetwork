@@ -68,6 +68,11 @@ public class FriendService implements FriendServiceLocal {
     public void removeFriendship(Integer userId, Integer friendId) {
         friendFacade.removeFriendship(userId,friendId);
     }
+
+    @Override
+    public boolean areFriends(Integer userID, Integer friendId) {
+        return friendFacade.areFriends(userID, friendId);
+    }
     
      
     
