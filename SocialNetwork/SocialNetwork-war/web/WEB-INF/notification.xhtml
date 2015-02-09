@@ -1,0 +1,33 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <div id="ohsnap"></div>
+
+    <script>
+        var wsUri = "ws://" + document.location.host + "/SocialNetwork-war/mediatorendpoint";
+        var websocket = new WebSocket(wsUri);
+
+        websocket.onmessage = function(evt){
+            console.log("received : " + evt.data);
+            ohSnap(evt.data, 'blue');
+        };
+
+        websocket.ontext = function(evt){
+            console.log("text received : "+evt.data);
+        };
+
+        websocket.onerror = function(evt){
+            console.log("Error : " + evt.data);
+        };
+
+        websocket.onopen = function(evt){
+            console.log("Open : " + evt.data);
+        };
+
+        
+    </script>
+</ui:composition>

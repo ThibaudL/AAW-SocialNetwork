@@ -144,52 +144,10 @@
             </div>
         </div>
     </div>
-    <div id="ohsnap"></div>
+    <ui:include src="WEB-INF/notification.xhtml" />
 </h:body>
-        <script>    
-        jQuery(document).ready(function($){
-            $( "#autocomplete" ).autocomplete({
-                source: function(request, response) {
-                    $.ajax({
-                        url: 'http://localhost:8080/SocialNetwork-war/webresources/serviceProfile/startWith/'+$('#autocomplete').val(),
-                        success: function(data){
-                            try{
-                                var obj = jQuery.parseJSON(data);
-                                var array = $.map(obj, function(m) {
-                                    return {
-                                        label: m.firstname + " " + m.lastname ,
-                                        id: m.id,
-                                        logo: m.picture
-                                    };
-                                });
-                            }catch(e){
-                            }
-                            response(array);
-                        },
-                    });
-                },
-                select: function (event, ui) {
-                   window.location.href = "wall.xhtml?wallId="+ui.item.id;
-                   
-                }
-            }).autocomplete( "instance" )._renderItem = function( ul, item ) {
-                var src;
-                var style = 'width:25px;height:25px;';
-                var classIMG = 'img-circle';
-                if(item.logo){
-                    src = 'data:image/png;base64,'+item.logo;
-                }
-                return $( "<li>" )
-                  .append( "<a><img class="+classIMG+" style="+style+" src="+src+ "/>"  +item.label + "</a></li>" )
-                  .appendTo( ul );
-              };
+        <script>             
 
-        });
-
-
-            
-            
-            
             function PreviewImage() {
                 var oFReader = new FileReader();
                 oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
@@ -200,26 +158,7 @@
                 
 
             };
-             
-            var wsUri = "ws://" + document.location.host + "/SocialNetwork-war/mediatorendpoint";
-            var websocket = new WebSocket(wsUri);
-            
-            websocket.onmessage = function(evt){
-                console.log("received : " + evt.data);
-                ohSnap(evt.data, 'blue');
-            };
-            
-            websocket.ontext = function(evt){
-                console.log("text received : "+evt.data);
-            };
-            
-            websocket.onerror = function(evt){
-                console.log("Error : " + evt.data);
-            };
-            
-            websocket.onopen = function(evt){
-                console.log("Open : " + evt.data);
-            };
+
             
         
         </script>
