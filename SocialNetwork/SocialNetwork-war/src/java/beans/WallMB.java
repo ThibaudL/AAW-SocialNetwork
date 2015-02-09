@@ -8,6 +8,7 @@ package beans;
 import dao.entity.Profile;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -28,7 +29,7 @@ import utils.SessionUtils;
  */
 @ManagedBean(name ="WallMB")
 @SessionScoped
-public class WallMB {
+public class WallMB implements Serializable{
 
     private Integer userId;
     private StreamedContent readableProfilePicture; 

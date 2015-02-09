@@ -8,6 +8,7 @@ package beans;
 import dao.entity.PublicMessage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -29,7 +30,7 @@ import utils.SessionUtils;
  */
 @ManagedBean(name = "MessageMB")
 @SessionScoped
-public class MessageMB {
+public class MessageMB implements Serializable{
     
     @EJB
     MessageServiceLocal messageService; 
