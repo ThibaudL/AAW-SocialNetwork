@@ -7,13 +7,11 @@ package beans;
 
 import dao.entity.PublicMessage;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
@@ -39,7 +37,6 @@ public class MessageMB {
     private List<PublicMessage>  messages; 
     private List<PublicMessage>  myMessages; 
     private Part publishPicture;
-    private StreamedContent readableProfilePicture;
     /**
      * Creates a new instance of MessageBean
      */
@@ -104,13 +101,9 @@ public class MessageMB {
                         return new DefaultStreamedContent(new ByteArrayInputStream(message.getAuthor().getProfile().getPicture()));
                     }
                 } 
-                   
+            
             return new DefaultStreamedContent();
         }
-    }
-
-    public void setReadableProfitePicture(StreamedContent readableProfilePicture) {
-        this.readableProfilePicture = readableProfilePicture;
     }
 
     public List<PublicMessage> getMyMessages() {

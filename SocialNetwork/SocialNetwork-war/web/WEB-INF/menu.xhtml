@@ -1,0 +1,63 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+<div class="infoUser">
+                        <div class="thumbnail">
+                            <!--<img class="img-circle" jsf:value="#{ProfileMB.readableProfilePicture}"  alt="avatar"/>-->
+                            <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:150px; height:150px;"  value="#{ProfileMB.readableProfilePicture}" />
+
+                            <div class="caption text-center">
+                                <strong><a href="#">#{ProfileMB.profile.firstname} #{ProfileMB.profile.lastname}</a></strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profileUser">
+                        <p class="text-left">
+                            <h4><small><strong><a href="wall.xhtml">Profile</a></strong></small></h4>
+                            <ul>
+                                <li>
+                                    <a href="album.xhtml">Albums</a>
+                                </li>
+                                <li>
+                                    Lorem ipsum
+                                </li>
+                            </ul>
+                        </p>
+                    </div>
+                    <div class="messagesUser">
+                        <p class="text-left">
+                            <h4><small><strong><a href="#">Messages <span class="badge">3</span></a></strong></small></h4>
+                            <ul>
+                                <li>
+                                    Lorem ipsum
+                                </li>
+                                <li>
+                                    Lorem ipsum
+                                </li>
+                                <li>
+                                    Lorem ipsum
+                                </li>
+                            </ul>
+                        </p>
+                    </div>
+                    <div class="FriendsUser">
+                        <p class="text-left">
+                            <h4><small><strong><a href="friend.xhtml">Friends</a></strong></small></h4>
+                            <ul>
+                                <li>
+                                    Lorem ipsum
+                                </li>
+                                <li>
+                                    Lorem ipsum
+                                </li>
+                                <li>
+                                    Lorem ipsum
+                                </li>
+                            </ul>
+                        </p>
+                    </div>
+</ui:composition>
