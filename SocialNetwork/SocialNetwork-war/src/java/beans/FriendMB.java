@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Objects;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
@@ -30,10 +31,9 @@ import utils.SessionUtils;
  * @author Denis
  */
 @ManagedBean(name = "FriendMB")
-@SessionScoped
+@RequestScoped
 public class FriendMB implements Serializable{
 
-    private StreamedContent readableProfilePicture;
     @EJB
     FriendServiceLocal friendService;
     @EJB

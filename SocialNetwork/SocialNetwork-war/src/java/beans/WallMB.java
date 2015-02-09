@@ -15,6 +15,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import org.primefaces.model.DefaultStreamedContent;
@@ -94,9 +95,16 @@ public class WallMB {
         this.profile = profile;
     }
     
-    public String addFriend(){
-        friendService.addFriend((Integer)SessionUtils.getItem(SessionUtils.ID_KEY), userId);
-        return "#";
+    public void addFriend(){
+        try {
+            friendService.addFriend((Integer)SessionUtils.getItem(SessionUtils.ID_KEY), userId);
+            ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+            context.redirect(context.getRequestContextPath() + "/faces/wall.xhtml?wallId="+getUserId());
+            
+            //return "wall.xhtml?wallId="+getUserId();
+        } catch (IOException ex) {
+            Logger.getLogger(WallMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     

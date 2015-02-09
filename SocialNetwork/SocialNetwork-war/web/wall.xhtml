@@ -101,10 +101,11 @@
                     <div class="FriendsUser">
                         <p class="text-left">
                             <h4><small><strong><a href="friend.xhtml">Friends</a></strong></small></h4>
-
-                            <h:form class="">
-                                <h:commandButton value="Add friend" action="#{WallMB.addFriend()}" class="form-control btn-primary btn-sm "/>
-                            </h:form>
+                            <div ng-show="#{WallMB.userId} != #{ProfileMB.profile.user.id}">
+                                <h:form class="" >
+                                    <h:commandButton value="Add friend" action="#{WallMB.addFriend()}" class="form-control btn-primary btn-sm "/>
+                                </h:form>
+                            </div>
 
                         </p>
                     </div>
