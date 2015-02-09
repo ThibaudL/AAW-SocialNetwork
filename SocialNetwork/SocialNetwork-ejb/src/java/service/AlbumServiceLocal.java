@@ -18,5 +18,7 @@ public interface AlbumServiceLocal {
     void createAlbum(String name, Integer userId);
     Album viewAlbum(Integer id, Integer userId);
     List<Album> getAlbums(Integer userId);
+
+    void removeAlbum(Integer albumId, Integer userId);
     
 }

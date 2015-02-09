@@ -142,7 +142,9 @@
                         <div class="col-md-4">
                             <div class="text-center">
                                 <h4><small><a href="gallery.xhtml?albumId=#{album.id}&amp;wallId=#{album.author.id}">#{album.title}</a></small></h4>
-                              <p><a href="#" class="btn btn-primary btn-xs" role="button">Supprimer</a></p>
+                                <h:form>
+                                    <h:commandButton value="Remove" action="#{AlbumMB.remove(album.id)}" class="btn btn-primary btn-xs"/>
+                                </h:form>
                             </div>
                         </div> 
                     </ui:repeat>

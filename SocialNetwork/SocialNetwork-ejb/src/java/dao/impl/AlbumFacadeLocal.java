@@ -33,4 +33,6 @@ public interface AlbumFacadeLocal {
     List<Album> findByUserId(Integer id);
     
     Album findAlbumByUser(Integer id, Integer userId);
+    
+    void removeAlbum(Integer id, Integer userId);
 }

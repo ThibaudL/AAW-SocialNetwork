@@ -44,4 +44,14 @@ public class AlbumFacade extends AbstractFacade<Album> implements AlbumFacadeLoc
         return l.size() > 0 ? l.get(0) : null;
     }
     
+    @Override
+    public void removeAlbum(Integer id, Integer userId) {
+        Query q;
+        q = em.createQuery("DELETE FROM Picture p WHERE p.album.id="+id);
+        q.executeUpdate();
+        
+        q = em.createQuery("DELETE FROM Album a WHERE a.id="+id+" AND a.author.id="+userId);
+        q.executeUpdate();
+    }
+    
 }

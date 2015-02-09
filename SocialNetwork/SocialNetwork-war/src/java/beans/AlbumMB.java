@@ -99,8 +99,10 @@ public class AlbumMB implements Serializable{
                     if (r == -1) break;
                     out.write(buffer, 0, r);
                 }
-                Integer id = Integer.parseInt(idAlbum);
-                pictureService.createPicture(id, out.toByteArray());
+                if(this.userId == (Integer) SessionUtils.getItem(SessionUtils.ID_KEY)){
+                    Integer id = Integer.parseInt(idAlbum);
+                    pictureService.createPicture(id, out.toByteArray());
+                }
             } catch (IOException ex) {
                 Logger.getLogger(AlbumMB.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -150,6 +152,20 @@ public class AlbumMB implements Serializable{
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
+    
+    public void remove(Integer Id){
+        this.albumService.removeAlbum(Id ,(Integer) SessionUtils.getItem(SessionUtils.ID_KEY));
+    }
+
+    public String getAlbumId() {
+        return albumId;
+    }
+
+    public void setAlbumId(String albumId) {
+        this.albumId = albumId;
+    }
+    
+    
     
     
   

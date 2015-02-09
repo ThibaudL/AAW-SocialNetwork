@@ -42,4 +42,11 @@ public class AlbumService implements AlbumServiceLocal {
         return albumFacade.findByUserId(userId);
     }
 
+    @Override
+    public void removeAlbum(Integer albumId, Integer userId) {
+        albumFacade.removeAlbum(albumId, userId);
+    }
+    
+    
+
 }
