@@ -128,7 +128,7 @@ public class AlbumMB {
     
     public List<String> getPictures(){
         List<String> pictures = new ArrayList<>();
-        Album a = albumService.viewAlbum(Integer.parseInt(this.albumId), (Integer) SessionUtils.getItem(SessionUtils.ID_KEY));
+        Album a = albumService.viewAlbum(Integer.parseInt(this.albumId), this.userId);
         if(a != null){
             if(a.getPictures() != null){
                 for (Picture p : a.getPictures()) {

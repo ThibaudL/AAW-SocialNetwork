@@ -125,8 +125,9 @@
                 <div class="col-md-8 panel panel-default">
                     <div class="panel-body">
                         <div>
-                            <h3><h:outputText value="Add picture : " /></h3>
+                           
                             <div ng-show="#{AlbumMB.userId} == #{ProfileMB.profile.user.id}">
+                                <h3><h:outputText value="Add picture : " /></h3>
                                 <h:form class="form-horizontal" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <h:outputText value="Picture" class="col-sm-2 control-label"/>

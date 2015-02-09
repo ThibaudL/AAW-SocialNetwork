@@ -118,8 +118,9 @@
                 </div>
                 <div class="col-md-8 panel panel-default panel-body">
                     <div>
-                        <h3>Create an album :</h3>
+                        
                         <div ng-show="#{AlbumMB.userId} == #{ProfileMB.profile.user.id}">
+                            <h3>Create an album :</h3>
                             <h:form class="form-horizontal">
                                 <div class="form-group">
                                     <h:outputText value="Name" class="col-sm-2 control-label"/>
@@ -140,7 +141,7 @@
                     <ui:repeat var="album" value="#{AlbumMB.albums}" varStatus="status">
                         <div class="col-md-4">
                             <div class="text-center">
-                                <h4><small><a href="gallery.xhtml?albumId=#{album.id}">#{album.title}</a></small></h4>
+                                <h4><small><a href="gallery.xhtml?albumId=#{album.id}&amp;wallId=#{album.author.id}">#{album.title}</a></small></h4>
                               <p><a href="#" class="btn btn-primary btn-xs" role="button">Supprimer</a></p>
                             </div>
                         </div> 
