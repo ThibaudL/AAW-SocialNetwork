@@ -9,6 +9,7 @@ import dao.entity.Profile;
 import dao.entity.PublicMessage;
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -22,9 +23,11 @@ import javax.faces.event.PhaseId;
 import javax.servlet.http.Part;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import service.FriendServiceLocal;
 import service.MessageServiceLocal;
 import service.ProfileServiceLocal;
 import service.UserService;
+import service.UserServiceLocal;
 import utils.SessionUtils;
 
 /**
@@ -39,6 +42,10 @@ public class MessageMB implements Serializable{
     MessageServiceLocal messageService; 
     @EJB
     ProfileServiceLocal profileService;
+    @EJB
+    UserServiceLocal userService;
+    @EJB 
+    FriendServiceLocal friendService;
 
     private String messageText;
     private String messageTextPicture;
@@ -47,6 +54,13 @@ public class MessageMB implements Serializable{
      * Creates a new instance of MessageBean
      */
     public MessageMB() {
+        messageTextPicture ="";
+    }
+    
+    public boolean getIsMessageTextPictureSet(){
+        if(messageTextPicture == null || messageTextPicture == "")
+            return false;
+        return true;
     }
     
      public String getMessageText() {
@@ -119,6 +133,11 @@ public class MessageMB implements Serializable{
             userId = (Integer)SessionUtils.getItem(SessionUtils.ID_KEY);
         }else{
             userId = Integer.parseInt(idString);
+            if(userId != (Integer)SessionUtils.getItem(SessionUtils.ID_KEY)){
+                if(!friendService.areFriends(userId,(Integer)SessionUtils.getItem(SessionUtils.ID_KEY))){
+                    return new ArrayList<PublicMessage>();
+                }
+            }
         } 
         return messageService.getMyMessages(userId);
     }
