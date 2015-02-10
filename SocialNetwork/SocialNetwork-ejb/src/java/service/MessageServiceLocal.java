@@ -16,7 +16,7 @@ import javax.ejb.Local;
 @Local
 public interface MessageServiceLocal {
     public void publishPublicMessage(String content, Integer userId);
-    
+    void publishPublicMessagePicture(String content, Integer userId, byte[] picture);
     
     public List<PublicMessage> getMyMessages(Integer authorId);
     

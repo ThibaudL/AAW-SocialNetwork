@@ -6,8 +6,11 @@
 package service;
 
 import dao.entity.Friend;
+import dao.entity.Picture;
 import dao.entity.PublicMessage;
 import dao.entity.User;
+import dao.impl.PictureFacade;
+import dao.impl.PictureFacadeLocal;
 import dao.impl.PublicMessageFacadeLocal;
 import dao.impl.UserFacadeLocal;
 import java.util.Collections;
@@ -29,6 +32,8 @@ public class MessageService implements MessageServiceLocal {
     PublicMessageFacadeLocal publicMessageFacade;
     @EJB
     UserFacadeLocal userFacade;
+    @EJB
+    PictureFacadeLocal pictureFacade;
     
     
     @Override
@@ -37,6 +42,21 @@ public class MessageService implements MessageServiceLocal {
         publicMessage.setAuthor(userFacade.find(userId));
         publicMessage.setContent(content);
         publicMessage.setDate(new Date());
+        publicMessageFacade.create(publicMessage);
+        SocketMediator.send("Message published by " + publicMessage.getAuthor().getProfile().getFirstname() + " : " + content , userId);
+    }
+    
+    @Override
+    public void publishPublicMessagePicture(String content, Integer userId, byte[] picture) {
+        Picture p = new Picture();
+        p.setContent(picture);
+        pictureFacade.create(p);
+        
+        PublicMessage publicMessage = new PublicMessage();
+        publicMessage.setAuthor(userFacade.find(userId));
+        publicMessage.setContent(content);
+        publicMessage.setDate(new Date());
+        publicMessage.setPicture(p);
         publicMessageFacade.create(publicMessage);
         SocketMediator.send("Message published by " + publicMessage.getAuthor().getProfile().getFirstname() + " : " + content , userId);
     }

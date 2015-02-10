@@ -5,7 +5,8 @@
       xmlns:core="http://java.sun.com/jsf/core"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     
 <h:head>
         <h:outputStylesheet name="css/bootstrap.min.css"></h:outputStylesheet>
@@ -69,7 +70,7 @@
                                     <textarea ng-show="publishAction==0" type="text" row="10" class="form-control" placeholder="Want to say something ?" jsf:value="#{MessageMB.messageText}"/>
                                 </div>
                                 <div>
-                                    <button class="btn btn-default btn-block" ng-show="publishAction==0" width="100%" jsf:action="#{MessageMB.publishMessage()}">Publish message</button>
+                                    <button class="btn btn-primary btn-block" ng-show="publishAction==0" width="100%" jsf:action="#{MessageMB.publishMessage()}">Publish message</button>
                                 </div>
                                 
                                 <!--  case Picture--> 
@@ -77,20 +78,37 @@
                                     <img id="uploadPreview" height="200" width="200" style="border:none;" ng-show="publishAction==1" />
                                     <textarea ng-show="publishAction==1" type="text" row="10" class="form-control" placeholder="Want to say something ?" jsf:value="#{MessageMB.messageTextPicture}"/>
                                 </div>
-                                <div>
-                                    <input id="uploadImage" type="file" jsf:value="#{MessageMB.publishPicture}" onchange="PreviewImage();" ng-show="publishAction==1" class="form-control" placeholder="Want to publish a picture ?"/>
+                                <div ng-show="publishAction==1">
+                                    <div class="text-center">
+                                        <img id="uploadPreview" style="width: 200px; height: 200px;" />
+                                    </div>
+                                    <p:fileUpload id="uploadImage"  class="form-control fileUploadPicture" value="#{MessageMB.pictureFile}" multiple="false" required="true" mode="simple">
+                                                
+                                    </p:fileUpload>
+                                    
                                 </div>
                                 <div>
-                                    <button class="btn btn-default btn-block" ng-show="publishAction==1" width="100%" jsf:action="#{MessageMB.publishMessage()}">Publish picture</button>
+                                    <button class="btn btn-primary btn-block" ng-show="publishAction==1" width="100%" jsf:action="#{MessageMB.publishMessagePicture()}">Publish picture</button>
                                 </div>
                                 <!-- case link -->
-                                <input ng-show="publishAction==2" type="text" class="form-control" placeholder="Want to publish a link ?"/>
-
+                                <input ng-show="publishAction==2" type="url" class="form-control" placeholder="Want to publish a link ?"  jsf:value="#{MessageMB.linkUrl}" />
+                                <button id="sendLink" class="btn btn-primary btn-block" ng-show="publishAction==2" width="100%" jsf:action="#{MessageMB.publishLink()}" >Publish Link</button>
                                 <!--  case Video--> 
-                                <div ng-show="publishAction==3" class="embed-responsive embed-responsive-16by9">
-                                    <video ng-show="publishAction==3" class="embed-responsive-item" height="200" src="http://www.w3schools.com/html/movie.mp4" controls="controls"></video>
+                                <div ng-show="publishAction==3" id="video" class="embed-responsive embed-responsive-16by9">
+                                     
+                                
                                 </div>
-                                <input ng-show="publishAction==3" type="text" ng-model="videoPath" class="form-control" placeholder="Want to publish a video ?"/>
+                                <input ng-show="publishAction==3" type="url" ng-model="videoPath" class="form-control" id="videoInput" placeholder="Link Youtube / DailyMotion / Vimeo"   jsf:value="#{MessageMB.videoUrl}" />
+                                <div class="">
+                                    <div class="col-md-6">
+                                        <a class="btn btn-default btn-block" id="videoPreview" ng-show="publishAction==3" width="100%">Preview Video</a>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <button id="sendVideo" class="btn btn-primary btn-block" ng-show="publishAction==3" width="100%" jsf:action="#{MessageMB.publishVideo()}" >Publish Video</button>
+                                    </div>
+                                </div>
+                                
 
                             </div>
                         </h:form>
@@ -108,8 +126,18 @@
                                         
                                     </div>
                                     <div class="panel-body">
-                                        <div>
-                                            #{messageContent.content}
+                                        <div class="messageContent">
+                                            <div>
+                                                #{messageContent.content}
+                                            </div>
+                                            
+                                            <div class="text-center">
+                                                
+                        
+                                            <p:graphicImage rendered="#{not empty messageContent.picture.id}" class="img-thumbnail" cache="false" alt="avatar" style="width:300px; height: 300px;" value="#{MessageMB.readableMessagePicture}" >
+                                                    <core:param name="pictureId" value="#{messageContent.picture.id}" />
+                                            </p:graphicImage>
+                                            </div>
                                         </div>
                                         <div>
                                             
@@ -147,6 +175,66 @@
     <ui:include src="WEB-INF/notification.xhtml" />
 </h:body>
         <script>             
+            jQuery(document).ready(function($){
+                $("#video").hide();
+                $("#videoPreview").click(function(){
+                    if($("#videoInput").val() !== ""){
+                        $("#video").show();
+                        $("#video").addClass("embed-responsive embed-responsive-16by9");
+                        $("#video").html(treatmentVideo($("#videoInput").val()));
+                    }
+                });
+                $("#sendVideo").click(function(){
+                    $("#videoInput").val("");
+                    $("#video").html("");
+                });
+                
+                $(".messageContent").each(function() {
+                    var video = $(this).text().split("#VIDEO#");
+                    var link = $(this).text().split("#LINK#");
+                    if(video[1]){
+                        $(this).addClass("embed-responsive embed-responsive-16by9");
+                        $(this).html(treatmentVideo(video[1]));
+                    }else if(link[1]){
+                       $(this).html('<a href="'+ link[1] +'" target="_blank">'+link[1]+'</a>');
+                    }
+                    
+                    
+                });
+                
+                $(".fileUploadPicture").change(function(){
+                    var oFReader = new FileReader();
+                    oFReader.readAsDataURL(document.getElementById("j_idt24:uploadImage").files[0]);
+
+                    oFReader.onload = function (oFREvent) {
+                       $('#uploadPreview').attr('src',oFREvent.target.result).fadeIn("slow");
+                    };
+                });
+
+                
+            });
+            
+            function treatmentVideo(valInput){
+                var youtubeUrl = valInput.match(/watch\?v=([a-zA-Z0-9\-_]+)/);
+                var vimeoUrl = valInput.match(/^http:\/\/(www\.)?vimeo\.com\/(clip\:)?(\d+).*$/);
+                var dailymotionUrl = 'http://www.dailymotion.com/embed/video/';
+                var videoUrl = valInput;
+
+                if(youtubeUrl){
+                    videoUrl = 'https://www.youtube.com/v/'+ youtubeUrl[1];
+                }else if(vimeoUrl){
+                    videoUrl = 'http://player.vimeo.com/video/'+ vimeoUrl[3];
+                }else{
+                    var n = videoUrl.split("/video/");
+                    var videoID = n[1].split("/");
+                    if(videoID){
+                        videoUrl = dailymotionUrl + videoID[0];
+                    }
+                }
+                var iframeVideo = '<iframe ng-show="publishAction==3" class="embed-responsive-item" id="videoLink" width="420" height="200" src="'+ videoUrl +'"  ></iframe>';
+                return iframeVideo;      
+            }
+
 
             document.getElementById("uploadPreview").style.display = 'none';
 

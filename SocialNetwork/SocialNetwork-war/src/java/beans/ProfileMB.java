@@ -42,7 +42,6 @@ public class ProfileMB implements Serializable{
     private String birthdayString;
     private UploadedFile profilePictureFile;
     private StreamedContent readableProfilePicture;
-   
     
     @EJB
     ProfileServiceLocal profileService;
