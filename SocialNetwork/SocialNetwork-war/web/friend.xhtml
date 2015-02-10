@@ -39,7 +39,7 @@
                                 <div class="caption text-center">
                                     <h4><small><a href="wall.xhtml?wallId=#{friend.friend.id}">#{friend.friend.profile.firstname} #{friend.friend.profile.lastname}</a></small></h4>
                                     <h:form class="">
-                                        <h:commandLink value="Delete" action="#{FriendMB.removeFriendship(friend)}" class="form-control btn btn-primary btn-xs "/>
+                                        <h:commandLink value="Delete" action="#{FriendMB.removeFriendship(friend)}" class="form-control btn btn-primary "/>
                                     </h:form>                                </div>
                             </div>
                         </div>  
@@ -63,7 +63,7 @@
                                         <div class="form-group">
                                             
                                             <h:form class="">
-                                                <h:commandLink value="Decline" action="#{FriendMB.removeFriendship(friend)}" class="form-control btn btn-primary btn-xs "/>
+                                                <h:commandLink value="Decline" action="#{FriendMB.removeFriendship(friend)}" class="form-control btn btn-primary  "/>
                                             </h:form>
                                         </div>
                                     </div>
@@ -79,8 +79,8 @@
                                         <div class="form-group">
                                             
                                             <h:form class="">
-                                                <h:commandLink value="Accept"  action="#{FriendMB.validFriendship(friend)}" class="form-control btn btn-primary btn-xs "/>
-                                                <h:commandLink value="Decline" action="#{FriendMB.removeFriendship(friend)}" class="form-control btn btn-primary btn-xs "/>
+                                                <h:commandLink value="Accept"  action="#{FriendMB.validFriendship(friend)}" class="form-control btn btn-primary  "/>
+                                                <h:commandLink value="Decline" action="#{FriendMB.removeFriendship(friend)}" class="form-control btn btn-primary "/>
                                             </h:form>
                                         </div>
                                     </div>

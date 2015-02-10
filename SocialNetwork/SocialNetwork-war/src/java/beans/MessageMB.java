@@ -5,13 +5,17 @@
  */
 package beans;
 
+import dao.entity.Profile;
 import dao.entity.PublicMessage;
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
@@ -19,6 +23,8 @@ import javax.servlet.http.Part;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import service.MessageServiceLocal;
+import service.ProfileServiceLocal;
+import service.UserService;
 import utils.SessionUtils;
 
 /**
@@ -31,11 +37,11 @@ public class MessageMB implements Serializable{
     
     @EJB
     MessageServiceLocal messageService; 
+    @EJB
+    ProfileServiceLocal profileService;
 
     private String messageText;
     private String messageTextPicture;
-    private List<PublicMessage>  messages; 
-    private List<PublicMessage>  myMessages; 
     private Part publishPicture;
     /**
      * Creates a new instance of MessageBean
@@ -59,7 +65,9 @@ public class MessageMB implements Serializable{
         }
     } 
     
-    private void loadMessages(){
+ 
+    
+    public List<PublicMessage> getMessages(){
         Integer userId;
         String idString = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("wallId");
         if(idString == null){
@@ -67,18 +75,10 @@ public class MessageMB implements Serializable{
         }else{
             userId = Integer.parseInt(idString);
         }
-        messageService.loadPublicMessages(userId);
+        return messageService.getMyNews(userId);
     }
     
-    public List<PublicMessage> getMessages(){
-        loadMessages();
-        messages = messageService.getMyNews();
-        return messages;
-    }
-    
-    public void setMessages(List<PublicMessage>  m){  
-        messages = m;
-    } 
+
  
     public Part getPublishPicture() {
         return publishPicture;
@@ -94,26 +94,33 @@ public class MessageMB implements Serializable{
             return new DefaultStreamedContent();
         }else{
 
-                String messageId = context.getExternalContext().getRequestParameterMap().get("messageId");
-                Integer id = Integer.parseInt(messageId);
-                for (PublicMessage message : messages) { 
-                    if(Objects.equals(message.getId(), id)){
-                        return new DefaultStreamedContent(new ByteArrayInputStream(message.getAuthor().getProfile().getPicture()));
-                    }
-                } 
+            Map<String, String> map =context.getExternalContext().getRequestParameterMap();
+            String userId = map.get("commentUserId");
+
+            if(userId != null){
+
+                Integer pId = Integer.parseInt(userId);
+                if(pId != null){
+                    Profile profile = profileService.getProfile(pId);
+
+                    return new DefaultStreamedContent(new ByteArrayInputStream(profile.getPicture()));
+                }
+            }
+
             
             return new DefaultStreamedContent();
         }
     }
 
     public List<PublicMessage> getMyMessages() {
-        loadMessages();
-        myMessages = messageService.getMyMessages();
-        return myMessages;
-    }
-
-    public void setMyMessages(List<PublicMessage> myMessages) {
-        this.myMessages = myMessages;
+        Integer userId;
+        String idString = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("wallId");
+        if(idString == null){
+            userId = (Integer)SessionUtils.getItem(SessionUtils.ID_KEY);
+        }else{
+            userId = Integer.parseInt(idString);
+        } 
+        return messageService.getMyMessages(userId);
     }
 
     public String getMessageTextPicture() {
@@ -123,10 +130,5 @@ public class MessageMB implements Serializable{
     public void setMessageTextPicture(String messageTextPicture) {
         this.messageTextPicture = messageTextPicture;
     }
-    
-    
-    
-    
-    
-    
+
 }

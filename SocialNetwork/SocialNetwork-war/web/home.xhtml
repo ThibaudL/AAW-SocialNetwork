@@ -101,7 +101,7 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:30px; height: 30px;" value="#{MessageMB.readableProfilePicture}" >
-                                            <core:param name="messageId" value="#{messageContent.id}" />
+                                            <core:param name="commentUserId" value="#{messageContent.author.id}" />
                                         </p:graphicImage>
                                         <!--<img class="img-circle" width="30" height="30" src="http://dummyimage.com/30x30/cccccc/fff.png"/>--> 
                                         #{messageContent.author.profile.firstname} #{messageContent.author.profile.lastname} said #{messageContent.date} :

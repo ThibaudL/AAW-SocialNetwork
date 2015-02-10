@@ -17,9 +17,8 @@ import javax.ejb.Local;
 public interface MessageServiceLocal {
     public void publishPublicMessage(String content, Integer userId);
     
-    public void loadPublicMessages(Integer authorId);
     
-    public List<PublicMessage> getMyMessages();
+    public List<PublicMessage> getMyMessages(Integer authorId);
     
-    public List<PublicMessage> getMyNews(); 
+    public List<PublicMessage> getMyNews(Integer authorId); 
 }

@@ -114,7 +114,6 @@ public class ProfileMB implements Serializable{
             FacesMessage msg = new FacesMessage("Success! ", profilePictureFile.getFileName() + " is uploaded.");
             
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            Logger.getLogger(ProfileMB.class.getName()).log(Level.SEVERE, "DEBUG DEBUG DEBUG : "+profilePictureFile.getFileName() + " - "+profilePictureFile.getInputstream() + " - "+profilePictureFile.getSize());
            
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             InputStream in = profilePictureFile.getInputstream();

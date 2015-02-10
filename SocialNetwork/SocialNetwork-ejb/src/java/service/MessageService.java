@@ -10,13 +10,10 @@ import dao.entity.PublicMessage;
 import dao.entity.User;
 import dao.impl.PublicMessageFacadeLocal;
 import dao.impl.UserFacadeLocal;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import websocket.SocketMediator;
@@ -33,8 +30,6 @@ public class MessageService implements MessageServiceLocal {
     @EJB
     UserFacadeLocal userFacade;
     
-    List<PublicMessage> myNewsMessages;
-    List<PublicMessage> myMessages;
     
     @Override
     public void publishPublicMessage(String content, Integer userId) {
@@ -46,33 +41,32 @@ public class MessageService implements MessageServiceLocal {
         SocketMediator.send("Message published by " + publicMessage.getAuthor().getProfile().getFirstname() + " : " + content , userId);
     }
 
+
     @Override
-    public void loadPublicMessages(Integer authorId) {
-        myMessages = publicMessageFacade.findByAuthorId(authorId);
-        myNewsMessages = myMessages;
-        User currentUser = userFacade.find(authorId);
-        Logger.getLogger(MessageService.class.getName()).log(Level.SEVERE,  currentUser.toString());
-        
+    public List<PublicMessage> getMyNews(Integer authorId) {
+        List<PublicMessage> myMessages = publicMessageFacade.findByAuthorId(authorId);
+        User currentUser = userFacade.find(authorId);        
         for (Friend f : currentUser.getFriends()) {
             if(f.isValid())
-                myNewsMessages.addAll(publicMessageFacade.findByAuthorId(f.friend.getId()));
+                myMessages.addAll(publicMessageFacade.findByAuthorId(f.friend.getId()));
         }
-        Collections.sort(myNewsMessages, new Comparator<PublicMessage>() {
+        Collections.sort(myMessages, new Comparator<PublicMessage>() {
             @Override
             public int compare(PublicMessage o1, PublicMessage o2) {
                 return -(o1.getDate().compareTo(o2.getDate()));                  
             }
-        });
-    }
-
-    @Override
-    public List<PublicMessage> getMyNews() {
-        return myNewsMessages;
-    }
-
-    @Override
-    public List<PublicMessage> getMyMessages() {
+        });    
         return myMessages;
+    }
+
+    @Override
+    public List<PublicMessage> getMyMessages(Integer authorId) {
+        User currentUser = userFacade.find(authorId);
+        List<PublicMessage> messages = publicMessageFacade.findByAuthorId(authorId);
+        for (PublicMessage message : messages) {
+            message.setAuthor(currentUser);
+        }
+        return messages;
     }
     
     
