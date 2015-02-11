@@ -198,7 +198,6 @@
                     
                 });
                 
-                $('#uploadPreview').show();
                 $(".fileUploadPicture").change(function(){
                     var oFReader = new FileReader();
                     oFReader.readAsDataURL(document.getElementById("j_idt24:uploadImage").files[0]);
@@ -223,7 +222,8 @@
                     videoUrl = 'http://player.vimeo.com/video/'+ vimeoUrl[3];
                 }else{
                     var n = videoUrl.split("/video/");
-                    var videoID = n[1].split("/");
+                    if(n[1])
+                        var videoID = n[1].split("/");
                     if(videoID){
                         videoUrl = dailymotionUrl + videoID[0];
                     }
