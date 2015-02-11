@@ -5,10 +5,12 @@
  */
 package beans;
 
+import dao.entity.Picture;
 import dao.entity.Profile;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -20,6 +22,7 @@ import javax.faces.event.PhaseId;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import service.FriendServiceLocal;
+import service.PictureServiceLocal;
 import service.ProfileServiceLocal;
 import utils.SessionUtils;
 
@@ -39,6 +42,9 @@ public class WallMB implements Serializable{
     
     @EJB
     FriendServiceLocal friendService;
+    
+    @EJB
+    PictureServiceLocal pictureService;
     
     
     public void init() {
@@ -135,6 +141,30 @@ public class WallMB implements Serializable{
             Logger.getLogger(WallMB.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+    
+     public StreamedContent getReadableMessagePicture(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+            return new DefaultStreamedContent();
+        }else{
+
+            Map<String, String> map =context.getExternalContext().getRequestParameterMap();
+            String pictureId = map.get("pictureId");
+
+            if(pictureId != null){
+
+                Integer pId = Integer.parseInt(pictureId);
+                if(pId != null){
+                    Picture p = pictureService.findPicture(pId);
+
+                    return new DefaultStreamedContent(new ByteArrayInputStream(p.getContent()));
+                }
+            }
+
+            
+            return new DefaultStreamedContent();
+        }
     }
     
     
