@@ -119,7 +119,13 @@ public class WallMB implements Serializable{
         uID = (Integer)SessionUtils.getItem(SessionUtils.ID_KEY);
         if(idString == null)
             return false; 
-        fID = Integer.parseInt(idString);
+        
+        
+        try{
+            fID = Integer.parseInt(idString);
+        }catch(NumberFormatException nfe){
+            return false;
+        }
 
         return friendService.areFriends(uID, fID);
     }

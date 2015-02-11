@@ -71,10 +71,7 @@ public class FriendFacade extends AbstractFacade<Friend> implements FriendFacade
 
     @Override
     public boolean areFriends(Integer userId, Integer friendId) {
-        Query q = em.createQuery("SELECT f FROM Friend f WHERE (f.user.id="+userId+" AND f.friend.id="+friendId+")"
-                                                        + " OR "
-                                                        + "(f.friend.id="+userId+ " AND f.user.id="+friendId+") AND f.valid = 1"
-        );
+        Query q = em.createQuery("SELECT f FROM Friend f WHERE (f.user.id="+userId+" AND f.friend.id="+friendId+") AND f.valid = 1");  
         return (q.getResultList().size()>0);
     }
     
