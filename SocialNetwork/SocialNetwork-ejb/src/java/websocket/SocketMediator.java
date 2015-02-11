@@ -5,6 +5,7 @@
  */
 package websocket;
 
+import dao.entity.Notification;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
@@ -61,18 +62,36 @@ public class SocketMediator {
         peers.remove(peer);
     }
     
-    public static void send(String message, int userId){
+    public static void sendToAll(String message, int userId){
         for(Session session : peers){
             //TODO FIND USERID IN JAVASCRIPT
             //if((int)(session.getUserProperties().get("userId")) == userId ){
-                if(session.isOpen()){
-                    try {
-                        session.getBasicRemote().sendText("userId : "+session.getUserProperties().get("userId")+" "+message);
-                    } catch (IOException ex) {
-                        Logger.getLogger(SocketMediator.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+            if(session.isOpen()){
+                try {
+                    session.getBasicRemote().sendText("userId : "+session.getUserProperties().get("userId")+" "+message);
+                } catch (IOException ex) {
+                    Logger.getLogger(SocketMediator.class.getName()).log(Level.SEVERE, "ERREUR IN SEND TO ALL");
                 }
+            }
             //}
+        }
+    }
+    
+    public static void sendNotification(Notification not){
+        Logger.getLogger(SocketMediator.class.getName()).log(Level.SEVERE, "SENDING NOTIFICATION "+not);
+        for(Session session : peers){
+            if(session.isOpen()){
+                try {
+                    Logger.getLogger(SocketMediator.class.getName()).log(Level.SEVERE, "DEBUG : " + Integer.parseInt(session.getUserProperties().get("userId").toString()) +" - "+not.getUser().getId());
+
+                    if(Integer.parseInt(session.getUserProperties().get("userId").toString()) == not.getUser().getId()){
+                        session.getBasicRemote().sendText(not.getContent());
+                        return;
+                    }
+                } catch (IOException|NumberFormatException ex) {
+                    Logger.getLogger(SocketMediator.class.getName()).log(Level.SEVERE, "ERREUR IN SEND NOTIFICATION");
+                }
+            }
         }
     }
     

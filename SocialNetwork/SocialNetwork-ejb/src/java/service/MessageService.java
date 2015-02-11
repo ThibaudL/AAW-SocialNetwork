@@ -43,7 +43,7 @@ public class MessageService implements MessageServiceLocal {
         publicMessage.setContent(content);
         publicMessage.setDate(new Date());
         publicMessageFacade.create(publicMessage);
-        SocketMediator.send("Message published by " + publicMessage.getAuthor().getProfile().getFirstname() + " : " + content , userId);
+        SocketMediator.sendToAll("Message published by " + publicMessage.getAuthor().getProfile().getFirstname() + " : " + content , userId);
     }
     
     @Override
@@ -58,7 +58,7 @@ public class MessageService implements MessageServiceLocal {
         publicMessage.setDate(new Date());
         publicMessage.setPicture(p);
         publicMessageFacade.create(publicMessage);
-        SocketMediator.send("Message published by " + publicMessage.getAuthor().getProfile().getFirstname() + " : " + content , userId);
+        SocketMediator.sendToAll("Message published by " + publicMessage.getAuthor().getProfile().getFirstname() + " : " + content , userId);
     }
 
 

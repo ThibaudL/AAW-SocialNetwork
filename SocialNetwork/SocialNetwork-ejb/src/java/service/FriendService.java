@@ -6,13 +6,17 @@
 package service;
 
 import dao.entity.Friend;
+import dao.entity.Notification;
 import dao.impl.FriendFacadeLocal;
+import dao.impl.NotificationFacadeLocal;
 import dao.impl.UserFacadeLocal;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
+import websocket.SocketMediator;
 
 /**
  *
@@ -25,6 +29,8 @@ public class FriendService implements FriendServiceLocal {
     FriendFacadeLocal friendFacade;
     @EJB
     UserFacadeLocal userFacade;
+    @EJB
+    NotificationFacadeLocal notificationFacade;
     
     @Override
     public List<Friend> getFriends(Integer userId) {
@@ -38,6 +44,13 @@ public class FriendService implements FriendServiceLocal {
         f.setUser(userFacade.find(userId));
         f.setFriend(userFacade.find(friendId));
         friendFacade.create(f);
+        Notification not = new Notification();
+        not.setUser(f.getFriend());
+        not.setDate(new Date());
+        not.setContent(f.user.getProfile().getFirstname()+" "+ f.user.getProfile().getLastname() + " wants to be your friend.");
+        notificationFacade.create(not);
+        SocketMediator.sendNotification(not);
+
     }
 
     @Override
@@ -48,6 +61,13 @@ public class FriendService implements FriendServiceLocal {
         f.setFriend(userFacade.find(userId));
         friendFacade.create(f);
         friendFacade.validFriendship(userId, friendId);
+        Notification not = new Notification();
+        not.setUser(f.getFriend());
+        not.setDate(new Date());
+        not.setContent(f.user.getProfile().getFirstname()+" "+ f.user.getProfile().getLastname() + " accepted your friend invitation.");
+        notificationFacade.create(not);
+        SocketMediator.sendNotification(not);
+
     }
     
     @Override
@@ -57,6 +77,12 @@ public class FriendService implements FriendServiceLocal {
         f.setUser(userFacade.find(userId));
         f.setFriend(userFacade.find(friendId));
         friendFacade.create(f);
+        Notification not = new Notification();
+        not.setUser(f.getFriend());
+        not.setDate(new Date());
+        not.setContent(f.user.getProfile().getFirstname()+" "+ f.user.getProfile().getLastname() + " wants to be your friend.");
+        notificationFacade.create(not);
+        SocketMediator.sendNotification(not);
     }
 
     @Override

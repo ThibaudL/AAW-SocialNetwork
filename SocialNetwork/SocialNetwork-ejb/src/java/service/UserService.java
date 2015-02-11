@@ -55,7 +55,7 @@ public class UserService implements UserServiceLocal {
     public String connectedUserToString() {
         if(connectedUser != null){
             refresh();
-            SocketMediator.send("MESSAGE TEST", 1);
+            SocketMediator.sendToAll("MESSAGE TEST", 1);
             return connectedUser.toString();
         }
         return null;
