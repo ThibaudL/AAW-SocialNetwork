@@ -119,7 +119,7 @@
                                             <core:param name="commentUserId" value="#{messageContent.author.id}" />
                                         </p:graphicImage>
                                         <!--<img class="img-circle" width="30" height="30" src="http://dummyimage.com/30x30/cccccc/fff.png"/>--> 
-                                        #{messageContent.author.profile.firstname} #{messageContent.author.profile.lastname} said #{messageContent.date} :
+                                        <a href="wall.xhtml?wallId=#{messageContent.author.id}">#{messageContent.author.profile.firstname} #{messageContent.author.profile.lastname}</a> said <h5 style="display:inline;"><small>#{messageContent.date}</small></h5> :
                                         
                                     </div>
                                     <div class="panel-body">

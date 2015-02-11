@@ -143,7 +143,7 @@ public class WallMB implements Serializable{
 
     }
     
-     public StreamedContent getReadableMessagePicture(){
+    public StreamedContent getReadableMessagePicture(){
         FacesContext context = FacesContext.getCurrentInstance();
         if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
             return new DefaultStreamedContent();
@@ -159,6 +159,30 @@ public class WallMB implements Serializable{
                     Picture p = pictureService.findPicture(pId);
 
                     return new DefaultStreamedContent(new ByteArrayInputStream(p.getContent()));
+                }
+            }
+
+            
+            return new DefaultStreamedContent();
+        }
+    }
+    
+    public StreamedContent getReadableFriendPicture(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+            return new DefaultStreamedContent();
+        }else{
+
+            Map<String, String> map =context.getExternalContext().getRequestParameterMap();
+            String friendPictureId = map.get("friendPictureId");
+
+            if(friendPictureId != null){
+
+                Integer pId = Integer.parseInt(friendPictureId);
+                if(pId != null){
+                    Profile p = profileService.getProfile(pId);
+
+                    return new DefaultStreamedContent(new ByteArrayInputStream(p.getPicture()));
                 }
             }
 

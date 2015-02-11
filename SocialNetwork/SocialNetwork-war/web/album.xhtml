@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <h3>Albums list :</h3>
-                    <div ng-show="(#{WallMB.areFriends()})">
+                    <div ng-show="(#{WallMB.areFriends()}) || #{AlbumMB.userId} == #{ProfileMB.profile.user.id}">
                         <ui:repeat var="album" value="#{AlbumMB.albums}" varStatus="status">
                             <div class="col-md-4">
                                 <div class="text-center">
