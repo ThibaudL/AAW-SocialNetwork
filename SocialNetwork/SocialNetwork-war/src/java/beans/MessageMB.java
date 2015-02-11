@@ -103,7 +103,9 @@ public class MessageMB implements Serializable{
     public void publishVideo(){
         Integer userId = (Integer) SessionUtils.getItem(SessionUtils.ID_KEY);
         if(userId != null){
-            messageService.publishPublicMessage(videoUrl, userId);
+            Logger.getLogger(MessageMB.class.getName()).log(Level.SEVERE, "VIDEO : "+this.videoUrl);
+            
+            messageService.publishPublicMessage(VIDEO + this.videoUrl + VIDEO, userId);
             removeContent();
         }
     } 
@@ -112,7 +114,7 @@ public class MessageMB implements Serializable{
     public void publishLink(){
         Integer userId = (Integer) SessionUtils.getItem(SessionUtils.ID_KEY);
         if(userId != null){
-            messageService.publishPublicMessage(linkUrl, userId);
+            messageService.publishPublicMessage(LINK + linkUrl + LINK, userId);
             removeContent();
         }
     } 
@@ -240,7 +242,7 @@ public class MessageMB implements Serializable{
     }
 
     public void setVideoUrl(String videoUrl) {
-        this.videoUrl = VIDEO + videoUrl + VIDEO;
+        this.videoUrl = videoUrl;
     }
 
     public String getLinkUrl() {
@@ -248,7 +250,7 @@ public class MessageMB implements Serializable{
     }
 
     public void setLinkUrl(String linkUrl) {
-        this.linkUrl = LINK + linkUrl + LINK;
+        this.linkUrl = linkUrl;
 
     }
 

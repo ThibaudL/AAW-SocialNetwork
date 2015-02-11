@@ -75,13 +75,10 @@
                                 
                                 <!--  case Picture--> 
                                 <div class="text-center">
-                                    <img id="uploadPreview" height="200" width="200" style="border:none;" ng-show="publishAction==1" />
+                                    <img id="uploadPreview" height="200" width="200" style="border:none;"  ng-show="publishAction==1" />
                                     <textarea ng-show="publishAction==1" type="text" row="10" class="form-control" placeholder="Want to say something ?" jsf:value="#{MessageMB.messageTextPicture}"/>
                                 </div>
                                 <div ng-show="publishAction==1">
-                                    <div class="text-center">
-                                        <img id="uploadPreview" style="width: 200px; height: 200px;" />
-                                    </div>
                                     <p:fileUpload id="uploadImage"  class="form-control fileUploadPicture" value="#{MessageMB.pictureFile}" multiple="false" required="true" mode="simple">
                                                 
                                     </p:fileUpload>
@@ -185,7 +182,6 @@
                     }
                 });
                 $("#sendVideo").click(function(){
-                    $("#videoInput").val("");
                     $("#video").html("");
                 });
                 
@@ -202,6 +198,7 @@
                     
                 });
                 
+                $('#uploadPreview').show();
                 $(".fileUploadPicture").change(function(){
                     var oFReader = new FileReader();
                     oFReader.readAsDataURL(document.getElementById("j_idt24:uploadImage").files[0]);
