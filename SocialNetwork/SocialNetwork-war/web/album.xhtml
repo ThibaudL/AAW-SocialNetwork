@@ -50,19 +50,21 @@
                         </div>
                     </div>
                     <h3>Albums list :</h3>
-                    <ui:repeat var="album" value="#{AlbumMB.albums}" varStatus="status">
-                        <div class="col-md-4">
-                            <div class="text-center">
-                                <h4><small><a href="gallery.xhtml?albumId=#{album.id}&amp;wallId=#{album.author.id}">#{album.title}</a></small></h4>
-                                <div ng-show="#{AlbumMB.userId} == #{ProfileMB.profile.user.id}">
-                                    <h:form>
-                                        <h:commandButton value="Remove" action="#{AlbumMB.remove(album.id)}" class="btn btn-primary btn-xs"/>
-                                    </h:form>
-                                </div>
+                    <div ng-show="(#{WallMB.areFriends()})">
+                        <ui:repeat var="album" value="#{AlbumMB.albums}" varStatus="status">
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <h4><small><a href="gallery.xhtml?albumId=#{album.id}&amp;wallId=#{album.author.id}">#{album.title}</a></small></h4>
+                                    <div ng-show="#{AlbumMB.userId} == #{ProfileMB.profile.user.id}">
+                                        <h:form>
+                                            <h:commandButton value="Remove" action="#{AlbumMB.remove(album.id)}" class="btn btn-primary btn-xs"/>
+                                        </h:form>
+                                    </div>
 
-                            </div>
-                        </div> 
-                    </ui:repeat>
+                                </div>
+                            </div> 
+                        </ui:repeat>
+                    </div>
                 </div>
             </div>
         </div>
