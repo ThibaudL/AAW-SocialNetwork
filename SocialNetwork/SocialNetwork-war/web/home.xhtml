@@ -220,7 +220,7 @@
                                                 text: m.firstname + " " + m.lastname ,
                                                 id: m.id,
                                                 logo: m.picture,
-                                                label: $('#publishMessage').val().split('@')[0] + m.firstname + " " + m.lastname 
+                                                label: $('#publishMessage').val().split('@')[0] +"@["+ m.firstname + " " + m.lastname+"]"
                                             };
                                         });
                                     }catch(e){
