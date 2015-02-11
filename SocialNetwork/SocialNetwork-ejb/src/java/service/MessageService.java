@@ -86,6 +86,12 @@ public class MessageService implements MessageServiceLocal {
         for (PublicMessage message : messages) {
             message.setAuthor(currentUser);
         }
+        Collections.sort(messages, new Comparator<PublicMessage>() {
+            @Override
+            public int compare(PublicMessage o1, PublicMessage o2) {
+                return -(o1.getDate().compareTo(o2.getDate()));                  
+            }
+        }); 
         return messages;
     }
     
