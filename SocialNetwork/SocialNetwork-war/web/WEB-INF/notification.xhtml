@@ -8,7 +8,7 @@
     <div id="ohsnap"></div>
 
     <script>
-        var wsUri = "ws://" + document.location.host + "/SocialNetwork-war/mediatorendpoint";
+        var wsUri = "ws://" + document.location.host + "/SocialNetwork-war/mediatorendpoint/"+#{ProfileMB.profile.user.id};
         var websocket = new WebSocket(wsUri);
 
         websocket.onmessage = function(evt){

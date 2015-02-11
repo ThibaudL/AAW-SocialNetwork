@@ -25,7 +25,7 @@ import service.UserService;
  * @author Thibaud
  */
 @Singleton
-@ServerEndpoint("/mediatorendpoint")
+@ServerEndpoint("/mediatorendpoint/{userId}")
 public class SocketMediator {
     
     private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
@@ -49,7 +49,8 @@ public class SocketMediator {
     }
     
     @OnOpen
-    public void onOpen(Session peer){
+    public void onOpen(Session peer,@PathParam("userId") String userId) { 
+        peer.getUserProperties().put("userId", userId);
         // , @PathParam("userId") String userId 
         // peer.getUserProperties().put("userId", userId);
         peers.add(peer);
@@ -66,7 +67,7 @@ public class SocketMediator {
             //if((int)(session.getUserProperties().get("userId")) == userId ){
                 if(session.isOpen()){
                     try {
-                        session.getBasicRemote().sendText(message);
+                        session.getBasicRemote().sendText("userId : "+session.getUserProperties().get("userId")+" "+message);
                     } catch (IOException ex) {
                         Logger.getLogger(SocketMediator.class.getName()).log(Level.SEVERE, null, ex);
                     }
