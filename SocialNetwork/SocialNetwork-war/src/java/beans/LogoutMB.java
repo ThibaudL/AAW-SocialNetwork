@@ -25,10 +25,9 @@ public class LogoutMB {
     }
     
     public String logout(){ 
-        HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        if(session != null){
-            session.invalidate();
-        }
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        FacesContext.getCurrentInstance().getViewRoot().getViewMap().clear();
+        
         return "index.xhtml";
     }
     

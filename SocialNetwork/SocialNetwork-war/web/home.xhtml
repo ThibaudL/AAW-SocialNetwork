@@ -23,7 +23,7 @@
         <h:outputScript name="js/bootstrap.min.js"></h:outputScript>
 
 </h:head>
-<h:body>
+    <h:body rendered="#{SecurityMB.isConnected}">
 
     <div ng-app="" >
         <ui:include src="WEB-INF/topbar.xhtml" />
