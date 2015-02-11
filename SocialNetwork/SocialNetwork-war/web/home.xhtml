@@ -68,7 +68,7 @@
                             <div class="">
                                 <!--  case text--> 
                                 <div>
-                                    <textarea ng-show="publishAction==0" type="text" row="10" class="form-control" placeholder="Want to say something ?" jsf:value="#{MessageMB.messageText}"/>
+                                    <textarea id="publishMessage" ng-show="publishAction==0" type="text" row="10" class="form-control" placeholder="Want to say something ?" jsf:value="#{MessageMB.messageText}"/>
                                 </div>
                                 <div>
                                     <button class="btn btn-primary btn-block" ng-show="publishAction==0" width="100%" jsf:action="#{MessageMB.publishMessage()}">Publish message</button>
@@ -207,8 +207,45 @@
                        $('#uploadPreview').attr('src',oFREvent.target.result).fadeIn("slow");
                     };
                 });
-
                 
+                $( "#publishMessage" ).autocomplete({
+                        source: function(request, response) {
+                            $.ajax({
+                                url: 'http://localhost:8080/SocialNetwork-war/webresources/serviceProfile/startWith/'+$('#publishMessage').val().split('@')[1],
+                                success: function(data){
+                                    try{
+                                        var obj = jQuery.parseJSON(data);
+                                        var array = $.map(obj, function(m) {
+                                            return {
+                                                text: m.firstname + " " + m.lastname ,
+                                                id: m.id,
+                                                logo: m.picture,
+                                                label: $('#publishMessage').val().split('@')[0] + m.firstname + " " + m.lastname 
+                                            };
+                                        });
+                                    }catch(e){
+                                    }
+                                    response(array);
+                                },
+                            });
+                        },
+                        select: function (event, ui) {
+                           ui.item.label = ui.item.label+ui.item.text;
+                        }
+                    
+            }).autocomplete( "instance" )._renderItem = function( ul, item ) {
+                var src;
+                var style = 'width:25px;height:25px;';
+                var classIMG = 'img-circle';
+                if(item.logo){
+                    src = 'data:image/png;base64,'+item.logo;
+                }
+                return $( "<li>" )
+                  .append( "<a><img class="+classIMG+" style="+style+" src="+src+ "/>"  +item.text + "</a></li>" )
+                  .appendTo( ul );
+              };
+
+            
             });
             
             function treatmentVideo(valInput){
