@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -216,16 +217,18 @@ public class MessageMB implements Serializable{
     public List<PublicMessage> getMyMessages() {
         Integer userId;
         String idString = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("wallId");
-        if(idString == null){
-            userId = (Integer)SessionUtils.getItem(SessionUtils.ID_KEY);
-        }else{
+        try{
             userId = Integer.parseInt(idString);
-            if(userId != (Integer)SessionUtils.getItem(SessionUtils.ID_KEY)){
-                if(!friendService.areFriends(userId,(Integer)SessionUtils.getItem(SessionUtils.ID_KEY))){
-                    return new ArrayList<PublicMessage>();
-                }
+        }catch(NumberFormatException nfe){
+            userId = (Integer)SessionUtils.getItem(SessionUtils.ID_KEY);
+        }
+        
+        if(!Objects.equals(userId, (Integer)SessionUtils.getItem(SessionUtils.ID_KEY))){
+            if(!friendService.areFriends(userId,(Integer)SessionUtils.getItem(SessionUtils.ID_KEY))){
+                return new ArrayList<PublicMessage>();
             }
-        } 
+        }
+
         return messageService.getMyMessages(userId);
     }
 

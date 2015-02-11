@@ -4,7 +4,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:core="http://java.sun.com/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     
 <h:head>
         <h:outputStylesheet name="css/bootstrap.min.css"></h:outputStylesheet>
@@ -125,14 +126,15 @@
                             <li class="list-group-item active" >
                                 Friends List :
                             </li>
-                            
                             <ui:repeat var="friend" value="#{WallMB.profile.user.friends}" varStatus="status">
-                                <li class="list-group-item" >
-                                    <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:30px; height: 30px;" value="#{WallMB.readableFriendPicture}" >
-                                                <core:param name="friendPictureId" value="#{friend.friend.id}" />
-                                    </p:graphicImage>
-                                    <a href="wall.xhtml?wallId=#{friend.friend.id}"> #{friend.friend.profile.firstname} #{friend.friend.profile.lastname}</a>
-                                </li>
+
+                                    <li class="list-group-item" ng-show="#{friend.valid}" >
+                                        <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:30px; height: 30px;" value="#{WallMB.readableFriendPicture}" >
+                                                    <core:param name="friendPictureId" value="#{friend.friend.id}" />
+                                        </p:graphicImage>
+                                        <a href="wall.xhtml?wallId=#{friend.friend.id}"> #{friend.friend.profile.firstname} #{friend.friend.profile.lastname}</a>
+                                    </li>
+                                
                             </ui:repeat>
                         </ul>
                         
