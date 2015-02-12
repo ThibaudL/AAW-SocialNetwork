@@ -64,8 +64,6 @@ public class SocketMediator {
     
     public static void sendToAll(String message, int userId){
         for(Session session : peers){
-            //TODO FIND USERID IN JAVASCRIPT
-            //if((int)(session.getUserProperties().get("userId")) == userId ){
             if(session.isOpen()){
                 try {
                     session.getBasicRemote().sendText("userId : "+session.getUserProperties().get("userId")+" "+message);
@@ -73,7 +71,6 @@ public class SocketMediator {
                     Logger.getLogger(SocketMediator.class.getName()).log(Level.SEVERE, "ERREUR IN SEND TO ALL");
                 }
             }
-            //}
         }
     }
     
@@ -86,7 +83,6 @@ public class SocketMediator {
 
                     if(Integer.parseInt(session.getUserProperties().get("userId").toString()) == not.getUser().getId()){
                         session.getBasicRemote().sendText(not.getContent());
-                        return;
                     }
                 } catch (IOException|NumberFormatException ex) {
                     Logger.getLogger(SocketMediator.class.getName()).log(Level.SEVERE, "ERREUR IN SEND NOTIFICATION");
