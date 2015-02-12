@@ -6,9 +6,11 @@
 package dao.impl;
 
 import dao.entity.Notification;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,6 +28,12 @@ public class NotificationFacade extends AbstractFacade<Notification> implements 
 
     public NotificationFacade() {
         super(Notification.class);
+    }
+
+    @Override
+    public List<Notification> findByUserId(Integer userId) {
+        Query q = em.createQuery("SELECT n FROM Notification n WHERE n.user.id="+userId);
+        return q.getResultList();
     }
     
 }

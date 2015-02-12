@@ -5,18 +5,13 @@
  */
 package beans;
 
-import java.io.IOException;
+import dao.entity.Notification;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import service.NotificationServiceLocal;
 import service.ProfileServiceLocal;
 import service.UserServiceLocal;
 import utils.SessionUtils;
@@ -38,6 +33,8 @@ public class UserMB implements Serializable{
     UserServiceLocal userService;
     @EJB
     ProfileServiceLocal profileService;
+    @EJB
+    NotificationServiceLocal notificationService;
     
     private String login;
     private String password;
@@ -137,6 +134,10 @@ public class UserMB implements Serializable{
 
     public void setId(Integer id) {
         this.id = id;
+    }
+    
+    public List<Notification> getNotifications(){
+        return notificationService.getNotifications(userService.getUserId());
     }
 
     

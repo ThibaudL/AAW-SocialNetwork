@@ -24,6 +24,8 @@ public interface NotificationFacadeLocal {
 
     Notification find(Object id);
 
+    List<Notification> findByUserId(Integer userId);
+    
     List<Notification> findAll();
 
     List<Notification> findRange(int[] range);
