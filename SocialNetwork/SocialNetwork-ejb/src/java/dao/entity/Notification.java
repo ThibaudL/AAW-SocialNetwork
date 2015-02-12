@@ -25,7 +25,7 @@ public class Notification implements Serializable {
     private String content;
     
     @Column
-    private Integer readed;
+    private boolean readed;
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateNotif;
@@ -42,11 +42,11 @@ public class Notification implements Serializable {
         this.content = content;
     }
 
-    public Integer getRead() {
+    public boolean getRead() {
         return this.readed;
     }
 
-    public void setRead(Integer read) {
+    public void setRead(boolean read) {
         this.readed = read;
     }
 

@@ -140,6 +140,9 @@ public class UserMB implements Serializable{
         return notificationService.getNotifications(userService.getUserId());
     }
 
+    public void readNotification(Notification notification){
+        notificationService.setNotificationToReaded(notification.getId());
+    }
     
     
     
