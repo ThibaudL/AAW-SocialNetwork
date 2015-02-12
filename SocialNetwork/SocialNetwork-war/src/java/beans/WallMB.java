@@ -133,17 +133,16 @@ public class WallMB implements Serializable{
     public void removeFriendship(){
         try {
             Integer uID;
-            Integer fID;
-            String idString = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("wallId");
-            uID = (Integer)SessionUtils.getItem(SessionUtils.ID_KEY);
-            if(idString != null){
-                fID = Integer.parseInt(idString);
-                friendService.removeFriendship(uID, fID);
+            uID = (Integer)SessionUtils.getItem(SessionUtils.ID_KEY);                
 
-                ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-                context.redirect(context.getRequestContextPath() + "/faces/wall.xhtml?wallId="+getUserId());
-            }
-        } catch (IOException ex) {
+            Logger.getLogger(WallMB.class.getName()).log(Level.SEVERE, "Debug FRIEND Remove : " + uID + " - " +getUserId());
+
+            friendService.removeFriendship(uID, getUserId());
+
+            ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+            context.redirect(context.getRequestContextPath() + "/faces/wall.xhtml?wallId="+getUserId());
+            
+        } catch (IOException | NumberFormatException ex) {
             Logger.getLogger(WallMB.class.getName()).log(Level.SEVERE, null, ex);
         }
 
