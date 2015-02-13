@@ -33,6 +33,7 @@ and open the template in the editor.
     background: #fdf5ce url("images/ui-bg_glass_100_fdf5ce_1x400.png") 50% 50% repeat-x;
     font-weight: bold;
     color: #c77405;
+    text-decoration: none;
 
 }
 .li-notification a{
@@ -40,5 +41,6 @@ and open the template in the editor.
     background: #ffffff url("images/ui-bg_glass_65_ffffff_1x400.png") 50% 50% repeat-x;
     font-weight: bold; 
     color: #aaaaaa;
+    text-decoration: none;
 }
 

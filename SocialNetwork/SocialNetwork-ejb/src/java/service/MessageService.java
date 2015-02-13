@@ -58,7 +58,7 @@ public class MessageService implements MessageServiceLocal {
             content = content.replace(matcher.group(0),"");
             Notification not= new Notification();
             Profile p = publicMessage.getAuthor().getProfile();
-            not.setContent("Message sent by "+p.getFirstname()+" "+ p.getLastname() +" : "+content);
+            not.setContent(p.getFirstname()+" "+ p.getLastname() +" talked about you : "+content);
             not.setDate(new Date());
             not.setLink("http://localhost:8080/SocialNetwork-war/faces/wall.xhtml?wallId="+userId);
             not.setUser(user);
