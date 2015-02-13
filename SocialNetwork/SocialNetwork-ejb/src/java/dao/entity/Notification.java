@@ -27,6 +27,10 @@ public class Notification implements Serializable {
     @Column
     private boolean readed;
     
+    @Column
+    private String link;
+     
+    
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateNotif;
     
@@ -74,6 +78,31 @@ public class Notification implements Serializable {
         this.user = user;
     }
 
+    public boolean isReaded() {
+        return readed;
+    }
+
+    public void setReaded(boolean readed) {
+        this.readed = readed;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public Date getDateNotif() {
+        return dateNotif;
+    }
+
+    public void setDateNotif(Date dateNotif) {
+        this.dateNotif = dateNotif;
+    }
+
+    
     
     
     @Override

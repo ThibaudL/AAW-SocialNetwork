@@ -13,11 +13,9 @@
 
         websocket.onmessage = function(evt){
             console.log("received : " + evt.data);
-            ohSnap(evt.data, 'blue');
-        };
-
-        websocket.ontext = function(evt){
-            console.log("text received : "+evt.data);
+            var obj = jQuery.parseJSON(evt.data);
+            console.log("JSON " + obj);
+            ohSnap(obj.content, 'blue');
         };
 
         websocket.onerror = function(evt){

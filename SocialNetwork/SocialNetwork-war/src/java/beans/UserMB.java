@@ -6,11 +6,16 @@
 package beans;
 
 import dao.entity.Notification;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import service.NotificationServiceLocal;
 import service.ProfileServiceLocal;
 import service.UserServiceLocal;
@@ -141,7 +146,14 @@ public class UserMB implements Serializable{
     }
 
     public void readNotification(Notification notification){
-        notificationService.setNotificationToReaded(notification.getId());
+        try {
+            notificationService.setNotificationToReaded(notification.getId());
+            ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+            context.redirect(notification.getLink());
+        } catch (IOException ex) {
+            Logger.getLogger(UserMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
     
     

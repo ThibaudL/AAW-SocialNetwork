@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Singleton;
+import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
@@ -66,7 +67,9 @@ public class SocketMediator {
         for(Session session : peers){
             if(session.isOpen()){
                 try {
-                    session.getBasicRemote().sendText("userId : "+session.getUserProperties().get("userId")+" "+message);
+                    if(Integer.parseInt(session.getUserProperties().get("userId").toString()) == userId){
+                        session.getBasicRemote().sendText(message);
+                    }
                 } catch (IOException ex) {
                     Logger.getLogger(SocketMediator.class.getName()).log(Level.SEVERE, "ERREUR IN SEND TO ALL");
                 }
@@ -75,14 +78,15 @@ public class SocketMediator {
     }
     
     public static void sendNotification(Notification not){
-        Logger.getLogger(SocketMediator.class.getName()).log(Level.SEVERE, "SENDING NOTIFICATION "+not);
         for(Session session : peers){
             if(session.isOpen()){
                 try {
-                    Logger.getLogger(SocketMediator.class.getName()).log(Level.SEVERE, "DEBUG : " + Integer.parseInt(session.getUserProperties().get("userId").toString()) +" - "+not.getUser().getId());
 
                     if(Integer.parseInt(session.getUserProperties().get("userId").toString()) == not.getUser().getId()){
-                        session.getBasicRemote().sendText(not.getContent());
+                        String json = "{\"id\":\"" + not.getId()+ "\", \"content\":\"" + not.getContent()+"\", \"link\":\"" + not.getLink()+"\", \"date\":\"" +not.getDate()+"\"}";
+ 
+                        session.getBasicRemote().sendText(json);
+
                     }
                 } catch (IOException|NumberFormatException ex) {
                     Logger.getLogger(SocketMediator.class.getName()).log(Level.SEVERE, "ERREUR IN SEND NOTIFICATION");

@@ -6,7 +6,9 @@
 package service;
 
 import dao.entity.Friend;
+import dao.entity.Notification;
 import dao.entity.Picture;
+import dao.entity.Profile;
 import dao.entity.PublicMessage;
 import dao.entity.User;
 import dao.impl.PictureFacade;
@@ -17,6 +19,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import websocket.SocketMediator;
@@ -40,10 +44,28 @@ public class MessageService implements MessageServiceLocal {
     public void publishPublicMessage(String content, Integer userId) {
         PublicMessage publicMessage = new PublicMessage();
         publicMessage.setAuthor(userFacade.find(userId));
+
+        Pattern pattern = Pattern.compile("\\[[0-9]*\\]");
+        Matcher matcher = pattern.matcher(content);
+        
+        if (matcher.find())
+        {
+            String str = matcher.group(0).replace("[", "").replace("]", "");
+            User user = userFacade.find(Integer.parseInt(str));
+            content = content.replace(matcher.group(0),"");
+            Notification not= new Notification();
+            Profile p = publicMessage.getAuthor().getProfile();
+            not.setContent("Message sent by "+p.getFirstname()+" "+ p.getLastname() +" : "+content);
+            not.setDate(new Date());
+            not.setLink("http://localhost:8080/SocialNetwork-war/faces/wall.xhtml?wallId="+userId);
+            not.setUser(user);
+            SocketMediator.sendNotification(not);
+        }
+        
         publicMessage.setContent(content);
         publicMessage.setDate(new Date());
         publicMessageFacade.create(publicMessage);
-        SocketMediator.sendToAll("Message published by " + publicMessage.getAuthor().getProfile().getFirstname() + " : " + content , userId);
+
     }
     
     @Override
@@ -58,7 +80,7 @@ public class MessageService implements MessageServiceLocal {
         publicMessage.setDate(new Date());
         publicMessage.setPicture(p);
         publicMessageFacade.create(publicMessage);
-        SocketMediator.sendToAll("Message published by " + publicMessage.getAuthor().getProfile().getFirstname() + " : " + content , userId);
+        
     }
 
 

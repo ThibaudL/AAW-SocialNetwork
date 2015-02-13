@@ -24,7 +24,7 @@ public interface ProfileFacadeLocal {
 
     Profile find(Object id);
     
-    Profile findByUserId(Integer id);
+    Profile findByUserId(Integer id); 
 
     List<Profile> findAll();
 
