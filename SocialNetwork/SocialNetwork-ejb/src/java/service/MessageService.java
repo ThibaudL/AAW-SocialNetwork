@@ -11,6 +11,7 @@ import dao.entity.Picture;
 import dao.entity.Profile;
 import dao.entity.PublicMessage;
 import dao.entity.User;
+import dao.impl.NotificationFacadeLocal;
 import dao.impl.PictureFacade;
 import dao.impl.PictureFacadeLocal;
 import dao.impl.PublicMessageFacadeLocal;
@@ -38,6 +39,8 @@ public class MessageService implements MessageServiceLocal {
     UserFacadeLocal userFacade;
     @EJB
     PictureFacadeLocal pictureFacade;
+    @EJB
+    NotificationFacadeLocal notificationFacade;
     
     
     @Override
@@ -59,6 +62,7 @@ public class MessageService implements MessageServiceLocal {
             not.setDate(new Date());
             not.setLink("http://localhost:8080/SocialNetwork-war/faces/wall.xhtml?wallId="+userId);
             not.setUser(user);
+            notificationFacade.create(not);
             SocketMediator.sendNotification(not);
         }
         

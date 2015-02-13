@@ -27,16 +27,17 @@
                                 <span class="caret">
                                     
                                 </span>
-                            </a>
-                            <ul class="dropdown-menu" role="menu">
-                                <ui:repeat var="notification" value="#{UserMB.notifications}" varStatus="status">
-                                    <li>
-                                        <h:form>
-                                            <h:commandLink class="btn btn-primary btn-block" action="#{UserMB.readNotification(notification)}" target="" value="#{notification.content}"/>
-                                        </h:form>
-                                    </li> 
-                                </ui:repeat>
-                            </ul>
+                            </a>                                        
+                                <ul class="dropdown-menu" role="menu">
+                                    <ui:repeat var="notification" value="#{UserMB.notifications}" varStatus="status">
+                                        <li class="li-notification">
+                                            <h:form >
+                                                <h:commandLink class="btn-block" action="#{UserMB.readNotification(notification)}" target="" value="#{notification.content}"/>
+                                            </h:form>
+                                        </li> 
+                                    </ui:repeat>
+                                </ul>
+
                                 
                         </li>
                         <li>
