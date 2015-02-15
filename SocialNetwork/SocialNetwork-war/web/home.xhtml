@@ -143,8 +143,8 @@
                                     
                                     <div  class="panel-info">
                                         <div class="">
-                                            <h:form id="form#{messageContent.id}" class="form-group btn-block">
-                                                <input id="inputId#{messageContent.id}" name="inputId#{messageContent.id}" type="text" class="form-control" placeholder="What do you feel about this ?" />
+                                            <h:form id="commentForm" class="form-group btn-block">
+                                                <input id="commentInput" name="commentInput" type="text" class="form-control" placeholder="What do you feel about this ?" />
                                                 <button class="btn btn-block btn-primary" jsf:action="#{MessageMB.sendComment(messageContent)}" >Send</button>
                                             </h:form>
                                         </div>
