@@ -5,6 +5,8 @@
  */
 package beans;
 
+import dao.entity.Message;
+import dao.entity.Comment;
 import dao.entity.Picture;
 import dao.entity.Profile;
 import dao.entity.PublicMessage;
@@ -20,9 +22,7 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
@@ -30,11 +30,11 @@ import javax.servlet.http.Part;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
+import service.CommentServiceLocal;
 import service.FriendServiceLocal;
 import service.MessageServiceLocal;
 import service.PictureServiceLocal;
 import service.ProfileServiceLocal;
-import service.UserService;
 import service.UserServiceLocal;
 import utils.SessionUtils;
 
@@ -63,13 +63,16 @@ public class MessageMB implements Serializable{
     FriendServiceLocal friendService;
     @EJB
     PictureServiceLocal pictureService;
+    @EJB
+    CommentServiceLocal commentService;
 
     private String messageText;
     private String messageTextPicture;
     private Part publishPicture;
-    
+    private String commentToSend;
     private String videoUrl;
     private String linkUrl;
+    
     
     
     /**
@@ -92,6 +95,16 @@ public class MessageMB implements Serializable{
     public void setMessageText(String messageText) {
         this.messageText = messageText;
     }
+
+    public String getCommentToSend() {
+        return commentToSend;
+    }
+
+    public void setCommentToSend(String commentToSend) {
+        this.commentToSend = commentToSend;
+    }
+    
+    
     
     public void publishMessage(){
         Integer userId = (Integer) SessionUtils.getItem(SessionUtils.ID_KEY);
@@ -273,7 +286,18 @@ public class MessageMB implements Serializable{
         pictureFile = null;
     }
     
+    public void sendComment(Message msg){
+        Logger.getLogger(MessageMB.class.getName()).log(Level.SEVERE,FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().toString());
+
+        String content = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("inputId"+msg.getId());
+        commentService.sendComment(msg, content, (Integer)SessionUtils.getItem(SessionUtils.ID_KEY));
+    }
+     
+    public List<Comment> getCommentsByMessage(Message msg){
+        return msg.getComments();
+    }
     
+
     
     
 

@@ -2,17 +2,11 @@ package dao.entity;
 
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonValue;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -50,7 +44,7 @@ public class Message implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     
-    @OneToMany(mappedBy = "source")
+    @OneToMany(mappedBy = "source",cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     public List<Comment> comments = new ArrayList<>();
     
     @OneToOne
