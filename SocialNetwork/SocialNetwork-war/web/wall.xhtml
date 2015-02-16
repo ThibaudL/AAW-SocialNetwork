@@ -104,15 +104,28 @@
                                                 </form>
                                             </div>
                                             <div class="text-right">
-                                                <a href="#" ng-click="afficherComment[#{messageContent.id}]=true" ng-show="afficherComment[#{messageContent.id}]==false">Display comments ...</a>
+                                                <a href="#" ng-click="afficherComment[#{messageContent.id}]=true" ng-show="afficherComment[#{messageContent.id}]==false">Display comments (#{messageContent.comments.size()})...</a>
                                                 <a href="#" ng-click="afficherComment[#{messageContent.id}]=false" ng-show="afficherComment[#{messageContent.id}]==true">Hide comments ...</a>
                                             </div>
                                             <div  ng-show="afficherComment[#{messageContent.id}]==true" ng-init="afficherComment[#{messageContent.id}]=false">
-                                                <ui:repeat var="comment" value="#{messageContent.comments}" varStatus="status">
-                                                    <div>
-                                                        #{comment.content}
+                                                <ui:repeat var="commentEntry" value="#{messageContent.comments}" varStatus="status">
+                                                <div class="">
+                                                    <div class="">
+                                                        <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:30px; height: 30px;" value="#{MessageMB.readableProfilePicture}" >
+                                                            <core:param name="commentUserId" value="#{commentEntry.comment.author.id}" />
+                                                        </p:graphicImage>
+                                                        <!--<img class="img-circle" width="30" height="30" src="http://dummyimage.com/30x30/cccccc/fff.png"/>--> 
+                                                        <a href="wall.xhtml?wallId=#{commentEntry.comment.author.id}">#{commentEntry.comment.author.profile.firstname} #{commentEntry.comment.author.profile.lastname}</a> commented <h5 style="display:inline;"><small>#{commentEntry.comment.date}</small></h5> :
                                                     </div>
-                                                </ui:repeat>
+                                                    <div class="">
+                                                        <div class="messageContent">
+                                                            <div>
+                                                                #{commentEntry.comment.content}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
                                             </div>
                                         </div>
                                     </div>

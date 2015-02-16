@@ -287,8 +287,6 @@ public class MessageMB implements Serializable{
     }
     
     public void sendComment(Message msg){
-        Logger.getLogger(MessageMB.class.getName()).log(Level.SEVERE,FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().toString());
-
         String content = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("commentInput");
         commentService.sendComment(msg, content, (Integer)SessionUtils.getItem(SessionUtils.ID_KEY));
     }
@@ -301,4 +299,4 @@ public class MessageMB implements Serializable{
     
     
 
-}
+}  
