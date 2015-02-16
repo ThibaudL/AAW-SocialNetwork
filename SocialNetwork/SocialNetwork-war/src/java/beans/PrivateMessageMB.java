@@ -43,6 +43,8 @@ public class PrivateMessageMB {
             }catch(NumberFormatException nfe){
             }
         }
+        contentMsg = "";
+        destinataire = "";
         return "listPrivateMessage.xhtml";
     }
     

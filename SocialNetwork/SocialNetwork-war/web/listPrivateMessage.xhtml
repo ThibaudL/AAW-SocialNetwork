@@ -75,9 +75,9 @@
                         <div id="listPrivateMessage">
                             <h3>Your private messsage :</h3>
                             <ui:repeat var="msg" value="#{PrivateMessageMB.privateMsg}" varStatus="status">
-                                <h3><small>#{msg.destinataire.profile.firstname} #{msg.destinataire.profile.lastname} :</small></h3>
+                                <h3><small><a href="wall.xhtml?wallId=#{msg.destinataire.id}">#{msg.destinataire.profile.firstname} #{msg.destinataire.profile.lastname} :</a></small></h3>
                                 <ul>
-                                    <li>#{msg.content}</li>
+                                    <li><a href="#">#{msg.content}</a></li>
                                 </ul>
                             </ui:repeat>
                         </div>
