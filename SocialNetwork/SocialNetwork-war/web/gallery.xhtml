@@ -25,6 +25,7 @@
 </h:head>
 <h:body>
     #{AlbumMB.init()}
+    #{WallMB.init()}
     <div ng-app="" >
         <ui:include src="WEB-INF/topbar.xhtml" />
 
@@ -36,6 +37,27 @@
               
                 <div class="col-md-8 panel panel-default">
                     <div class="panel-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                    <div class="caption text-left col-md-9">
+                                            <div>
+                                            <h3>Who is #{WallMB.profile.firstname} #{WallMB.profile.lastname} </h3>
+                                            </div>
+                                            <div>
+                                                <strong>Birth date : </strong>#{WallMB.profile.birthdate.toLocaleString()}
+                                            </div>
+                                            <div>
+                                                <strong>Information : </strong>#{WallMB.profile.information}
+                                            </div>
+                                            <div>
+                                                <strong><a href="wall.xhtml?wallId=#{WallMB.profile.user.id}">View wall</a></strong>
+                                            </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                    <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:150px; height:150px;" value="#{WallMB.readableProfilePicture}" />
+                                    </div>
+                            </div>
+                        </div>
                         <div>
                            
                             <div ng-show="#{AlbumMB.userId} == #{ProfileMB.profile.user.id}">

@@ -22,6 +22,7 @@
 </h:head>
 <h:body>
     #{AlbumMB.init()}
+    #{WallMB.init()}
     <div ng-app="">
         <ui:include src="WEB-INF/topbar.xhtml" />
 
@@ -30,9 +31,29 @@
                 <div class="col-md-2" >
                     <ui:include src="WEB-INF/menu.xhtml" />
                 </div>
-                <div class="col-md-8 panel panel-default panel-body">
-                    <div>
-                        
+                <div class="col-md-8 panel panel-default ">
+                    <div class="panel-body">
+                        <div class="panel panel-default">
+                                <div class="panel-body">
+                                        <div class="caption text-left col-md-9">
+                                                <div>
+                                                <h3>Who is #{WallMB.profile.firstname} #{WallMB.profile.lastname} </h3>
+                                                </div>
+                                                <div>
+                                                    <strong>Birth date : </strong>#{WallMB.profile.birthdate.toLocaleString()}
+                                                </div>
+                                                <div>
+                                                    <strong>Information : </strong>#{WallMB.profile.information}
+                                                </div>
+                                                <div>
+                                                    <strong><a href="wall.xhtml?wallId=#{WallMB.profile.user.id}">View wall</a></strong>
+                                                </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                        <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:150px; height:150px;" value="#{WallMB.readableProfilePicture}" />
+                                        </div>
+                                </div>
+                        </div>
                         <div ng-show="#{AlbumMB.userId} == #{ProfileMB.profile.user.id}">
                             <h3>Create an album :</h3>
                             <h:form class="form-horizontal">
@@ -54,8 +75,8 @@
                     <h3>Albums list :</h3>
                     <div ng-show="(#{WallMB.areFriends()} || #{AlbumMB.userId} == #{ProfileMB.profile.user.id})">
                         <ui:repeat var="album" value="#{AlbumMB.albums}" varStatus="status">
-                            <div class="col-md-4">
-                                <div class="text-center">
+                            <div class="panel panel-default col-md-4">
+                                <div class="panel-body text-center">
                                     <h4><small><a href="gallery.xhtml?albumId=#{album.id}&amp;wallId=#{album.author.id}">#{album.title}</a></small></h4>
                                     <div ng-show="#{AlbumMB.userId} == #{ProfileMB.profile.user.id}">
                                         <h:form>

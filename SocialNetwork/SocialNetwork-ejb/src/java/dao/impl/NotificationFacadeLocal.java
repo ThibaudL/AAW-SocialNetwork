@@ -24,7 +24,7 @@ public interface NotificationFacadeLocal {
 
     Notification find(Object id);
 
-    List<Notification> findByUserId(Integer userId);
+    List<Notification> findUnreadedByUserId(Integer userId);
     
     List<Notification> findAll();
 

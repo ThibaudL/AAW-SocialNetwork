@@ -31,9 +31,10 @@ public class NotificationFacade extends AbstractFacade<Notification> implements 
     }
 
     @Override
-    public List<Notification> findByUserId(Integer userId) {
+    public List<Notification> findUnreadedByUserId(Integer userId) {
         Query q = em.createQuery("SELECT n FROM Notification n WHERE n.user.id="+userId+" AND n.readed=0");
         return q.getResultList();
     }
+
     
 }

@@ -28,7 +28,15 @@
             
             var spanNumber = document.getElementById("notification-numbers").innerHTML;
             var newSpanNumber = parseInt(spanNumber, 10) +1;
-            document.getElementById("notification-numbers").innerHTML = newSpanNumber;
+            var notificationNumbers = document.getElementById("notification-numbers");
+            notificationNumbers.innerHTML = newSpanNumber;
+            if(newSpanNumber == 0){
+                notificationNumbers.removeAttribute("class");
+                notificationNumbers.setAttribute("class","label label-success");
+            }else{
+                notificationNumbers.removeAttribute("class");
+                notificationNumbers.setAttribute("class","label label-danger");
+            }
         };
 
         websocket.onerror = function(evt){
@@ -38,6 +46,15 @@
         websocket.onopen = function(evt){
             console.log("Open : " + evt);
         };
+
+        var spanNumber = document.getElementById("notification-numbers").innerHTML;
+        var newSpanNumber = parseInt(spanNumber, 10);
+        var notificationNumbers = document.getElementById("notification-numbers");
+        notificationNumbers.innerHTML = newSpanNumber;
+        if(newSpanNumber == 0){
+            notificationNumbers.removeAttribute("class");
+            notificationNumbers.setAttribute("class","label label-success");
+        }
 
         
     </script>

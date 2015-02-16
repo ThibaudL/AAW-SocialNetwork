@@ -26,7 +26,7 @@ public class NotificationService implements NotificationServiceLocal{
     
     @Override
     public List<Notification> getNotifications(Integer userId) {
-        List<Notification> nots = notificationFacade.findByUserId(userId);
+        List<Notification> nots = notificationFacade.findUnreadedByUserId(userId);
 
         Collections.sort(nots, new Comparator<Notification>() {
             @Override
