@@ -8,6 +8,18 @@
     <div id="ohsnap"></div>
 
     <script>
+        jQuery(document).ready(function($){
+            
+            $('.btnValidNotification').click(function(){
+                console.log("get ajax");
+                $.get("http://localhost:8080/SocialNetwork-war/webresources/notifications/setToReaded/"+$(this).attr("title"),
+                    function(data){
+                        window.location.replace(data);
+                    }
+            )});
+        });
+        
+        
         var wsUri = "ws://" + document.location.host + "/SocialNetwork-war/mediatorendpoint/"+#{ProfileMB.profile.user.id};
         var websocket = new WebSocket(wsUri);
 
@@ -17,17 +29,28 @@
             console.log("JSON " + obj);
             ohSnap(obj.content, 'blue');
             var ul = document.getElementById("notification-list");
+            
             var li = document.createElement("li");
             var form = document.createElement("form");
             var a = document.createElement("a");
-            a.setAttribute("href",obj.link);
+            a.setAttribute("title",obj.id);
+            a.setAttribute("href","#");
+            a.setAttribute("class","btn-block btnValidNotification");
+
             li.setAttribute("class","li-notification");
             form.setAttribute("class","ng-pristine ng-valid");
             a.appendChild(document.createTextNode(obj.content));
-            a.setAttribute("class","btn-block");
             form.appendChild(a);
             li.appendChild(form);
             ul.appendChild(li);
+            
+            $('.btnValidNotification').click(function(){
+                console.log("get ajax");
+                $.get("http://localhost:8080/SocialNetwork-war/webresources/notifications/setToReaded/"+$(this).attr("title"),
+                    function(data){
+                        window.location.replace(data);
+                    }
+            )});
             
             var spanNumber = document.getElementById("notification-numbers").innerHTML;
             var newSpanNumber = parseInt(spanNumber, 10) +1;

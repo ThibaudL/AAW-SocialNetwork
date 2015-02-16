@@ -6,18 +6,24 @@
 package service;
 
 import dao.entity.Notification;
-import dao.entity.PublicMessage;
 import dao.impl.NotificationFacadeLocal;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 
 /**
  *
  * @author Thibaud
  */
+@LocalBean
+@Path("notifications")
 @Stateless
 public class NotificationService implements NotificationServiceLocal{
 
@@ -37,10 +43,14 @@ public class NotificationService implements NotificationServiceLocal{
         return nots;
     }
     
-    public void setNotificationToReaded(Integer notId){
-        Notification not = notificationFacade.find(notId);
+    @GET
+    @Path("setToReaded/{notificationId}")
+    @Produces("text/plain")
+    public String setNotificationToReaded(@PathParam("notificationId") Integer notificationId){
+        Notification not = notificationFacade.find(notificationId);
         not.setRead(true);
         notificationFacade.edit(not);
+        return not.getLink();
     }
     
 }

@@ -18,5 +18,5 @@ import javax.ejb.Local;
 public interface NotificationServiceLocal {
 
     public List<Notification> getNotifications(Integer userId);
-    public void setNotificationToReaded(Integer notId);
+    public String setNotificationToReaded(Integer notId);
 }

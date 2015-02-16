@@ -27,8 +27,6 @@ import websocket.SocketMediator;
  *
  * @author Thibaud
  */
-@LocalBean
-@Path("toto") 
 @Stateful
 public class UserService implements UserServiceLocal {
 
@@ -113,13 +111,6 @@ public class UserService implements UserServiceLocal {
     
     private void refresh(){
         this.connectedUser = userFacade.find(this.connectedUser.getId());
-    }
-    
-    @GET
-    @Path("tutu/{firstName}")
-    @Produces("text/html")
-    public String getTutu(@PathParam("firstName")String firstName){
-        return "Bonjour "+ userFacade.findByEmail(firstName).toString();
     }
 
     @Override

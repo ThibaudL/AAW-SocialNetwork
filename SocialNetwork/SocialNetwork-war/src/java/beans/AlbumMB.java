@@ -48,7 +48,7 @@ public class AlbumMB implements Serializable{
     private String albumId;
     private Integer userId;
     
-
+ 
     @EJB
     AlbumServiceLocal albumService;
     

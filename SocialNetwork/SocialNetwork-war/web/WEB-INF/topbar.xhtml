@@ -32,11 +32,11 @@
                                     <ui:repeat var="notification" value="#{UserMB.notifications}" varStatus="status">
                                         <h:form >
                                             <li class="li-notification">
-                                                    <h:commandLink class="btn-block" action="#{UserMB.readNotification(notification)}" target="" value="#{notification.content}"/>
+                                                <a class="btn-block btnValidNotification" href="#" title="#{notification.id}">#{notification.content}</a>
                                             </li> 
                                         </h:form>
 
-                                    </ui:repeat>
+                                    </ui:repeat> 
                                 </ul>
 
                                 

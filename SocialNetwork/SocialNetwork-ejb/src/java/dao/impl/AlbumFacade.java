@@ -21,7 +21,7 @@ public class AlbumFacade extends AbstractFacade<Album> implements AlbumFacadeLoc
     @PersistenceContext(unitName = "SocialNetwork-ejbPU")
     private EntityManager em;
 
-    @Override
+    @Override 
     protected EntityManager getEntityManager() {
         return em;
     }
