@@ -30,4 +30,10 @@ public interface PrivateMessageFacadeLocal {
 
     int count();
     
+    List<PrivateMessage> findByAuthorId(Integer id);
+    
+    PrivateMessage existConversation(Integer userId, Integer userId2);
+    
+    List<PrivateMessage> findConversation(Integer userId);
+    
 }

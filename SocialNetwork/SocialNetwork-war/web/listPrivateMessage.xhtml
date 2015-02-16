@@ -5,7 +5,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:core="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
     
 <h:head>
         <h:outputStylesheet name="css/bootstrap.min.css"></h:outputStylesheet>
@@ -55,52 +56,31 @@
                                         </div>
                                 </div>
                         </div>
-                        <div ng-show="#{AlbumMB.userId} == #{ProfileMB.profile.user.id}">
-                            <h3>Create an album :</h3>
-                            <h:form class="form-horizontal">
+                        <div id="newMessagePrivate">
+                            <h3>Send a private messsage :</h3>
+                            <h:form>
                                 <div class="form-group">
-                                    <h:outputText value="Name" class="col-sm-2 control-label"/>
-                                    <div class="col-sm-10">
-                                        <h:inputText value="#{AlbumMB.name}" class="form-control" required="true" > 
-                                        </h:inputText>
-                                    </div>
+                                  <label for="dest">To :</label>
+                                  <input type="text" class="form-control ui-autocomplete-input" id="messagePrivateAutocomplete" jsf:value="#{PrivateMessageMB.destinataire}" placeholder="Enter person"/>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                      <h:commandButton value="Create" action="#{AlbumMB.createAlbum()}" class="btn btn-large btn-primary ladda-button"/>
-                                    </div>
+                                  <label for="exampleInputPassword1">Message :</label>
+                                  <textarea class="form-control" jsf:value="#{PrivateMessageMB.contentMsg}" rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Send" jsf:action="#{PrivateMessageMB.publishPrivateMessage()}" class="btn btn-primary"/>
                                 </div>
                             </h:form>
                         </div>
-                    
-                    <h3>Albums list :</h3>
-                    <div ng-show="(#{WallMB.areFriends()} || #{AlbumMB.userId} == #{ProfileMB.profile.user.id})">
-                        <ui:repeat var="album" value="#{AlbumMB.albums}" varStatus="status">
-                            <div class="col-md-4">
-                                <div class="thumbnail">
-                                    
-                                    <p:graphicImage rendered="#{album.pictures.size() > 0}" class="img-responsive" cache="false" alt="avatar" style="width:200px; height: 150px;" value="#{AlbumMB.readableFirstAlbumPicture}" >
-                                            <core:param name="albumFirstPictureId" value="#{album.pictures.get(0).id}" />
-                                    </p:graphicImage>
-                                    
-                                    
-                                    
-                                    <span ng-show="#{album.pictures.size() == 0}" class="img-thumbnail"  style="display:block;margin:auto;width:200px; height: 150px;"></span>
-                                    
-                                    <div class="caption text-center">
-                                        <h4><small><a href="gallery.xhtml?albumId=#{album.id}&amp;wallId=#{album.author.id}">#{album.title}</a></small></h4>
-                                        <div ng-show="#{AlbumMB.userId} == #{ProfileMB.profile.user.id}">
-                                            <h:form>
-                                                <h:commandButton value="Remove" action="#{AlbumMB.remove(album.id)}" class="btn btn-primary btn-xs"/>
-                                            </h:form>
-                                        </div>
-                                    </div>
-                                    
-
-                                </div>
-                            </div> 
-                        </ui:repeat>
-                    </div>
+                        <div id="listPrivateMessage">
+                            <h3>Your private messsage :</h3>
+                            <ui:repeat var="msg" value="#{PrivateMessageMB.privateMsg}" varStatus="status">
+                                <h3><small>#{msg.destinataire.profile.firstname} #{msg.destinataire.profile.lastname} :</small></h3>
+                                <ul>
+                                    <li>#{msg.content}</li>
+                                </ul>
+                            </ui:repeat>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -121,6 +101,43 @@
             };
             
 
+               
+        jQuery(document).ready(function($){
+            $( "#messagePrivateAutocomplete" ).autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: 'http://localhost:8080/SocialNetwork-war/webresources/serviceProfile/startWith/'+$('#messagePrivateAutocomplete').val(),
+                        success: function(data){
+                            try{
+                                var obj = jQuery.parseJSON(data);
+                                var array = $.map(obj, function(m) {
+                                    return {
+                                        label: m.firstname + " " + m.lastname ,
+                                        id: m.id,
+                                        logo: m.picture,
+                                        value: m.firstname + " " + m.lastname + "@["+m.id+"]"
+                                    };
+                                });
+                            }catch(e){
+                            }
+                            response(array);
+                        },
+                    });
+                },
+                
+            }).autocomplete( "instance" )._renderItem = function( ul, item ) {
+                var src;
+                var style = 'width:25px;height:25px;';
+                var classIMG = 'img-circle';
+                if(item.logo){
+                    src = 'data:image/png;base64,'+item.logo;
+                }
+                return $( "<li>" )
+                  .append( "<a><img class="+classIMG+" style="+style+" src="+src+ "/>"  +item.label + "</a></li>" )
+                  .appendTo( ul );
+              };
+
+        });
         </script>
 </html>
 

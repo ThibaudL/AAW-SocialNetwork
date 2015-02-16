@@ -6,9 +6,11 @@
 package dao.impl;
 
 import dao.entity.PrivateMessage;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,6 +28,25 @@ public class PrivateMessageFacade extends AbstractFacade<PrivateMessage> impleme
 
     public PrivateMessageFacade() {
         super(PrivateMessage.class);
+    }
+    
+    @Override
+    public List<PrivateMessage> findByAuthorId(Integer id) {
+        Query q = em.createQuery("SELECT pm FROM PrivateMessage pm WHERE pm.author.id="+id);
+        return q.getResultList();
+    }
+    
+    @Override
+    public PrivateMessage existConversation(Integer userId, Integer userId2) {
+        Query q = em.createQuery("SELECT pm FROM PrivateMessage pm WHERE (pm.author.id="+userId + " AND pm.destinataire.id=" +userId2+") OR (pm.author.id="+userId2 + " AND pm.destinataire.id=" +userId+")" );
+        List<PrivateMessage> l = q.getResultList();
+        return l.size() > 0 ? l.get(0) : null;
+    }
+    
+    @Override
+    public List<PrivateMessage> findConversation(Integer userId) {
+        Query q = em.createQuery("SELECT pm FROM PrivateMessage pm WHERE (pm.author.id="+userId + ") OR (pm.destinataire.id=" +userId+")" );
+        return q.getResultList();
     }
     
 }

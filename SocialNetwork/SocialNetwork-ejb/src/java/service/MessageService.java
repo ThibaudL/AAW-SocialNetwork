@@ -12,7 +12,6 @@ import dao.entity.Profile;
 import dao.entity.PublicMessage;
 import dao.entity.User;
 import dao.impl.NotificationFacadeLocal;
-import dao.impl.PictureFacade;
 import dao.impl.PictureFacadeLocal;
 import dao.impl.PublicMessageFacadeLocal;
 import dao.impl.UserFacadeLocal;
@@ -119,9 +118,7 @@ public class MessageService implements MessageServiceLocal {
             }
         }); 
         return messages;
-    }
-    
-    
+    }  
     
     
 }
