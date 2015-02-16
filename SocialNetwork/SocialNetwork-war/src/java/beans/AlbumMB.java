@@ -7,12 +7,15 @@ package beans;
 
 import dao.entity.Album;
 import dao.entity.Picture;
+import dao.entity.Profile;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -22,6 +25,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
+import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 import org.primefaces.util.Base64;
@@ -177,6 +182,30 @@ public class AlbumMB implements Serializable{
             context.redirect(context.getRequestContextPath() + "/faces/gallery.xhtml?albumId="+Integer.parseInt(this.albumId));
         } catch (IOException ex) {
             Logger.getLogger(AlbumMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public StreamedContent getReadableFirstAlbumPicture() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+            return new DefaultStreamedContent();
+        }else{
+
+            Map<String, String> map =context.getExternalContext().getRequestParameterMap();
+            String userId = map.get("albumFirstPictureId");
+
+            if(userId != null){
+
+                Integer pId = Integer.parseInt(userId);
+                if(pId != null){
+                    Picture p = pictureService.findPicture(pId);
+
+                    return new DefaultStreamedContent(new ByteArrayInputStream(p.getContent()));
+                }
+            }
+
+            
+            return new DefaultStreamedContent();
         }
     }
     

@@ -4,7 +4,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:core="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     
 <h:head>
         <h:outputStylesheet name="css/bootstrap.min.css"></h:outputStylesheet>
@@ -75,14 +76,26 @@
                     <h3>Albums list :</h3>
                     <div ng-show="(#{WallMB.areFriends()} || #{AlbumMB.userId} == #{ProfileMB.profile.user.id})">
                         <ui:repeat var="album" value="#{AlbumMB.albums}" varStatus="status">
-                            <div class="panel panel-default col-md-4">
-                                <div class="panel-body text-center">
-                                    <h4><small><a href="gallery.xhtml?albumId=#{album.id}&amp;wallId=#{album.author.id}">#{album.title}</a></small></h4>
-                                    <div ng-show="#{AlbumMB.userId} == #{ProfileMB.profile.user.id}">
-                                        <h:form>
-                                            <h:commandButton value="Remove" action="#{AlbumMB.remove(album.id)}" class="btn btn-primary btn-xs"/>
-                                        </h:form>
+                            <div class="col-md-4">
+                                <div class="thumbnail">
+                                    
+                                    <p:graphicImage rendered="#{album.pictures.size() > 0}" class="img-responsive" cache="false" alt="avatar" style="width:200px; height: 150px;" value="#{AlbumMB.readableFirstAlbumPicture}" >
+                                            <core:param name="albumFirstPictureId" value="#{album.pictures.get(0).id}" />
+                                    </p:graphicImage>
+                                    
+                                    
+                                    
+                                    <span ng-show="#{album.pictures.size() == 0}" class="img-thumbnail"  style="display:block;margin:auto;width:200px; height: 150px;"></span>
+                                    
+                                    <div class="caption text-center">
+                                        <h4><small><a href="gallery.xhtml?albumId=#{album.id}&amp;wallId=#{album.author.id}">#{album.title}</a></small></h4>
+                                        <div ng-show="#{AlbumMB.userId} == #{ProfileMB.profile.user.id}">
+                                            <h:form>
+                                                <h:commandButton value="Remove" action="#{AlbumMB.remove(album.id)}" class="btn btn-primary btn-xs"/>
+                                            </h:form>
+                                        </div>
                                     </div>
+                                    
 
                                 </div>
                             </div> 
