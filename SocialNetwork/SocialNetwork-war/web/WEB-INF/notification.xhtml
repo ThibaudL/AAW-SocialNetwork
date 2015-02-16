@@ -18,12 +18,15 @@
             ohSnap(obj.content, 'blue');
             var ul = document.getElementById("notification-list");
             var li = document.createElement("li");
+            var form = document.createElement("form");
             var a = document.createElement("a");
             a.setAttribute("href",obj.link);
             li.setAttribute("class","li-notification");
+            form.setAttribute("class","ng-pristine ng-valid");
             a.appendChild(document.createTextNode(obj.content));
             a.setAttribute("class","btn-block");
-            li.appendChild(a);
+            form.appendChild(a);
+            li.appendChild(form);
             ul.appendChild(li);
             
             var spanNumber = document.getElementById("notification-numbers").innerHTML;

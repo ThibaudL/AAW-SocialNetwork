@@ -156,6 +156,17 @@ public class UserMB implements Serializable{
 
     }
     
+    public void readNotification(Integer notificationId,String link){
+        try {
+            notificationService.setNotificationToReaded(notificationId);
+            ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+            context.redirect(link);
+        } catch (IOException ex) {
+            Logger.getLogger(UserMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
     
     
 }

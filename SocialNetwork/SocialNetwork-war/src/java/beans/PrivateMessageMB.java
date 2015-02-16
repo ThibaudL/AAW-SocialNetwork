@@ -15,7 +15,7 @@ import utils.SessionUtils;
 
 /**
  *
- * @author Denis
+ * @author Denis 
  */
 @ManagedBean(name = "PrivateMessageMB")
 @SessionScoped
