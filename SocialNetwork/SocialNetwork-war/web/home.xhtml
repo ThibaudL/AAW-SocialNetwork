@@ -119,7 +119,14 @@
                                             <core:param name="commentUserId" value="#{messageContent.author.id}" />
                                         </p:graphicImage>
                                         <!--<img class="img-circle" width="30" height="30" src="http://dummyimage.com/30x30/cccccc/fff.png"/>--> 
-                                        <a href="wall.xhtml?wallId=#{messageContent.author.id}">#{messageContent.author.profile.firstname} #{messageContent.author.profile.lastname}</a> said <h5 style="display:inline;"><small>#{messageContent.date}</small></h5> :
+                                        <a href="wall.xhtml?wallId=#{messageContent.author.id}">#{messageContent.author.profile.firstname} #{messageContent.author.profile.lastname}</a> 
+                                        <h5 style="display:inline;">
+                                            <small>
+                                                <h:outputText value="#{messageContent.date}" >
+                                                    <core:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+                                                </h:outputText>
+                                            </small>
+                                        </h5> :
                                         
                                     </div>
                                     <div class="panel-body">
@@ -127,13 +134,10 @@
                                             <div>
                                                 #{messageContent.content}
                                             </div>
-                                            
                                             <div class="text-center">
-                                                
-                        
-                                            <p:graphicImage rendered="#{not empty messageContent.picture.id}" class="img-thumbnail" cache="false" alt="avatar" style="width:300px; height: 300px;" value="#{MessageMB.readableMessagePicture}" >
-                                                    <core:param name="pictureId" value="#{messageContent.picture.id}" />
-                                            </p:graphicImage>
+                                                <p:graphicImage rendered="#{not empty messageContent.picture.id}" class="img-thumbnail" cache="false" alt="avatar" style="width:300px; height: 300px;" value="#{MessageMB.readableMessagePicture}" >
+                                                        <core:param name="pictureId" value="#{messageContent.picture.id}" />
+                                                </p:graphicImage>
                                             </div>
                                         </div>
                                         <div>
@@ -154,13 +158,19 @@
                                         </div>
                                         <div  ng-show="afficherComment[#{messageContent.id}]==true" ng-init="afficherComment[#{messageContent.id}]=false">
                                             <ui:repeat var="commentEntry" value="#{messageContent.comments}" varStatus="status">
+                                                <hr/>
                                                 <div class="">
                                                     <div class="">
                                                         <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:30px; height: 30px;" value="#{MessageMB.readableProfilePicture}" >
                                                             <core:param name="commentUserId" value="#{commentEntry.comment.author.id}" />
                                                         </p:graphicImage>
                                                         <!--<img class="img-circle" width="30" height="30" src="http://dummyimage.com/30x30/cccccc/fff.png"/>--> 
-                                                        <a href="wall.xhtml?wallId=#{commentEntry.comment.author.id}">#{commentEntry.comment.author.profile.firstname} #{commentEntry.comment.author.profile.lastname}</a> commented <h5 style="display:inline;"><small>#{commentEntry.comment.date}</small></h5> :
+                                                        <a href="wall.xhtml?wallId=#{commentEntry.comment.author.id}">#{commentEntry.comment.author.profile.firstname} #{commentEntry.comment.author.profile.lastname}</a> 
+                                                        <small>
+                                                            <h:outputText value="#{commentEntry.comment.date}" >
+                                                                <core:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+                                                            </h:outputText>
+                                                        </small>
                                                     </div>
                                                     <div class="">
                                                         <div class="messageContent">
