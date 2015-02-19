@@ -16,12 +16,13 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author Denis
  */
-@Stateful
+@Stateless
 public class PrivateMessageService implements PrivateMessageServiceLocal {
 
     @EJB

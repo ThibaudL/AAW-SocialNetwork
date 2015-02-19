@@ -13,14 +13,14 @@ import dao.impl.UserFacadeLocal;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import websocket.SocketMediator;
 
 /**
  *
  * @author Denis
  */
-@Stateful
+@Stateless
 public class FriendService implements FriendServiceLocal {
 
     @EJB

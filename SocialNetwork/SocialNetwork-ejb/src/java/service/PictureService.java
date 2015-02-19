@@ -10,12 +10,13 @@ import dao.impl.AlbumFacadeLocal;
 import dao.impl.PictureFacadeLocal;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author Denis
  */
-@Stateful
+@Stateless
 public class PictureService implements PictureServiceLocal {
     @EJB
     PictureFacadeLocal pictureFacade;

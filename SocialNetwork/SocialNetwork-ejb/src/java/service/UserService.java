@@ -15,19 +15,14 @@ import java.util.Formatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.ejb.LocalBean;
-import javax.ejb.Stateful;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ejb.Stateless;
 import websocket.SocketMediator;
 
 /**
  *
  * @author Thibaud
  */
-@Stateful
+@Stateless
 public class UserService implements UserServiceLocal {
 
     private User connectedUser;

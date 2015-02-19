@@ -11,7 +11,6 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import service.NotificationService;
 import service.ProfileService;
-import service.UserService;
 import websocket.SocketMediator;
 
 /**
@@ -23,7 +22,7 @@ public class ApplicationConfig extends Application{
 
     @Override
     public Set<Class<?>> getClasses() {
-        HashSet<Class<?>> set = new HashSet<Class<?>>();
+        HashSet<Class<?>> set = new HashSet<>();
         set.add(ProfileService.class);
         set.add(NotificationService.class);
         set.add(SocketMediator.class);

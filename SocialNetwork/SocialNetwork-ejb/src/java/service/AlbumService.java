@@ -10,13 +10,13 @@ import dao.impl.AlbumFacadeLocal;
 import dao.impl.UserFacadeLocal;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author Denis
  */
-@Stateful
+@Stateless
 public class AlbumService implements AlbumServiceLocal {
 
     @EJB

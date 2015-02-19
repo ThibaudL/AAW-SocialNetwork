@@ -45,7 +45,7 @@ public class NotificationService implements NotificationServiceLocal{
     
     @GET
     @Path("setToReaded/{notificationId}")
-    @Produces("text/plain")
+    @Produces("text/plain") 
     public String setNotificationToReaded(@PathParam("notificationId") Integer notificationId){
         Notification not = notificationFacade.find(notificationId);
         not.setRead(true);
