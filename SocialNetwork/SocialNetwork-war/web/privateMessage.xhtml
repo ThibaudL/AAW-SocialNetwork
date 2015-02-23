@@ -121,14 +121,14 @@
                                             <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:30px; height: 30px;" value="#{MessageMB.readableProfilePicture}" >
                                                 <core:param name="commentUserId" value="#{msg.destinataire.id}" />
                                             </p:graphicImage>
-                                            <strong>#{msg.destinataire.profile.firstname} #{msg.destinataire.profile.lastname} :</strong>
+                                            <strong>#{msg.destinataire.profile.firstname} #{msg.destinataire.profile.lastname}</strong>
                                         </span>
                                         
                                         <span ng-show="#{msg.destinataire.id == ProfileMB.profile.user.id}">
                                             <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:30px; height: 30px;" value="#{MessageMB.readableProfilePicture}" >
                                                 <core:param name="commentUserId" value="#{msg.author.id}" />
                                             </p:graphicImage>
-                                            <strong>#{msg.author.profile.firstname} #{msg.author.profile.lastname} :</strong>
+                                            <strong>#{msg.author.profile.firstname} #{msg.author.profile.lastname}</strong>
                                         </span>
                                         
                                     </a>

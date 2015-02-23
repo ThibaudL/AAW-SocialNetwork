@@ -35,7 +35,7 @@ public class PrivateMessageService implements PrivateMessageServiceLocal {
     PrivateMessageFacadeLocal privateMessageFacade;
     
     @Override
-    public void publishPrivateMessage(String content, Integer authorId, Integer userId){
+    public Integer publishPrivateMessage(String content, Integer authorId, Integer userId){
         PrivateMessage pm = privateMessageFacade.existConversation(authorId, userId);
         if(pm != null){
             addPrivateMessage(pm, content, authorId, userId);
@@ -47,6 +47,7 @@ public class PrivateMessageService implements PrivateMessageServiceLocal {
             pm.setDate(new Date());
             privateMessageFacade.create(pm);
         }
+        return pm.getId();
     }
     
     @Override

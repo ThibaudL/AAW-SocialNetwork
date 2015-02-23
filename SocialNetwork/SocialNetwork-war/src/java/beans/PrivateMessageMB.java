@@ -79,7 +79,7 @@ public class PrivateMessageMB {
         try {
             context.redirect(context.getRequestContextPath() + "/faces/privateMessage.xhtml?conversationId="+this.conversationId);
         } catch (IOException ex) {
-            Logger.getLogger(AlbumMB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PrivateMessageMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -89,7 +89,13 @@ public class PrivateMessageMB {
             String number = tab[1].replace("[", "").replace("]", "");
             try{
                 Integer destinataireId = Integer.parseInt(number);
-                privateMessageService.publishPrivateMessage(contentMsg, (Integer) SessionUtils.getItem(SessionUtils.ID_KEY), destinataireId);
+                this.conversationId = privateMessageService.publishPrivateMessage(contentMsg, (Integer) SessionUtils.getItem(SessionUtils.ID_KEY), destinataireId);
+                ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+                try {
+                    context.redirect(context.getRequestContextPath() + "/faces/privateMessage.xhtml?conversationId="+this.conversationId);
+                } catch (IOException ex) {
+                    Logger.getLogger(PrivateMessageMB.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
             }catch(NumberFormatException nfe){
             }
