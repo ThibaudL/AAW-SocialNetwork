@@ -117,8 +117,20 @@
                             <ui:repeat var="msg" value="#{PrivateMessageMB.privateMsg}" varStatus="status">
                                 <div class="privateMessageClass">
                                     <a href="privateMessage.xhtml?conversationId=#{msg.id}" style="display: block;">
-                                        <strong ng-show="#{msg.author.id == ProfileMB.profile.user.id}">#{msg.destinataire.profile.firstname} #{msg.destinataire.profile.lastname} :</strong>
-                                        <strong ng-show="#{msg.destinataire.id == ProfileMB.profile.user.id}">#{msg.author.profile.firstname} #{msg.author.profile.lastname} :</strong>
+                                        <span ng-show="#{msg.author.id == ProfileMB.profile.user.id}">
+                                            <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:30px; height: 30px;" value="#{MessageMB.readableProfilePicture}" >
+                                                <core:param name="commentUserId" value="#{msg.destinataire.id}" />
+                                            </p:graphicImage>
+                                            <strong>#{msg.destinataire.profile.firstname} #{msg.destinataire.profile.lastname} :</strong>
+                                        </span>
+                                        
+                                        <span ng-show="#{msg.destinataire.id == ProfileMB.profile.user.id}">
+                                            <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:30px; height: 30px;" value="#{MessageMB.readableProfilePicture}" >
+                                                <core:param name="commentUserId" value="#{msg.author.id}" />
+                                            </p:graphicImage>
+                                            <strong>#{msg.author.profile.firstname} #{msg.author.profile.lastname} :</strong>
+                                        </span>
+                                        
                                     </a>
                                 </div>
                                 <hr />
