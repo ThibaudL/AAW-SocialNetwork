@@ -58,6 +58,7 @@
                                 </div>
                         </div>
                         <div id="newMessagePrivate">
+                            <a href="listPrivateMessage.xhtml">View list of privates messages</a>
                             <h3>Send a private messsage :</h3>
                             <h:form>
                                 <div class="form-group">
@@ -73,7 +74,7 @@
                                 </div>
                             </h:form>
                         </div>
-                            <h5>Your private messsage :</h5>
+                            <h5>Your private conversation with #{PrivateMessageMB.destinataire} :</h5>
                             <div class="privateMessageClass" style="margin-bottom: 3px;">
                                 <a href="#" style="display: block; padding: 2px 0 2px 2px;">
                                     <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:30px; height: 30px;" value="#{MessageMB.readableProfilePicture}" >
