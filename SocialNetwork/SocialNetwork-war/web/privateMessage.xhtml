@@ -74,26 +74,25 @@
                             </h:form>
                         </div>
                             <h5>Your private messsage :</h5>
-                            <div class="privateMessageClass">
-                                <a href="#" style="display: block;">
+                            <div class="privateMessageClass" style="margin-bottom: 3px;">
+                                <a href="#" style="display: block; padding: 2px 0 2px 2px;">
                                     <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:30px; height: 30px;" value="#{MessageMB.readableProfilePicture}" >
                                         <core:param name="commentUserId" value="#{PrivateMessageMB.conversation.author.id}" />
                                     </p:graphicImage>
                                     <strong>#{PrivateMessageMB.conversation.author.profile.firstname} #{PrivateMessageMB.conversation.author.profile.lastname} </strong>
-                                    <h5 style="display:inline;">
+                                    <h5 style="display:inline; " >
                                             <small>
                                                 <h:outputText value="#{PrivateMessageMB.conversation.date}" >
                                                     <core:convertDateTime pattern="dd.MM.yyyy HH:mm" />
                                                 </h:outputText>
                                             </small>
                                         </h5>
-                                    <p>#{PrivateMessageMB.conversation.content}</p>
+                                    <p style="padding-left: 2px;">#{PrivateMessageMB.conversation.content}</p>
                                 </a>
                             </div>
-                                <hr />
                             <ui:repeat var="msg" value="#{PrivateMessageMB.conversation.comments}" varStatus="status">
-                                <div class="privateMessageClass">
-                                    <a href="#" style="display: block;">
+                                <div class="privateMessageClass" style="margin-bottom: 3px;">
+                                    <a href="#" style="display: block; padding: 2px 0 2px 2px;">
                                         <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:30px; height: 30px;" value="#{MessageMB.readableProfilePicture}" >
                                             <core:param name="commentUserId" value="#{msg.comment.author.id}" />
                                         </p:graphicImage>
@@ -105,10 +104,10 @@
                                                 </h:outputText>
                                             </small>
                                         </h5>
-                                        <p>#{msg.comment.content}</p>
+                                        <p style="padding-left: 2px;">#{msg.comment.content}</p>
                                     </a>
                                 </div>
-                                <hr />
+                                
                             </ui:repeat>
                     </div>
                 </div>
