@@ -76,6 +76,9 @@
                             <h5>Your private messsage :</h5>
                             <div class="privateMessageClass">
                                 <a href="#" style="display: block;">
+                                    <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:30px; height: 30px;" value="#{MessageMB.readableProfilePicture}" >
+                                        <core:param name="commentUserId" value="#{PrivateMessageMB.conversation.author.id}" />
+                                    </p:graphicImage>
                                     <strong>#{PrivateMessageMB.conversation.author.profile.firstname} #{PrivateMessageMB.conversation.author.profile.lastname} </strong>
                                     <h5 style="display:inline;">
                                             <small>
@@ -91,6 +94,9 @@
                             <ui:repeat var="msg" value="#{PrivateMessageMB.conversation.comments}" varStatus="status">
                                 <div class="privateMessageClass">
                                     <a href="#" style="display: block;">
+                                        <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:30px; height: 30px;" value="#{MessageMB.readableProfilePicture}" >
+                                            <core:param name="commentUserId" value="#{msg.comment.author.id}" />
+                                        </p:graphicImage>
                                         <strong>#{msg.comment.author.profile.firstname} #{msg.comment.author.profile.lastname} </strong>
                                         <h5 style="display:inline;">
                                             <small>
