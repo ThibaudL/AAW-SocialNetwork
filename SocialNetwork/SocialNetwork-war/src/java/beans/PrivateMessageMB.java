@@ -53,31 +53,48 @@ public class PrivateMessageMB {
     public PrivateMessage getConversation(){
         if(this.conversationId != null){
             PrivateMessage pm = privateMessageService.getConversation(this.conversationId, (Integer) SessionUtils.getItem(SessionUtils.ID_KEY));
-            Integer authorId = (Integer) SessionUtils.getItem(SessionUtils.ID_KEY);
-            if(!Objects.equals(authorId, pm.getDestinataire().getId()))
-                this.destinataire = pm.getDestinataire().getProfile().getFirstname() + " " + pm.getDestinataire().getProfile().getLastname();
-            else
-                this.destinataire = pm.getAuthor().getProfile().getFirstname() + " " + pm.getAuthor().getProfile().getLastname();
-            return pm;
-        }else
-            return null;
+            if(pm != null){
+                Integer authorId = (Integer) SessionUtils.getItem(SessionUtils.ID_KEY);
+                if(!Objects.equals(authorId, pm.getDestinataire().getId()))
+                    this.destinataire = pm.getDestinataire().getProfile().getFirstname() + " " + pm.getDestinataire().getProfile().getLastname();
+                else
+                    this.destinataire = pm.getAuthor().getProfile().getFirstname() + " " + pm.getAuthor().getProfile().getLastname();
+                return pm;
+            }else{
+            ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+            try {
+                context.redirect(context.getRequestContextPath() + "/faces/listPrivateMessage.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(PrivateMessageMB.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            }
+        }
+        return null;
     }
     
     public void addMessageForConversation(){
+        boolean pmNull = false;
         if(this.conversationId != null){
             PrivateMessage pm = this.getConversation();
-            Integer authorId = (Integer) SessionUtils.getItem(SessionUtils.ID_KEY);
-            Integer destinataireId = pm.getAuthor().getId();
-            if(!Objects.equals(authorId, pm.getDestinataire().getId())){
-                destinataireId = pm.getDestinataire().getId();
+            if(pm != null){
+                Integer authorId = (Integer) SessionUtils.getItem(SessionUtils.ID_KEY);
+                Integer destinataireId = pm.getAuthor().getId();
+                if(!Objects.equals(authorId, pm.getDestinataire().getId())){
+                    destinataireId = pm.getDestinataire().getId();
+                }
+                this.privateMessageService.addPrivateMessage(pm, contentMsg, authorId, destinataireId);
+            }else{
+                pmNull = true;
             }
-            this.privateMessageService.addPrivateMessage(pm, contentMsg, authorId, destinataireId);
         }
         destinataire ="";
         contentMsg = "";
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         try {
-            context.redirect(context.getRequestContextPath() + "/faces/privateMessage.xhtml?conversationId="+this.conversationId);
+            if(pmNull)
+                context.redirect(context.getRequestContextPath() + "/faces/listPrivateMessage.xhtml");
+            else
+                context.redirect(context.getRequestContextPath() + "/faces/privateMessage.xhtml?conversationId="+this.conversationId);
         } catch (IOException ex) {
             Logger.getLogger(PrivateMessageMB.class.getName()).log(Level.SEVERE, null, ex);
         }
