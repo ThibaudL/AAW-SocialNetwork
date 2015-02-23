@@ -18,4 +18,5 @@ public interface PrivateMessageServiceLocal {
     void publishPrivateMessage(String content, Integer authorId, Integer userId);
     void addPrivateMessage(PrivateMessage pm, String content, Integer authorId, Integer userId);
     List<PrivateMessage> findConversation(Integer userId);
+    PrivateMessage getConversation(Integer msgId, Integer userId);
 }

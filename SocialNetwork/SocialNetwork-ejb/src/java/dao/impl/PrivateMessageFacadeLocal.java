@@ -36,4 +36,6 @@ public interface PrivateMessageFacadeLocal {
     
     List<PrivateMessage> findConversation(Integer userId);
     
+    PrivateMessage getConversationById(Integer msgId, Integer userId);
+    
 }

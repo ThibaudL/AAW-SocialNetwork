@@ -49,4 +49,9 @@ public class PrivateMessageFacade extends AbstractFacade<PrivateMessage> impleme
         return q.getResultList();
     }
     
+    public PrivateMessage getConversationById(Integer msgId, Integer userId){
+        Query q = em.createQuery("SELECT pm FROM PrivateMessage pm WHERE ((pm.author.id="+userId + ") OR (pm.destinataire.id=" +userId+")) AND pm.id="+msgId );
+        List<PrivateMessage> l = q.getResultList();
+        return l.size() > 0 ? l.get(0) : null;
+    }
 }

@@ -25,6 +25,7 @@
 <h:body>
     #{AlbumMB.init()}
     #{WallMB.init()}
+    #{PrivateMessageMB.init()}
     <div ng-app="">
         <ui:include src="WEB-INF/topbar.xhtml" />
 
@@ -61,21 +62,51 @@
                             <h:form>
                                 <div class="form-group">
                                   <label for="messagePrivateAutocomplete">To :</label>
-                                  <input type="text" class="form-control ui-autocomplete-input" id="messagePrivateAutocomplete" jsf:value="#{PrivateMessageMB.destinataire}" placeholder="Enter person"/>
+                                  #{PrivateMessageMB.destinataire}
                                 </div>
                                 <div class="form-group">
                                   <label for="msg">Message :</label>
                                   <textarea class="form-control" id="msg" jsf:value="#{PrivateMessageMB.contentMsg}" rows="3"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <input type="submit" value="Send" jsf:action="#{PrivateMessageMB.publishPrivateMessage()}" class="btn btn-primary"/>
+                                    <input type="submit" value="Send" jsf:action="#{PrivateMessageMB.addMessageForConversation()}" class="btn btn-primary"/>
                                 </div>
                             </h:form>
                         </div>
-
+                            <h5>Your private messsage :</h5>
+                            <div class="privateMessageClass">
+                                <a href="#" style="display: block;">
+                                    <strong>#{PrivateMessageMB.conversation.author.profile.firstname} #{PrivateMessageMB.conversation.author.profile.lastname} </strong>
+                                    <h5 style="display:inline;">
+                                            <small>
+                                                <h:outputText value="#{PrivateMessageMB.conversation.date}" >
+                                                    <core:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+                                                </h:outputText>
+                                            </small>
+                                        </h5>
+                                    <p>#{PrivateMessageMB.conversation.content}</p>
+                                </a>
+                            </div>
+                                <hr />
+                            <ui:repeat var="msg" value="#{PrivateMessageMB.conversation.comments}" varStatus="status">
+                                <div class="privateMessageClass">
+                                    <a href="#" style="display: block;">
+                                        <strong>#{msg.comment.author.profile.firstname} #{msg.comment.author.profile.lastname} </strong>
+                                        <h5 style="display:inline;">
+                                            <small>
+                                                <h:outputText value="#{msg.comment.date}" >
+                                                    <core:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+                                                </h:outputText>
+                                            </small>
+                                        </h5>
+                                        <p>#{msg.comment.content}</p>
+                                    </a>
+                                </div>
+                                <hr />
+                            </ui:repeat>
                     </div>
                 </div>
-                <div class="col-md-2">
+                 <div class="col-md-2">
                                             
                             <h5>Your private messsage :</h5>
                             <ui:repeat var="msg" value="#{PrivateMessageMB.privateMsg}" varStatus="status">
@@ -83,7 +114,7 @@
                                     <a href="privateMessage.xhtml?conversationId=#{msg.id}" style="display: block;">
                                         <strong ng-show="#{msg.author.id == ProfileMB.profile.user.id}">#{msg.destinataire.profile.firstname} #{msg.destinataire.profile.lastname} :</strong>
                                         <strong ng-show="#{msg.destinataire.id == ProfileMB.profile.user.id}">#{msg.author.profile.firstname} #{msg.author.profile.lastname} :</strong>
-                                   </a>
+                                    </a>
                                 </div>
                                 <hr />
                             </ui:repeat>

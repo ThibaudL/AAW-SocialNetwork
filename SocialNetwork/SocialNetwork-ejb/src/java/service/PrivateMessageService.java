@@ -65,4 +65,8 @@ public class PrivateMessageService implements PrivateMessageServiceLocal {
     public List<PrivateMessage> findConversation(Integer userId){
         return privateMessageFacade.findConversation(userId);
     }
+    
+    public PrivateMessage getConversation(Integer msgId, Integer userId){
+        return privateMessageFacade.getConversationById(msgId, userId);
+    }
 }
