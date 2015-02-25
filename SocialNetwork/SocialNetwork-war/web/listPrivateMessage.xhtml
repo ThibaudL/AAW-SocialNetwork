@@ -77,29 +77,30 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                                            
-                            <h5>Your private messsage :</h5>
-                            <ui:repeat var="msg" value="#{PrivateMessageMB.privateMsg}" varStatus="status">
-                                <div class="privateMessageClass">
-                                    <a href="privateMessage.xhtml?conversationId=#{msg.id}" style="display: block;">
-                                        <span ng-show="#{msg.author.id == ProfileMB.profile.user.id}">
-                                            <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:30px; height: 30px;" value="#{MessageMB.readableProfilePicture}" >
-                                                <core:param name="commentUserId" value="#{msg.destinataire.id}" />
-                                            </p:graphicImage>
-                                            <strong>#{msg.destinataire.profile.firstname} #{msg.destinataire.profile.lastname}</strong>
-                                        </span>
-                                        
-                                        <span ng-show="#{msg.destinataire.id == ProfileMB.profile.user.id}">
-                                            <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:30px; height: 30px;" value="#{MessageMB.readableProfilePicture}" >
-                                                <core:param name="commentUserId" value="#{msg.author.id}" />
-                                            </p:graphicImage>
-                                            <strong>#{msg.author.profile.firstname} #{msg.author.profile.lastname}</strong>
-                                        </span>
-                                   </a>
-                                </div>
-                                <hr />
-                            </ui:repeat>
-      
+                    <ul class="list-group" style="width: 100%;">
+                        <li class="list-group-item active" >
+                            Conversation List :
+                        </li>
+                         <ui:repeat var="msg" value="#{PrivateMessageMB.privateMsg}" varStatus="status">
+                            <li class="list-group-item">
+                                <a href="privateMessage.xhtml?conversationId=#{msg.id}" style="display: block; width: 100%; ">
+                                    <span ng-show="#{msg.author.id == ProfileMB.profile.user.id}">
+                                        <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:30px; height: 30px;" value="#{MessageMB.readableProfilePicture}" >
+                                            <core:param name="commentUserId" value="#{msg.destinataire.id}" />
+                                        </p:graphicImage>
+                                        <strong>#{msg.destinataire.profile.firstname} #{msg.destinataire.profile.lastname}</strong>
+                                    </span>
+
+                                    <span ng-show="#{msg.destinataire.id == ProfileMB.profile.user.id}">
+                                        <p:graphicImage class="img-circle" cache="false" alt="avatar" style="width:30px; height: 30px;" value="#{MessageMB.readableProfilePicture}" >
+                                            <core:param name="commentUserId" value="#{msg.author.id}" />
+                                        </p:graphicImage>
+                                        <strong>#{msg.author.profile.firstname} #{msg.author.profile.lastname}</strong>
+                                    </span>
+                               </a>
+                            </li>
+                        </ui:repeat>
+                    </ul>
                 </div>
             </div>
         </div>
