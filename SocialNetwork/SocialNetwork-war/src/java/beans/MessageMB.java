@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -51,7 +52,6 @@ public class MessageMB implements Serializable{
     
    
     private UploadedFile pictureFile;
-    
     
     @EJB
     MessageServiceLocal messageService; 
@@ -192,8 +192,8 @@ public class MessageMB implements Serializable{
                 Integer pId = Integer.parseInt(userId);
                 if(pId != null){
                     Profile profile = profileService.getProfile(pId);
-
-                    return new DefaultStreamedContent(new ByteArrayInputStream(profile.getPicture()));
+                    DefaultStreamedContent picture = new DefaultStreamedContent(new ByteArrayInputStream(profile.getPicture()));
+                    return picture;
                 }
             }
 

@@ -31,7 +31,7 @@ public class PrivateMessageMB {
     
     private String destinataire;
     private String contentMsg;
-    private Integer conversationId;
+    private Integer conversationId; 
 
     /**
      * Creates a new instance of PrivateMessageMB

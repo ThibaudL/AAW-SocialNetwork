@@ -16,12 +16,6 @@ public class PrivateMessage extends Message {
     @Override
     public int hashCode() {
         int lHashCode = 0;
-        if ( this.destinataire != null ) {
-            lHashCode += this.destinataire.hashCode();
-        }
-        if ( lHashCode == 0 ) {
-            lHashCode = super.hashCode();
-        }
         return lHashCode;
     }
 
